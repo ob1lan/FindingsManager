@@ -64,7 +64,7 @@ block content
 
     //- Table for findings
     if findings.length
-        table.table.table-bordered
+        table(id="findingsTable" class="display").table.table-bordered
             thead
                 tr
                     th Reference
@@ -126,3 +126,7 @@ block content
                                         p CVSS: #{finding.cvss}
     else
         p No findings available.
+    script.
+        $(document).ready(function() {
+            $('table').DataTable();
+        });
