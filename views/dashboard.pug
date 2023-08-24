@@ -1,4 +1,96 @@
 extends layout.pug
 
 block content 
-    h1 placeholder for dashboard
+    h1 Dashboard
+
+    //- New Finding button
+    button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#newFindingModal") New Finding
+
+    //- New Finding Modal
+    #newFindingModal.modal.fade(tabindex="-1" aria-labelledby="newFindingModalLabel" aria-hidden="true")
+        .modal-dialog.modal-lg
+            .modal-content
+                .modal-header
+                    h5#newFindingModalLabel.modal-title New Finding
+                    button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                .modal-body
+                    form(action="/dashboard/new-finding" method="post")
+                        .row
+                            .col-md-6
+                                .form-group
+                                    label(for="reference") Reference
+                                    input#reference.form-control(type="text" name="reference" required)
+                                .form-group
+                                    label(for="assignee") Assignee
+                                    input#assignee.form-control(type="text" name="assignee")
+                                .form-group
+                                    label(for="origin") Origin
+                                    input#origin.form-control(type="text" name="origin")
+                                .form-group
+                                    label(for="title") Title
+                                    input#title.form-control(type="text" name="title" required)
+                                .form-group
+                                    label(for="type") Type
+                                    input#type.form-control(type="text" name="type")
+                                .form-group
+                                    label(for="description") Description
+                                    textarea#description.form-control(name="description" required)
+                                .form-group
+                                    label(for="reportedBy") Reported By
+                                    input#reportedBy.form-control(type="text" name="reportedBy")
+                            .col-md-6
+                                .form-group
+                                    label(for="status") Status
+                                    select#status.form-control(name="status")
+                                        option(value="In Remediation") In Remediation
+                                        option(value="Remediated") Remediated
+                                        option(value="Accepted") Accepted
+                                        option(value="Declined") Declined
+                                .form-group
+                                    label(for="severity") Severity
+                                    select#severity.form-control(name="severity")
+                                        option(value="Critical") Critical
+                                        option(value="High") High
+                                        option(value="Medium") Medium
+                                        option(value="Low") Low
+                                        option(value="Info") Info
+                                .form-group
+                                    label(for="cve") CVE
+                                    input#cve.form-control(type="text" name="cve" value="None")
+                                .form-group
+                                    label(for="cvss") CVSS
+                                    input#cvss.form-control(type="text" name="cvss")
+                        button.btn.btn-primary(type="submit") Create Finding
+
+    //- Check if there are any findings
+    if findings.length
+        table.table.table-bordered
+            thead
+                tr
+                    th Reference
+                    th Status
+                    th Assignee
+                    th Origin
+                    th Title
+                    th Type
+                    th Description
+                    th Severity
+                    th Reported By
+                    th CVE
+                    th CVSS
+            tbody
+                each finding in findings
+                    tr
+                        td= finding.reference
+                        td= finding.status
+                        td= finding.assignee
+                        td= finding.origin
+                        td= finding.title
+                        td= finding.type
+                        td= finding.description
+                        td= finding.severity
+                        td= finding.reportedBy
+                        td= finding.cve
+                        td= finding.cvss
+    else
+        p No findings available.
