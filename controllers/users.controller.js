@@ -19,8 +19,9 @@ const upload = multer({
 
 exports.userProfile = async (req, res, next) => {
   try {
-    const username = req.params.username;
+    const username = req.user.username;
     const user = await findUserPerUsername(username);
+    console.log(user);
     res.render("users/profile", {
       username,
       isAuthenticated: req.isAuthenticated(),
