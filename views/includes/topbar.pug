@@ -11,6 +11,8 @@ header(class="header")
               a(class="btn btn-primary btn-tweet me-3" href="/findings") Findings
             li(class="nav-item active")
               a(class="nav-link" href="/users/profile") Profile
+            if currentUser && currentUser.role === 'admin'
+              a(class="nav-link" href="/admin/users") Admin
             li(class="nav-item active")
               a(class="nav-link" href="/auth/signout") Signout
         else

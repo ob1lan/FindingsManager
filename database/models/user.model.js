@@ -13,6 +13,11 @@ const userSchema = schema({
   lastname: { type: String, default: "" }, // Added lastname
   function: { type: String, default: "" }, // Added function
   bio: { type: String, default: "" }, // Added bio
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
 });
 
 userSchema.statics.hashPassword = (password) => {

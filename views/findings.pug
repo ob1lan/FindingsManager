@@ -68,12 +68,12 @@ block content
             thead
                 tr
                     th Reference
-                    th Status
-                    th Assignee
-                    th Origin
                     th Title
                     th Type
                     th Severity
+                    th Status
+                    th Assignee
+                    th Origin
                     th Reported By
                     th CVE
                     th CVSS
@@ -82,25 +82,23 @@ block content
                 each finding in findings
                     tr
                         td= finding.reference
-                        td= finding.status
-                        td= finding.assignee
-                        td= finding.origin
                         td= finding.title
                         td= finding.type
                         td= finding.severity
+                        td= finding.status
+                        td= finding.assignee
+                        td= finding.origin
                         td= finding.reportedBy
                         td= finding.cve
                         td= finding.cvss
                         td
                             //- View button
-                            //- button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${finding._id}`) View
                             button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${finding._id}`)
                                 i.fas.fa-search
-                            //- Edit button (link to an edit page or another modal)
-                            //- a.btn.btn-warning.btn-sm(href=`/findings/${finding._id}/edit`) Edit
+                            //- Edit button
                             a.btn.btn-warning.btn-sm(href=`/findings/${finding._id}/edit`)
                                 i.fas.fa-pencil-alt
-                            //- Delete button (link to a delete route)
+                            //- Delete button
                             form(method="post" action=`/findings/${finding._id}/delete` style="display: inline;")
                                 button.btn.btn-danger.btn-sm(type="submit") 
                                     i.fas.fa-trash-alt

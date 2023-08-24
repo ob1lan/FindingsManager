@@ -1,10 +1,12 @@
 const router = require("express").Router();
-const { ensureAuthenticated } = require("../config/guards.config");
+const { ensureAuthenticated, ensureAdmin } = require("../config/guards.config");
 const auth = require("./auth.routes");
 const users = require("./users.routes");
 const findings = require("./findings.routes");
+const admin = require("./admin.routes");
 
 router.use("/findings", ensureAuthenticated, findings);
+router.use("/admin", ensureAuthenticated, ensureAdmin, admin);
 router.use("/users", users);
 router.use("/auth", auth);
 
