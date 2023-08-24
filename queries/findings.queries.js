@@ -18,6 +18,7 @@ exports.createFinding = async (finding) => {
       reportedBy: finding.reportedBy,
       cve: finding.cve,
       cvss: finding.cvss,
+      createdBy: finding.createdBy,
     });
     return newFinding.save();
   } catch (e) {

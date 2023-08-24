@@ -21,7 +21,7 @@ exports.findings = async (req, res, next) => {
 exports.findingCreate = async (req, res, next) => {
   try {
     const body = req.body;
-    await createFinding({ ...body });
+    await createFinding({ ...body, createdBy: req.user.username });
     res.redirect("/findings");
   } catch (e) {
     const errors = Object.keys(e.errors).map((key) => e.errors[key].message);
