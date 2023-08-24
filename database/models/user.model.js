@@ -9,6 +9,10 @@ const userSchema = schema({
     password: { type: String, required: true },
   },
   avatar: { type: String, default: "/images/default-profile.svg" },
+  firstname: { type: String, default: "" }, // Added firstname
+  lastname: { type: String, default: "" }, // Added lastname
+  function: { type: String, default: "" }, // Added function
+  bio: { type: String, default: "" }, // Added bio
 });
 
 userSchema.statics.hashPassword = (password) => {

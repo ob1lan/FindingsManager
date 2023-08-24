@@ -35,3 +35,7 @@ exports.searchUsersPerUsername = (search) => {
     .limit(10)
     .exec();
 };
+
+exports.updateUserDetails = async (userId, details) => {
+  return await User.findByIdAndUpdate(userId, details, { new: true });
+};
