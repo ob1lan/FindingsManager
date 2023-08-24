@@ -1,25 +1,21 @@
-script(src="/javascripts/search-bar.js")
-navbar(class="navbar navbar-expand-lg navbar-light bg-white")
-  a(class="navbar-brand" href="/tweets")
-    img(width="30" height="30" src="/images/logo.jpg")
-  button(class="navbar-toggler")
-    span(class="navbar-toggler-icon")
-  div(class="collapse navbar-collapse")
-      if isAuthenticated
-        form
-          input(type="text" class="form-control me-2" placeholder="search" id="search-input")
-          div(id="search-menu-container")
-      
-        ul(class="navbar-nav ms-auto")
-          li(class="nav-item active")
-            a(class="btn btn-primary btn-tweet me-3" href="/findings") Findings
-          li(class="nav-item active")
-            a(class="nav-link" href="/users/profile") Profile
-          li(class="nav-item active")
-            a(class="nav-link" href="/auth/signout") Signout
-      else
-        ul(class="navbar-nav ms-auto")
-          li(class="nav-item")
-            a(class="nav-link" href="/auth/signin/form") Signin
-          li(class="nav-item")
-            a(class="nav-link" href="/users/signup/form") Signup
+header(class="header")
+  navbar(class="navbar navbar-expand-lg navbar-light bg-white")
+    a(class="navbar-brand" href="/tweets")
+      img(width="30" height="30" src="/images/logo.jpg")
+    button(class="navbar-toggler")
+      span(class="navbar-toggler-icon")
+    div(class="collapse navbar-collapse")
+        if isAuthenticated      
+          ul(class="navbar-nav ms-auto")
+            li(class="nav-item active")
+              a(class="btn btn-primary btn-tweet me-3" href="/findings") Findings
+            li(class="nav-item active")
+              a(class="nav-link" href="/users/profile") Profile
+            li(class="nav-item active")
+              a(class="nav-link" href="/auth/signout") Signout
+        else
+          ul(class="navbar-nav ms-auto")
+            li(class="nav-item")
+              a(class="nav-link" href="/auth/signin/form") Signin
+            li(class="nav-item")
+              a(class="nav-link" href="/users/signup/form") Signup

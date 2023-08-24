@@ -1,3 +1,7 @@
+:root {
+  font-size: 62.5%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,23 +13,29 @@ html {
   height: 100%;
 }
 
-.flex-container {
+.container-fluid {
+  min-height: 100vh;
+  display: grid;
+  grid:
+    "header" auto
+    "content" 1fr
+    "footer" auto /
+    auto;
+}
+
+header {
+  grid-area: header;
+  background: #ddd;
+  padding: 0.5rem;
   display: flex;
-  flex-direction: column;
-  height: calc(100vh - 50px);
-}
-
-.flex-grow {
-  flex: 1;
-}
-
-footer {
-  background-color: #ddd; /* Optional: Add a background color to the footer */
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .content {
-  max-width: 1000px;
-  margin-top: 20px;
+  grid-area: content;
+  padding: 0.5rem;
 }
 
 .profile-container {
@@ -42,10 +52,6 @@ footer {
   max-height: 100px;
 }
 
-body {
-  background-color: #f8f9fa;
-}
-
 .b {
   border: 1px solid red;
 }
@@ -58,37 +64,19 @@ body {
   cursor: pointer;
 }
 
-#search-menu-container {
-  position: relative;
-}
-
-.search-menu {
-  position: absolute;
-  background: white;
-  z-index: 1;
-  top: 20px;
-  left: 0px;
-  width: 300px;
-  min-height: 200px;
-  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
-    0 1px 3px 1px rgba(60, 64, 67, 0.15);
-}
-
-.search-menu-item {
-  padding: 10px 15px;
-  border-bottom: 1px solid #eee;
-  transition: background 0.2s;
-}
-
-.search-menu-item:hover {
-  background: #eee;
-  transition: background 0.2s;
-}
-
 .btn {
   margin: 2px;
 }
 
 thead {
   background: #ddd;
+}
+
+footer {
+  grid-area: footer;
+  padding: 0.5rem;
+  background: darkgrey;
+  font-size: 1rem;
+  text-align: center;
+  color: white;
 }
