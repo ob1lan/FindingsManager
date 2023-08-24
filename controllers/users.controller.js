@@ -17,32 +17,16 @@ const upload = multer({
   }),
 });
 
-exports.userList = async (req, res, next) => {
-  try {
-    const search = req.query.search;
-    const users = await searchUsersPerUsername(search);
-    res.render("includes/search-menu", { users });
-  } catch (e) {
-    next(e);
-  }
-};
-
-exports.profile = async (req, res, next) => {
-  try {
-    const username = currentUser;
-    res.render("users/profile", {
-      isAuthenticated: req.isAuthenticated(),
-      currentUser: req.user,
-    });
-  } catch (e) {
-    next(e);
-  }
-};
-
 exports.userProfile = async (req, res, next) => {
   try {
     const username = req.params.username;
     const user = await findUserPerUsername(username);
+    res.render("users/profile", {
+      username,
+      isAuthenticated: req.isAuthenticated(),
+      currentUser: req.user,
+      user,
+    });
   } catch (e) {
     next(e);
   }
