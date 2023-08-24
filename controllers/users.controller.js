@@ -27,6 +27,18 @@ exports.userList = async (req, res, next) => {
   }
 };
 
+exports.profile = async (req, res, next) => {
+  try {
+    const username = currentUser;
+    res.render("users/profile", {
+      isAuthenticated: req.isAuthenticated(),
+      currentUser: req.user,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
 exports.userProfile = async (req, res, next) => {
   try {
     const username = req.params.username;

@@ -6,9 +6,11 @@ const {
   uploadImage,
   userProfile,
   userList,
+  profile
 } = require("../controllers/users.controller");
 
 router.get("/", userList);
+router.get("/profile", profile);
 router.get("/:username", userProfile);
 router.get("/signup/form", signupForm);
 router.post("/signup", signup);
