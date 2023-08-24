@@ -1,7 +1,7 @@
 extends layout.pug
 
 block content 
-    h1 Dashboard
+    h1 Findings
 
     //- New Finding button
     button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#newFindingModal") New Finding
@@ -14,7 +14,7 @@ block content
                     h5#newFindingModalLabel.modal-title New Finding
                     button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                 .modal-body
-                    form(action="/dashboard/new-finding" method="post")
+                    form(action="/findings/new-finding" method="post")
                         .row
                             .col-md-6
                                 .form-group

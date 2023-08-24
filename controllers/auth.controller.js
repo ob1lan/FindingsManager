@@ -23,7 +23,7 @@ exports.signin = (req, res, next) => {
         if (err) {
           next(err);
         } else {
-          res.redirect("/dashboard");
+          res.redirect("/findings");
         }
       });
     }

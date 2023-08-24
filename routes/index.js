@@ -2,14 +2,14 @@ const router = require("express").Router();
 const { ensureAuthenticated } = require("../config/guards.config");
 const auth = require("./auth.routes");
 const users = require("./users.routes");
-const dashboard = require("./dashboard.routes");
+const findings = require("./findings.routes");
 
-router.use("/dashboard", ensureAuthenticated, dashboard);
+router.use("/findings", ensureAuthenticated, findings);
 router.use("/users", users);
 router.use("/auth", auth);
 
 router.get("/", (req, res) => {
-  res.redirect("/dashboard");
+  res.redirect("/findings");
 });
 
 module.exports = router;
