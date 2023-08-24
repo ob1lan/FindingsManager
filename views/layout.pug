@@ -11,5 +11,16 @@ html(lang="en")
     title Findings Manager
   body
     include includes/topbar.pug
-    .container-fluid
-      block content 
+    .flex-container
+        .container-fluid.flex-grow
+            block content 
+        footer
+            .container
+                .row
+                    .col-md-6
+                        p#clock
+                    .col-md-6.text-end
+                        if isAuthenticated
+                            p Logged in as #{currentUser.username}
+    script(src="/javascripts/clock.js")
+

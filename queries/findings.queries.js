@@ -29,3 +29,21 @@ exports.createFinding = async (finding) => {
 exports.findFindingPerId = (id) => {
   return Finding.findById(id).exec();
 };
+
+exports.updateFinding = async (id, updatedData) => {
+  try {
+    return await Finding.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    }).exec();
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.deleteFinding = async (id) => {
+  try {
+    return await Finding.findByIdAndDelete(id).exec();
+  } catch (e) {
+    throw e;
+  }
+};

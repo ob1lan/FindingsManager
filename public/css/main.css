@@ -1,3 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 50px);
+}
+
+.flex-grow {
+  flex: 1;
+}
+
+footer {
+  background-color: #ddd; /* Optional: Add a background color to the footer */
+}
+
 .content {
   max-width: 1000px;
   margin-top: 20px;
@@ -19,25 +44,6 @@
 
 body {
   background-color: #f8f9fa;
-}
-
-.tweet-element {
-  border-radius: 0px;
-  font-size: 14px;
-  border: 0px;
-  border-top: 1px solid #ddd;
-}
-
-.tweet-element:first-child {
-  border-top: 0px;
-}
-
-.btn-tweet {
-  border-radius: 30px;
-}
-
-.btn-danger {
-  font-size: 10px;
 }
 
 .b {
@@ -79,22 +85,10 @@ body {
   transition: background 0.2s;
 }
 
-.btn-follow {
-  color: #007bff !important;
-  border-radius: 30px;
-  font-weight: bold;
-  cursor: pointer;
-  border-width: 2px;
+.btn {
+  margin: 2px;
 }
 
-.btn-follow:hover {
-  color: white !important;
-}
-
-.btn-unfollow {
-  border-radius: 30px;
-  font-weight: bold;
-}
-
-.btn-unfollow:hover {
+thead {
+  background: #ddd;
 }

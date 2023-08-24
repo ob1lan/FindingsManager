@@ -62,7 +62,7 @@ block content
                                     input#cvss.form-control(type="text" name="cvss")
                         button.btn.btn-primary(type="submit") Create Finding
 
-    //- Check if there are any findings
+    //- Table for findings
     if findings.length
         table.table.table-bordered
             thead
@@ -77,6 +77,7 @@ block content
                     th Reported By
                     th CVE
                     th CVSS
+                    th Actions
             tbody
                 each finding in findings
                     tr
@@ -90,5 +91,38 @@ block content
                         td= finding.reportedBy
                         td= finding.cve
                         td= finding.cvss
+                        td
+                            //- View button
+                            //- button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${finding._id}`) View
+                            button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${finding._id}`)
+                                i.fas.fa-search
+                            //- Edit button (link to an edit page or another modal)
+                            //- a.btn.btn-warning.btn-sm(href=`/findings/${finding._id}/edit`) Edit
+                            a.btn.btn-warning.btn-sm(href=`/findings/${finding._id}/edit`)
+                                i.fas.fa-pencil-alt
+                            //- Delete button (link to a delete route)
+                            form(method="post" action=`/findings/${finding._id}/delete` style="display: inline;")
+                                button.btn.btn-danger.btn-sm(type="submit") 
+                                    i.fas.fa-trash-alt
+
+                        //- Details Modal for each finding
+                        .modal.fade(id="detailsModal-" + finding._id, tabindex="-1", aria-labelledby="detailsModalLabel-" + finding._id, aria-hidden="true").modal.fade
+                            .modal-dialog
+                                .modal-content
+                                    .modal-header
+                                        h5.modal-title Details for #{finding.reference}
+                                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                                    .modal-body
+                                        p Reference: #{finding.reference}
+                                        p Status: #{finding.status}
+                                        p Assignee: #{finding.assignee}
+                                        p Origin: #{finding.origin}
+                                        p Title: #{finding.title}
+                                        p Type: #{finding.type}
+                                        p Description: #{finding.description}
+                                        p Severity: #{finding.severity}
+                                        p Reported By: #{finding.reportedBy}
+                                        p CVE: #{finding.cve}
+                                        p CVSS: #{finding.cvss}
     else
         p No findings available.

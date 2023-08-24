@@ -1,0 +1,50 @@
+extends layout.pug
+
+block content
+    h1 Edit Finding
+
+    form(action=`/findings/${finding._id}/edit` method="post")
+        .form-group
+            label(for="reference") Reference
+            input#reference.form-control(type="text" name="reference" value=finding.reference required)
+        .form-group
+            label(for="assignee") Assignee
+            input#assignee.form-control(type="text" name="assignee" value=finding.assignee)
+        .form-group
+            label(for="origin") Origin
+            input#origin.form-control(type="text" name="origin" value=finding.origin)
+        .form-group
+            label(for="title") Title
+            input#title.form-control(type="text" name="title" value=finding.title required)
+        .form-group
+            label(for="type") Type
+            input#type.form-control(type="text" name="type" value=finding.type)
+        .form-group
+            label(for="description") Description
+            textarea#description.form-control(name="description" required)= finding.description
+        .form-group
+            label(for="reportedBy") Reported By
+            input#reportedBy.form-control(type="text" name="reportedBy" value=finding.reportedBy)
+        .form-group
+            label(for="status") Status
+            select#status.form-control(name="status")
+                option(value="In Remediation" selected=(finding.status === "In Remediation")) In Remediation
+                option(value="Remediated" selected=(finding.status === "Remediated")) Remediated
+                option(value="Accepted" selected=(finding.status === "Accepted")) Accepted
+                option(value="Declined" selected=(finding.status === "Declined")) Declined
+        .form-group
+            label(for="severity") Severity
+            select#severity.form-control(name="severity")
+                option(value="Critical" selected=(finding.severity === "Critical")) Critical
+                option(value="High" selected=(finding.severity === "High")) High
+                option(value="Medium" selected=(finding.severity === "Medium")) Medium
+                option(value="Low" selected=(finding.severity === "Low")) Low
+                option(value="Info" selected=(finding.severity === "Info")) Info
+        .form-group
+            label(for="cve") CVE
+            input#cve.form-control(type="text" name="cve" value=finding.cve)
+        .form-group
+            label(for="cvss") CVSS
+            input#cvss.form-control(type="text" name="cvss" value=finding.cvss)
+        button.btn.btn-primary(type="submit") Update Finding
+
