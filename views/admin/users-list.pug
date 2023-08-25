@@ -1,0 +1,19 @@
+extends ../layout.pug
+include mixins/user-table
+include mixins/edit-user-modal
+include mixins/user-details-modal
+
+block content
+    h1 Admin - Users
+
+    +userTable(users)
+    
+    //- modals for each user
+    each user in users
+        +userDetailsModal(user)
+        +editUserModal(user)
+
+    script.
+        $(document).ready(function() {
+            $('table').DataTable();
+        });

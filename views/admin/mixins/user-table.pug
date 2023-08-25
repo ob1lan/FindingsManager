@@ -1,0 +1,30 @@
+mixin userTable(users)
+    table(id="usersTable" class="display")
+        thead
+            tr
+                th Username
+                th Firstname 
+                th Lastname
+                th Email
+                th Function
+                th Role
+                th Actions
+        tbody
+            each user in users
+                tr
+                    td= user.username
+                    td= user.firstname
+                    td= user.lastname
+                    td= user.local.email
+                    td= user.function
+                    td= user.role
+                    td
+                        //- Details button (opens a modal)
+                        button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${user._id}`) 
+                            i.fas.fa-search
+                        //- Edit button (link to an another modal)
+                        button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editUserModal-${user._id}`)
+                            i.fas.fa-pencil-alt
+                        //- Delete button (link to a delete route)
+                        a.btn.btn-danger.btn-sm(href=`/admin/users/${user._id}/delete`) 
+                            i.fas.fa-trash-alt

@@ -1,0 +1,17 @@
+mixin userDetailsModal(user)
+    .modal.fade(id="detailsModal-" + user._id, tabindex="-1", aria-labelledby="detailsModalLabel-" + user._id, aria-hidden="true").modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5.modal-title Details for #{user.username}
+                    button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                .modal-body
+                    p Username: #{user.username}
+                    p Email: #{user.local.email}
+                    p Firstname: #{user.firstname}
+                    p Lastname: #{user.lastname}
+                    p Role: #{user.role}
+                    p Bio: #{user.bio}
+                    p ID: #{user.id}
+                .modal-footer
+                    button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close

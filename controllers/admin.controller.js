@@ -10,7 +10,7 @@ exports.viewUsers = async (req, res, next) => {
   try {
     // Fetch all users
     const users = await getAllUsers();
-    res.render("admin/users", {
+    res.render("admin/users-list", {
       users,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
@@ -31,7 +31,7 @@ exports.updateUser = async (req, res, next) => {
     const updatedData = req.body; // This contains the form data from the modal
 
     await updateUserDetails(userId, updatedData);
-    
+
     // If you're using AJAX to submit the form, you might send a JSON response instead of a redirect.
     res.redirect("/admin/users");
   } catch (error) {
