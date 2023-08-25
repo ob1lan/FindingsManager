@@ -1,0 +1,11 @@
+extends ../layout.pug
+include mixins/severity-pie-chart
+
+block content
+    h1 Dashboard
+    script(src="https://cdn.jsdelivr.net/npm/chart.js")
+    div(class="charts-row")
+        div(class="chart-container")
+            +severityPieChart(chart1)
+        div(class="chart-container")
+        div(class="chart-container")

@@ -80,3 +80,15 @@ footer {
   text-align: center;
   color: white;
 }
+
+.charts-row {
+    display: flex;
+    justify-content: space-between; /* distributes the space evenly between the charts */
+    width: 100%;
+}
+
+.chart-container {
+    flex: 1; /* each chart container will take up an equal amount of space */
+    height: 400px; /* or whatever height you prefer */
+    padding: 0 10px; /* optional: adds some space between the charts */
+}

@@ -4,8 +4,10 @@ const auth = require("./auth.routes");
 const users = require("./users.routes");
 const findings = require("./findings.routes");
 const admin = require("./admin.routes");
+const dashboard = require("./dashboard.routes");
 
 router.use("/findings", ensureAuthenticated, findings);
+router.use("/dashboard", ensureAuthenticated, dashboard);
 router.use("/admin", ensureAuthenticated, ensureAdmin, admin);
 router.use("/users", users);
 router.use("/auth", auth);

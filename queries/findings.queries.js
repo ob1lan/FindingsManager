@@ -47,3 +47,27 @@ exports.deleteFinding = async (id) => {
     throw e;
   }
 };
+
+exports.getSeverityData = async () => {
+  try {
+    const findings = await Finding.find().exec();
+    const severityCounts = findings.reduce((acc, finding) => {
+      acc[finding.severity] = (acc[finding.severity] || 0) + 1;
+      return acc;
+    }, {});
+    return severityCounts;
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.getCountBySeverity = async () => {
+  return await Finding.aggregate([
+    {
+      $group: {
+        _id: "$severity",
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+};

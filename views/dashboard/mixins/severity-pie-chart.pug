@@ -1,0 +1,30 @@
+mixin severityPieChart(chart1)
+    canvas#chart1
+        script.
+            const data = {
+                labels: ['Critical', 'High', 'Medium', 'Low', 'Info'],
+                datasets: [{
+                label: 'Findings by Severity',
+                data: !{JSON.stringify(sortedData)},
+                backgroundColor: ['darkred', 'red', 'orange', 'yellow', 'blue'],
+                borderColor: ['darkred', 'red', 'orange', 'yellow', 'blue'],
+                borderWidth: 1
+                }]
+            };
+            const ctx = document.getElementById('chart1').getContext('2d');
+            const myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Findings by Severity'
+                        },
+                        legend: {
+                            display: true,
+                            position: 'left',
+                        },
+                    },
+                }
+            });
