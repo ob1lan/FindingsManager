@@ -1,0 +1,45 @@
+mixin editFindingModal(finding)
+    .modal.fade(id=`editFindingModal-${finding._id}`, tabindex="-1", aria-labelledby=`editFindingModalLabel-${finding._id}`, aria-hidden="true")
+        .modal-dialog
+            .modal-content
+                form(action=`/findings/${finding._id}/edit` method="post")
+                    .modal-header
+                        h5.modal-title Edit Finding #{finding.reference}
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body
+                        .mb-3
+                            label(for="reference") Reference
+                            input#reference.form-control(type="text" name="reference" value= finding.reference required)
+                        .mb-3
+                            label(for="title") Title
+                            input#title.form-control(type="text" name="title" value= finding.title required)
+                        .mb-3
+                            label(for="type") Type
+                            input#type.form-control(type="text" name="type" value= finding.type required)
+                        .mb-3
+                            label(for="description") Description
+                            textarea#description.form-control(name="description" rows="5" required)= finding.description
+                        .mb-3
+                            label(for="severity") Severity
+                            input#severity.form-control(type="text" name="severity" value= finding.severity required)
+                        .mb-3
+                            label(for="status") Status
+                            input#status.form-control(type="text" name="status" value= finding.status required)
+                        .mb-3
+                            label(for="assignee") Assignee
+                            input#assignee.form-control(type="text" name="assignee" value= finding.assignee)
+                        .mb-3
+                            label(for="origin") Origin
+                            input#origin.form-control(type="text" name="origin" value= finding.origin)
+                        .mb-3
+                            label(for="reportedBy") Reported By
+                            input#reportedBy.form-control(type="text" name="reportedBy" value= finding.reportedBy)
+                        .mb-3
+                            label(for="cve") CVE
+                            input#cve.form-control(type="text" name="cve" value= finding.cve)
+                        .mb-3
+                            label(for="cvss") CVSS
+                            input#cvss.form-control(type="text" name="cvss" value= finding.cvss)
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
+                        button.btn.btn-primary(type="submit") Save Changes

@@ -32,7 +32,7 @@ mixin findingsTable(findings)
                             button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${finding._id}`)
                                 i.fas.fa-search
                             //- Edit button
-                            a.btn.btn-warning.btn-sm(href=`/findings/${finding._id}/edit`)
+                            button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editFindingModal-${finding._id}`)
                                 i.fas.fa-pencil-alt
                             //- Delete button
                             form(method="post" action=`/findings/${finding._id}/delete` style="display: inline;")

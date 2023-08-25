@@ -11,3 +11,4 @@ Currently in DRAFT
 - Add confirmation screen when deleting a finding
 - Export findings to CSV
 - Report on findings using a PDF template (with branding)
+- Create a dashboard view with charts

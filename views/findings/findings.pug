@@ -1,6 +1,7 @@
 extends ../layout.pug
 include mixins/new-finding-modal
 include mixins/findings-table
+include mixins/edit-finding-modal
 
 block content
     h1 Findings
@@ -12,6 +13,9 @@ block content
     +newFindingModal(finding)
 
     +findingsTable(findings)
+
+    each finding in findings
+        +editFindingModal(finding)
 
     script.
         $(document).ready(function() {
