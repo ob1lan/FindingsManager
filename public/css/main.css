@@ -36,6 +36,7 @@ header {
 .content {
   grid-area: content;
   padding: 0.5rem;
+  background-color: #f8f9fa;
 }
 
 .profile-container {
@@ -50,14 +51,6 @@ header {
 
 .img-fluid {
   max-height: 100px;
-}
-
-.b {
-  border: 1px solid red;
-}
-
-.b1 {
-  border: 1px solid green;
 }
 
 .pointer-cursor {
@@ -82,13 +75,21 @@ footer {
 }
 
 .charts-row {
-    display: flex;
-    justify-content: space-between; /* distributes the space evenly between the charts */
-    width: 100%;
+  display: flex;
+  justify-content: space-between; /* distributes the space evenly between the charts */
+  width: 100%;
 }
 
 .chart-container {
-    flex: 1; /* each chart container will take up an equal amount of space */
-    height: 400px; /* or whatever height you prefer */
-    padding: 0 10px; /* optional: adds some space between the charts */
+  flex: 1; /* each chart container will take up an equal amount of space */
+  height: 400px; /* or whatever height you prefer */
+  padding: 0 10px; /* optional: adds some space between the charts */
 }
+
+canvas {
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+    0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  background: white;
+}
+
+

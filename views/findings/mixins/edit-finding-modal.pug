@@ -14,17 +14,39 @@ mixin editFindingModal(finding)
                             label(for="title") Title
                             input#title.form-control(type="text" name="title" value= finding.title required)
                         .mb-3
-                            label(for="type") Type
-                            input#type.form-control(type="text" name="type" value= finding.type required)
+                            label(for="type") Finding Type
+                            select#type.form-control(name="type")
+                                option(value="Configuration Issues" selected=(finding.type === 'Configuration Issues')) Configuration Issues
+                                option(value="Authentication & Authorization Issues" selected=(finding.type === 'Authentication & Authorization Issues')) Authentication & Authorization Issues
+                                option(value="Injection Flaws" selected=(finding.type === 'Injection Flaws')) Injection Flaws
+                                option(value="Sensitive Data Exposure" selected=(finding.type === 'Sensitive Data Exposure')) Sensitive Data Exposure
+                                option(value="Cross-Site Scripting (XSS)" selected=(finding.type === 'Cross-Site Scripting (XSS)')) Cross-Site Scripting (XSS)
+                                option(value="Cross-Site Request Forgery (CSRF)" selected=(finding.type === 'Cross-Site Request Forgery (CSRF)')) Cross-Site Request Forgery (CSRF)
+                                option(value="Unvalidated Redirects and Forwards" selected=(finding.type === 'Unvalidated Redirects and Forwards')) Unvalidated Redirects and Forwards
+                                option(value="Session Management Issues" selected=(finding.type === 'Session Management Issues')) Session Management Issues
+                                option(value="Insecure Deserialization" selected=(finding.type === 'Insecure Deserialization')) Insecure Deserialization
+                                option(value="Server Vulnerabilities" selected=(finding.type === 'Server Vulnerabilities')) Server Vulnerabilities
+                                option(value="Third-party Component Vulnerabilities" selected=(finding.type === 'Third-party Component Vulnerabilities')) Third-party Component Vulnerabilities
+                                option(value="Business Logic Flaws" selected=(finding.type === 'Business Logic Flaws')) Business Logic Flaws
                         .mb-3
                             label(for="description") Description
                             textarea#description.form-control(name="description" rows="5" required)= finding.description
                         .mb-3
                             label(for="severity") Severity
-                            input#severity.form-control(type="text" name="severity" value= finding.severity required)
+                            select#severity.form-control(name="severity")
+                                option(value="Critical" selected=(finding.severity === 'Critical')) Critical
+                                option(value="High" selected=(finding.severity === 'High')) High
+                                option(value="Medium" selected=(finding.severity === 'Medium')) Medium
+                                option(value="Low" selected=(finding.severity === 'Low')) Low
+                                option(value="Info" selected=(finding.severity === 'Info')) Info
                         .mb-3
                             label(for="status") Status
-                            input#status.form-control(type="text" name="status" value= finding.status required)
+                            select#status.form-control(name="status")
+                                option(value="In Remediation" selected=(finding.status === 'In Remediation')) In Remediation
+                                option(value="Remediated" selected=(finding.status === 'Remediated')) Remediated
+                                option(value="Accepted" selected=(finding.status === 'Accepted')) Accepted
+                                option(value="Declined" selected=(finding.status === 'Declined')) Declined
+
                         .mb-3
                             label(for="assignee") Assignee
                             input#assignee.form-control(type="text" name="assignee" value= finding.assignee)
