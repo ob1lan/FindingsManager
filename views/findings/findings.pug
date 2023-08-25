@@ -1,0 +1,19 @@
+extends ../layout.pug
+include mixins/new-finding-modal
+include mixins/findings-table
+
+block content
+    h1 Findings
+
+    //- New Finding button
+    button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#newFindingModal") New Finding
+
+    //- New Finding Modal
+    +newFindingModal(finding)
+
+    +findingsTable(findings)
+
+    script.
+        $(document).ready(function() {
+            $('table').DataTable();
+        });

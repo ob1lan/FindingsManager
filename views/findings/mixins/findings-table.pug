@@ -1,0 +1,62 @@
+mixin findingsTable(findings)
+    if findings.length
+        table(id="findingsTable" class="display").table.table-bordered
+            thead
+                tr
+                    th Reference
+                    th Title
+                    th Type
+                    th Severity
+                    th Status
+                    th Assignee
+                    th Origin
+                    th Reported By
+                    th CVE
+                    th CVSS
+                    th Actions
+            tbody
+                each finding in findings
+                    tr
+                        td= finding.reference
+                        td= finding.title
+                        td= finding.type
+                        td= finding.severity
+                        td= finding.status
+                        td= finding.assignee
+                        td= finding.origin
+                        td= finding.reportedBy
+                        td= finding.cve
+                        td= finding.cvss
+                        td
+                            //- View button
+                            button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${finding._id}`)
+                                i.fas.fa-search
+                            //- Edit button
+                            a.btn.btn-warning.btn-sm(href=`/findings/${finding._id}/edit`)
+                                i.fas.fa-pencil-alt
+                            //- Delete button
+                            form(method="post" action=`/findings/${finding._id}/delete` style="display: inline;")
+                                button.btn.btn-danger.btn-sm(type="submit") 
+                                    i.fas.fa-trash-alt
+
+                        //- Details Modal for each finding
+                        .modal.fade(id="detailsModal-" + finding._id, tabindex="-1", aria-labelledby="detailsModalLabel-" + finding._id, aria-hidden="true").modal.fade
+                            .modal-dialog
+                                .modal-content
+                                    .modal-header
+                                        h5.modal-title Details for #{finding.reference}
+                                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                                    .modal-body
+                                        p Reference: #{finding.reference}
+                                        p Status: #{finding.status}
+                                        p Assignee: #{finding.assignee}
+                                        p Origin: #{finding.origin}
+                                        p Title: #{finding.title}
+                                        p Type: #{finding.type}
+                                        p Description: #{finding.description}
+                                        p Severity: #{finding.severity}
+                                        p Reported By: #{finding.reportedBy}
+                                        p CVE: #{finding.cve}
+                                        p CVSS: #{finding.cvss}
+    else
+        p No findings available.

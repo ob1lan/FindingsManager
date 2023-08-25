@@ -9,7 +9,7 @@ const {
 exports.findings = async (req, res, next) => {
   try {
     const findings = await getFindings();
-    res.render("findings", {
+    res.render("findings/findings", {
       findings,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
@@ -27,7 +27,7 @@ exports.findingCreate = async (req, res, next) => {
     res.redirect("/findings");
   } catch (e) {
     const errors = Object.keys(e.errors).map((key) => e.errors[key].message);
-    res.status(400).render("findings", {
+    res.status(400).render("findings/findings", {
       errors,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
@@ -48,7 +48,7 @@ exports.findingEdit = async (req, res, next) => {
   if (req.method === "GET") {
     try {
       const finding = await findFindingPerId(req.params.id);
-      res.render("edit-finding", {
+      res.render("findings/edit-finding", {
         finding,
         isAuthenticated: req.isAuthenticated(),
         currentUser: req.user,
