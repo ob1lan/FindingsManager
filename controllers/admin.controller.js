@@ -3,6 +3,7 @@ const {
   createUser,
   findUserPerId,
   searchUsersPerUsername,
+  updateUserDetails,
 } = require("../queries/users.queries");
 
 exports.viewUsers = async (req, res, next) => {
@@ -24,10 +25,21 @@ exports.createUser = async (req, res, next) => {
   // Logic to create a new user
 };
 
-exports.editUser = async (req, res, next) => {
-  // Logic to edit user details
+exports.updateUser = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const updatedData = req.body; // This contains the form data from the modal
+
+    await updateUserDetails(userId, updatedData);
+    
+    // If you're using AJAX to submit the form, you might send a JSON response instead of a redirect.
+    res.redirect("/admin/users");
+  } catch (error) {
+    next(error);
+  }
 };
 
-exports.updateUserRole = async (req, res, next) => {
-  // Logic to update user role
+
+exports.deleteUser = async (req, res, next) => {
+  // Logic to delete a user
 };

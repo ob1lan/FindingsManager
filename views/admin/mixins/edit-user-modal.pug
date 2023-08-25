@@ -1,0 +1,35 @@
+mixin editUserModal(user)
+    .modal.fade(id="editUserModal-" + user._id, tabindex="-1", aria-labelledby="editUserModalLabel-" + user._id, aria-hidden="true").modal.fade
+        .modal-dialog
+            .modal-content
+                form(method="post" action=`/admin/users/${user._id}/edit`)
+                    .modal-header
+                        h5.modal-title(id=`editUserModalLabel-${user._id}`) Edit User
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body
+                        .mb-3
+                            label(for="username") Username
+                            input#username.form-control(type="text" name="username" value=user.username)
+                        .mb-3
+                            label(for="email") Email
+                            input#email.form-control(type="email" name="local.email" value=user.local.email)
+                        .mb-3
+                            label(for="firstname") Firstname
+                            input#firstname.form-control(type="text" name="firstname" value=user.firstname)
+                        .mb-3
+                            label(for="lastname") Lastname
+                            input#lastname.form-control(type="text" name="lastname" value=user.lastname)
+                        .mb-3
+                            label(for="function") Function
+                            input#function.form-control(type="text" name="function" value=user.function)
+                        .mb-3
+                            label(for="bio") Bio
+                            textarea#bio.form-control(name="bio" rows="3")= user.bio
+                        .mb-3
+                            label(for="role") Role
+                            select#role.form-control(name="role")
+                                option(value="user" selected=user.role === 'user') User
+                                option(value="admin" selected=user.role === 'admin') Admin
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close
+                        button.btn.btn-primary(type="submit") Save Changes

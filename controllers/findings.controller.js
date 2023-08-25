@@ -48,7 +48,11 @@ exports.findingEdit = async (req, res, next) => {
   if (req.method === "GET") {
     try {
       const finding = await findFindingPerId(req.params.id);
-      res.render("edit-finding", { finding }); // Assuming you have an edit-finding.pug template
+      res.render("edit-finding", {
+        finding,
+        isAuthenticated: req.isAuthenticated(),
+        currentUser: req.user,
+      }); // Assuming you have an edit-finding.pug template
     } catch (error) {
       next(error);
     }

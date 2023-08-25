@@ -1,4 +1,5 @@
 extends ../layout.pug
+include mixins/edit-user-modal
 
 block content
     h1 Admin - Users
@@ -23,13 +24,37 @@ block content
                     td= user.function
                     td= user.role
                     td
-                        a(href=`/admin/users/${user._id}/edit`) Edit
-                        form(action=`/admin/users/${user._id}/role`, method="POST")
-                            select(name="role")
-                                option(value="user") User
-                                option(value="admin") Admin
-                            button(type="submit") Update Role
+                        //- Details button (opens a modal)
+                        button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${user._id}`) 
+                            i.fas.fa-search
+                        //- Edit button (link to an another modal)
+                        button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editUserModal-${user._id}`)
+                            i.fas.fa-pencil-alt
+                        //- Delete button (link to a delete route)
+                        a.btn.btn-danger.btn-sm(href=`/admin/users/${user._id}/delete`) 
+                            i.fas.fa-trash-alt
     script.
         $(document).ready(function() {
             $('table').DataTable();
         });
+    //- Here's where you add the modals for each user
+    each user in users
+        //- Details Modal for each user
+        .modal.fade(id="detailsModal-" + user._id, tabindex="-1", aria-labelledby="detailsModalLabel-" + user._id, aria-hidden="true").modal.fade
+            .modal-dialog
+                .modal-content
+                    .modal-header
+                        h5.modal-title Details for #{user.username}
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body
+                        p Username: #{user.username}
+                        p Email: #{user.local.email}
+                        p Firstname: #{user.firstname}
+                        p Lastname: #{user.lastname}
+                        p Role: #{user.role}
+                        p Bio: #{user.bio}
+                        p ID: #{user.id}
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close
+    each user in users
+        +editUserModal(user)
