@@ -2,51 +2,29 @@
   font-size: 62.5%;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+main > .container-fluid {
+  padding: 60px 15px 0;
 }
 
-body,
-html {
-  height: 100%;
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
 }
 
-.container-fluid {
-  min-height: 100vh;
-  display: grid;
-  grid:
-    "header" auto
-    "content" 1fr
-    "footer" auto /
-    auto;
-}
-
-header {
-  grid-area: header;
-  background: #ddd;
-  padding: 0.5rem;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
+.text-center {
+    text-align: center!important;
 }
 
 .content {
-  grid-area: content;
-  padding: 0.5rem;
-  background-color: #f8f9fa;
+  background-color: #f5f8fa;
 }
 
 .profile-container {
   width: 30%;
   max-width: 300px;
   color: #657786;
-}
-
-.navbar {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 .img-fluid {
@@ -65,13 +43,8 @@ thead {
   background: #ddd;
 }
 
-footer {
-  grid-area: footer;
-  padding: 0.5rem;
-  background: darkgrey;
-  font-size: 1rem;
+.footer {
   text-align: center;
-  color: white;
 }
 
 .charts-row {
@@ -91,5 +64,3 @@ canvas {
     0 1px 3px 1px rgba(60, 64, 67, 0.15);
   background: white;
 }
-
-

@@ -1,19 +1,15 @@
 extends ../layout
 
 block content
-  div(class="d-flex flex-row content justify-content-center mx-auto")
-    form(class="card w-50 mt-5" method="post" action="/auth/signin")
-      div(class="card-header") Connexion
-      div(class="card-body")
-        div(class="mb-3")
-          label Email
-          input(class="form-control" type="email" name="email")
-        div(class="mb-3")
-          label Password
-          input(class="form-control" type="password" name="password")
-        if errors
-          ul(class="my-2")
-            each error in errors
-              li(class="text-danger")= error
-        div(class="w-100")
-          input(type="submit" value="connexion" class="btn btn-primary ms-auto d-block")
+  main(class="form-signin text-center")
+    form(data-bitwarden-watching="1" method="post" action="/auth/signin")
+      h1(class="h3 mb-3 fw-normal") Please sign in
+      div(class="form-floating")
+        input(type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com")
+        label(for="floatingInput") Email address
+      div(class="form-floating")
+        input(type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password")
+        label(for="floatingPassword") Password
+      input(class="w-100 btn btn-lg btn-primary" type="submit" value="Sign in")
+      if errors
+          span(class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill")= errors
