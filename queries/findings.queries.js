@@ -71,3 +71,14 @@ exports.getCountBySeverity = async () => {
     },
   ]);
 };
+
+exports.getCountByStatus = () => {
+  return Finding.aggregate([
+    {
+      $group: {
+        _id: "$status",
+        count: { $sum: 1 },
+      },
+    },
+  ]).exec();
+};

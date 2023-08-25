@@ -12,3 +12,4 @@ Currently in DRAFT
 - Export findings to CSV
 - Report on findings using a PDF template (with branding)
 - Create a dashboard view with charts
+- Canvas for pie charts in box with border

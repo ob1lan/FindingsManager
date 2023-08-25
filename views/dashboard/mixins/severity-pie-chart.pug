@@ -4,10 +4,10 @@ mixin severityPieChart(chart1)
             const data = {
                 labels: ['Critical', 'High', 'Medium', 'Low', 'Info'],
                 datasets: [{
-                label: 'Findings by Severity',
+                label: 'Findings:',
                 data: !{JSON.stringify(sortedData)},
-                backgroundColor: ['darkred', 'red', 'orange', 'yellow', 'blue'],
-                borderColor: ['darkred', 'red', 'orange', 'yellow', 'blue'],
+                backgroundColor: ['darkred', 'red', 'orange', 'green', 'blue'],
+                borderColor: ['darkred', 'red', 'orange', 'green', 'blue'],
                 borderWidth: 1
                 }]
             };
@@ -23,7 +23,7 @@ mixin severityPieChart(chart1)
                         },
                         legend: {
                             display: true,
-                            position: 'left',
+                            position: 'bottom',
                         },
                     },
                 }

@@ -1,0 +1,30 @@
+mixin statusPieChart(chart2)
+    canvas#chart2
+        script.
+            const statusData = {
+                labels: ['In Remediation', 'Remediated', 'Declined', 'Accepted'],
+                datasets: [{
+                label: 'Findings:',
+                data: !{JSON.stringify(sortedStatusData)},
+                backgroundColor: ['orange', 'green', 'grey', 'blue'],
+                borderColor: ['orange', 'green', 'grey', 'blue'],
+                borderWidth: 1
+                }]
+            };
+            const ctxStatus = document.getElementById('chart2').getContext('2d');
+            const myStatusChart = new Chart(ctxStatus, {
+                type: 'pie',
+                data: statusData,
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Findings by Status'
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
