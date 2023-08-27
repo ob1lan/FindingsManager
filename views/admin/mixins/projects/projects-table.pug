@@ -1,0 +1,32 @@
+mixin projectsTable(projects)
+    if projects && projects.length
+        table(id="projectsTable" class="display")
+            thead
+                tr
+                    th Reference
+                    th Title 
+                    th Description
+                    th Status 
+                    th Assessor 
+                    th Created By
+            tbody
+                    each project in projects
+                        tr
+                            td= project.reference
+                            td= project.title
+                            td= project.description
+                            td= project.status
+                            td= project.conductedBy
+                            td= project.createdBy
+                            td
+                                //- Details button (opens a modal)
+                                button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${project._id}`) 
+                                    i.fas.fa-search
+                                //- Edit button (link to an another modal)
+                                button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editUserModal-${project._id}`)
+                                    i.fas.fa-pencil-alt
+                                //- Delete button (link to a delete route)
+                                a.btn.btn-danger.btn-sm(href=`/admin/projects/${project._id}/delete`) 
+                                    i.fas.fa-trash-alt
+    else
+        p No project available.

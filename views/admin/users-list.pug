@@ -1,12 +1,12 @@
 extends ../layout.pug
-include mixins/user-table
-include mixins/edit-user-modal
-include mixins/user-details-modal
+include mixins/users/users-table
+include mixins/users/edit-user-modal
+include mixins/users/user-details-modal
 
 block content
     h1 Admin - Users
 
-    +userTable(users)
+    +usersTable(users)
     
     //- modals for each user
     each user in users

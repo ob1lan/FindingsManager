@@ -1,0 +1,24 @@
+extends ../layout.pug
+include mixins/projects/projects-table
+include mixins/projects/new-project-modal
+//- include mixins/projects/project-details-modal
+//- include mixins/projects/project-edit-modal
+
+block content
+    h1 Admin - Projects
+
+    button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#newProjectModal") New Project
+
+    +newProjectModal(project)
+
+    +projectsTable(users)
+
+    //- modals for each user
+    each project in projects
+        +projectDetailsModal(project)
+        +editProjectModal(project)
+
+    script.
+        $(document).ready(function() {
+            $('table').DataTable();
+        });
