@@ -11,6 +11,8 @@ Currently in DRAFT
 - Add confirmation screen when deleting a finding
 - Export findings to CSV
 - Report on findings using a PDF template (with branding)
-- Create a dashboard view with charts
-- Canvas for pie charts in box with border
+- Create a dashboard chart for issue type / OWASP Category (use several Top 10)
 - Refactor the visual to fully use Bootstrap (see their examples)
+- dropdowns : use svg icons or colored circles (cf bootstrap examples)
+- policies in setting to calculate due date by computing the creation date
+- SAML auth support
