@@ -2,7 +2,8 @@ extends ../layout.pug
 include mixins/projects/projects-table
 include mixins/projects/new-project-modal
 //- include mixins/projects/project-details-modal
-//- include mixins/projects/project-edit-modal
+include mixins/projects/edit-project-modal
+include mixins/projects/delete-confirmation-modal
 
 block content
     h1 Admin - Projects
@@ -11,11 +12,12 @@ block content
 
     +newProjectModal(project)
 
-    +projectsTable(users)
+    +projectsTable(projects)
+    +deleteConfirmationModal
 
-    //- modals for each user
+    //- modals for each project
     each project in projects
-        +projectDetailsModal(project)
+        //- +projectDetailsModal(project)
         +editProjectModal(project)
 
     script.

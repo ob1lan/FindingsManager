@@ -4,6 +4,7 @@ const {
   findUserPerId,
   searchUsersPerUsername,
   updateUserDetails,
+  deleteUser,
 } = require("../queries/users.queries");
 
 const {
@@ -47,8 +48,15 @@ exports.updateUser = async (req, res, next) => {
   }
 };
 
+
 exports.deleteUser = async (req, res, next) => {
-  // Logic to delete a user
+  try {
+    // Here, you'll delete the finding using its ID
+    await deleteUser(req.params.id);
+    res.redirect("/admin/users");
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.viewProjects = async (req, res, next) => {
@@ -95,5 +103,11 @@ exports.updateProject = async (req, res, next) => {
 };
 
 exports.deleteProject = async (req, res, next) => {
-  // Logic to delete a user
+  try {
+    // Here, you'll delete the finding using its ID
+    await deleteProject(req.params.id);
+    res.redirect("/admin/projects");
+  } catch (error) {
+    next(error);
+  }
 };

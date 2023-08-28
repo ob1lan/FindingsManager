@@ -1,0 +1,40 @@
+mixin editProjectModal(project)
+    .modal.fade(id=`editProjectModal-${project._id}`, tabindex="-1", aria-labelledby=`editFindingModalLabel-${project._id}`, aria-hidden="true")
+        .modal-dialog
+            .modal-content
+                form(action=`/admin/projects/${project._id}/edit` method="post")
+                    .modal-header
+                        h5.modal-title Edit Project #{project.reference}
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body
+                        .mb-3
+                            label(for="reference") Reference
+                            input#reference.form-control(type="text" name="reference" value= project.reference required)
+                        .mb-3
+                            label(for="title") Title
+                            input#title.form-control(type="text" name="title" value= project.title required)
+                        .mb-3
+                            label(for="type") Project Type
+                            select#type.form-control(name="type")
+                                option(value="WAPT" selected=(project.type === 'WAPT')) Web Application Penetration Test (WAPT)
+                                option(value="NVA" selected=(project.type === 'NVA')) Network Vulnerability Assessment (NVA)
+                                option(value="BBP" selected=(project.type === 'BBP')) Bug Bounty Program (BBP)
+                        .mb-3
+                            label(for="description") Description
+                            textarea#description.form-control(name="description" rows="5" required)= project.description
+                        .mb-3
+                            label(for="status") Status
+                            select#status.form-control(name="status")
+                                option(value="Open" selected=(project.status === 'Closed')) Open
+                                option(value="Closed" selected=(project.status === 'Closed')) Closed
+                                option(value="Planned" selected=(project.status === 'Planned')) Planned
+                                option(value="Completed" selected=(project.status === 'Completed')) Completed
+                                option(value="Cancelled" selected=(project.status === 'Cancelled')) Cancelled
+                                option(value="On hold" selected=(project.status === 'On hold')) On hold
+                                option(value="In progress" selected=(project.status === 'In progress')) In progress
+                        .mb-3
+                            label(for="assessor") Assessor
+                            input#assessor.form-control(type="text" name="assessor" value= project.conductedBy)
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
+                        button.btn.btn-primary(type="submit") Save Changes

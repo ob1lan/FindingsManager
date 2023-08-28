@@ -6,7 +6,9 @@ const {
   updateUser,
   deleteUser,
   viewProjects,
-  createProject
+  createProject,
+  updateProject,
+  deleteProject
 } = require("../controllers/admin.controller");
 
 router.get("/users", ensureAuthenticated, ensureAdmin, viewUsers);
@@ -15,6 +17,8 @@ router.get("/users/:id/delete", ensureAuthenticated, ensureAdmin, deleteUser);
 router.post("/users/:id/edit", ensureAuthenticated, ensureAdmin, updateUser);
 
 router.get("/projects", ensureAuthenticated, ensureAdmin, viewProjects);
-router.post("/projects/create", ensureAuthenticated, ensureAdmin, createProject);
+router.post("/projects/create", ensureAdmin, createProject);
+router.post("/projects/:id/edit", ensureAdmin, updateProject);
+router.get("/projects/:id/delete", ensureAdmin, deleteProject);
 
 module.exports = router;

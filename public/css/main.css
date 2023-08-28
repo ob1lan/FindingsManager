@@ -21,12 +21,6 @@ main > .container-fluid {
   background-color: #f5f8fa;
 }
 
-.profile-container {
-  width: 30%;
-  max-width: 300px;
-  color: #657786;
-}
-
 .img-fluid {
   max-height: 100px;
 }

@@ -2,17 +2,20 @@ extends ../layout.pug
 include mixins/new-finding-modal
 include mixins/findings-table
 include mixins/edit-finding-modal
+include mixins/delete-confirmation-modal
 
 block content
     h1 Findings
 
     //- New Finding button
     button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#newFindingModal") New Finding
+    a.btn.btn-success(href="/findings/export") Export to CSV
 
     //- New Finding Modal
     +newFindingModal(finding)
 
     +findingsTable(findings)
+    +deleteFindingConfirmationModal
 
     each finding in findings
         +editFindingModal(finding)

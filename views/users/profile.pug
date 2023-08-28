@@ -3,23 +3,25 @@ extends ../layout
 block content
   h1 User Profile
   script(src="/javascripts/profile.js")
-  div(class="profile-container bg-white me-3 d-flex flex-column")
-    form( id="form-container" class="d-flex p-3 flex-row justify-content-center align-items-center" action="/users/update/image" method="post" enctype="multipart/form-data" )
-      input(type="file" name="avatar" class="d-none" id="input-avatar")
-      img(src=user.avatar class="img-fluid" id="image-profile")
-    div(class="d-flex flex-row justify-content-center align-items-center")
-      p= `${ user.username } (${ user.local.email })`
-    form(action="/users/update/details" method="post")
-      div(class="form-group")
-        label(for="firstname") First Name
-        input(type="text" id="firstname" name="firstname" value=user.firstname class="form-control")
-      div(class="form-group")
-        label(for="lastname") Last Name
-        input(type="text" id="lastname" name="lastname" value=user.lastname class="form-control")
-      div(class="form-group")
-        label(for="function") Function
-        input(type="text" id="function" name="function" value=user.function class="form-control")
-      div(class="form-group")
-        label(for="bio") Bio
-        textarea(id="bio" name="bio" class="form-control")= user.bio
-      button(type="submit" class="btn btn-primary") Update Details
+  div(class="container")
+    .row.justify-content-center 
+      .col-md-6
+        form( id="form-container" class="d-flex p-3 flex-row justify-content-center align-items-center" action="/users/update/image" method="post" enctype="multipart/form-data" )
+          input(type="file" name="avatar" class="d-none" id="input-avatar")
+          img(src=user.avatar class="img-fluid" id="image-profile")
+        div(class="d-flex flex-row justify-content-center align-items-center")
+          p= `${ user.username } (${ user.local.email })`
+        form(action="/users/update/details" method="post")
+          div(class="mb-3")
+              label(for="firstname" class="form-label") First Name
+              input(type="text" id="firstname" name="firstname" value=user.firstname class="form-control")
+          div(class="mb-3")
+              label(for="lastname" class="form-label") Last Name
+              input(type="text" id="lastname" name="lastname" value=user.lastname class="form-control")
+          div(class="mb-3")
+              label(for="function" class="form-label") Function
+              input(type="text" id="function" name="function" value=user.function class="form-control")
+          div(class="mb-3")
+              label(for="bio" class="form-label") Bio
+              textarea(id="bio" name="bio" class="form-control")= user.bio
+          button(type="submit" class="btn btn-primary mt-2") Update Details

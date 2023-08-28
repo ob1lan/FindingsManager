@@ -35,10 +35,11 @@ mixin findingsTable(findings)
                             button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editFindingModal-${finding._id}`)
                                 i.fas.fa-pencil-alt
                             //- Delete button
-                            form(method="post" action=`/findings/${finding._id}/delete` style="display: inline;")
-                                button.btn.btn-danger.btn-sm(type="submit") 
-                                    i.fas.fa-trash-alt
-
+                            //- form(method="post" action=`/findings/${finding._id}/delete` style="display: inline;")
+                            //-     button.btn.btn-danger.btn-sm(type="submit") 
+                            //-         i.fas.fa-trash-alt
+                            button.btn.btn-danger.btn-sm(data-bs-toggle="modal" data-bs-target="#deleteFindingConfirmationModal" data-finding-id=`${finding._id}`)
+                                i.fas.fa-trash-alt
                         //- Details Modal for each finding
                         .modal.fade(id="detailsModal-" + finding._id, tabindex="-1", aria-labelledby="detailsModalLabel-" + finding._id, aria-hidden="true").modal.fade
                             .modal-dialog

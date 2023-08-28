@@ -1,0 +1,20 @@
+mixin deleteConfirmationModal
+    #deleteConfirmationModal.modal.fade(tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true")
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5#deleteModalLabel.modal-title Confirm Deletion
+                    button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                .modal-body
+                    p Are you sure you want to delete this project?
+                .modal-footer
+                    button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
+                    a#confirmDelete.btn.btn-danger(href="#" method="post") Delete
+    script.
+        const deleteModal = document.getElementById('deleteConfirmationModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const projectId = button.getAttribute('data-project-id');
+            const deleteLink = document.getElementById('confirmDelete');
+            deleteLink.href = `/admin/projects/${projectId}/delete`;
+        });

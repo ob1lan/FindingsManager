@@ -1,0 +1,11 @@
+footer(class="footer mt-auto py-3 bg-body-tertiary")
+    div(class="d-flex gap2 justify-content-center")
+        if isAuthenticated
+            span(class="text-body-secondary d-flex align-items-center" id="clock")
+            span(class="text-body-secondary d-flex align-items-center")=` | `
+            span(class="badge d-flex align-items-center p-1 pe-2 text-success-emphasis bg-success-subtle border border-success-subtle rounded-pill")
+                img(class="rounded-circle me-1" width="24" height="24" src=`${currentUser.avatar}` alt="")
+                | Logged in as #{currentUser.username}
+        else
+            span(class="text-body-secondary clock")
+        script(src="/javascripts/clock.js")

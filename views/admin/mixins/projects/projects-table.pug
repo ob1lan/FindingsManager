@@ -1,5 +1,5 @@
 mixin projectsTable(projects)
-    if projects && projects.length
+    if projects.length
         table(id="projectsTable" class="display")
             thead
                 tr
@@ -9,6 +9,7 @@ mixin projectsTable(projects)
                     th Status 
                     th Assessor 
                     th Created By
+                    th Actions
             tbody
                     each project in projects
                         tr
@@ -23,10 +24,12 @@ mixin projectsTable(projects)
                                 button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${project._id}`) 
                                     i.fas.fa-search
                                 //- Edit button (link to an another modal)
-                                button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editUserModal-${project._id}`)
+                                button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editProjectModal-${project._id}`)
                                     i.fas.fa-pencil-alt
                                 //- Delete button (link to a delete route)
-                                a.btn.btn-danger.btn-sm(href=`/admin/projects/${project._id}/delete`) 
+                                //- a.btn.btn-danger.btn-sm(href=`/admin/projects/${project._id}/delete`) 
+                                //-     i.fas.fa-trash-alt
+                                button.btn.btn-danger.btn-sm(data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-project-id=`${project._id}`)
                                     i.fas.fa-trash-alt
     else
         p No project available.

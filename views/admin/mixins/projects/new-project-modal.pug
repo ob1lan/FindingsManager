@@ -1,40 +1,40 @@
 mixin newProjectModal(project)
-    #newProjectModal.modal.fade(tabindex="-1" aria-labelledby="newProjectModalLabel" aria-hidden="true")
+    .modal.fade(id="newProjectModal" tabindex="-1" aria-labelledby="newProjectModalLabel" aria-hidden="true")
         .modal-dialog.modal-lg
             .modal-content
-                .modal-header
-                    h5#newProjectModalLabel.modal-title New Project
-                    button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
-                .modal-body
-                    form(action="/admin/projects/create" method="post")
-                        .form-group
-                            label(for="reference") Reference
-                            input#reference.form-control(type="text" name="reference" required)
-                        .form-group
-                            label(for="title") Title
-                            input#title.form-control(type="text" name="title" required)
-                        .form-group
-                            label(for="type") Type
-                            select#type.form-control(name="type" required)
-                                option(value="WAPT") Web Application Penetration Test (WAPT)
-                                option(value="NVA") Network Vulnerability Assessment (NVA)
-                                option(value="BBP") Bug Bounty Program (BBP)
-                        .form-group
-                            label(for="status") Status
-                            select#status.form-control(name="status" required)
-                                option(value="Open") Open
-                                option(value="Closed") Closed
-                                option(value="Planned") Planned
-                                option(value="Cancelled") Cancelled
-                                option(value="On Hold") On Hold
-                                option(value="In Progress") In Progress
-                                option(value="Completed") Completed
-                        .form-group
-                            label(for="description") Description
-                            textarea#description.form-control(name="description" required)
-                        .form-group
-                            label(for="conductedBy") Assessor
-                            input#conductedBy.form-control(type="text" name="conductedBy")
-                .modal-footer
-                    button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
-                    button.btn.btn-primary(type="submit") Create Project
+                form(action="/admin/projects/create" method="post")
+                    .modal-header
+                        h5#newProjectModalLabel.modal-title New Project
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body
+                            .form-group
+                                label(for="reference") Reference
+                                input#reference.form-control(type="text" name="reference" required)
+                            .form-group
+                                label(for="title") Title
+                                input#title.form-control(type="text" name="title" required)
+                            .form-group
+                                label(for="type") Type
+                                select#type.form-control(name="type" required)
+                                    option(value="WAPT") Web Application Penetration Test (WAPT)
+                                    option(value="NVA") Network Vulnerability Assessment (NVA)
+                                    option(value="BBP") Bug Bounty Program (BBP)
+                            .form-group
+                                label(for="status") Status
+                                select#status.form-control(name="status" required)
+                                    option(value="Open") Open
+                                    option(value="Closed") Closed
+                                    option(value="Planned") Planned
+                                    option(value="Cancelled") Cancelled
+                                    option(value="On Hold") On Hold
+                                    option(value="In Progress") In Progress
+                                    option(value="Completed") Completed
+                            .form-group
+                                label(for="description") Description
+                                textarea#description.form-control(name="description" required)
+                            .form-group
+                                label(for="conductedBy") Assessor
+                                input#conductedBy.form-control(type="text" name="conductedBy")
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
+                        button.btn.btn-primary(type="submit") Create Project

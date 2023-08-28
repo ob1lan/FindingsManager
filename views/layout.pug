@@ -17,13 +17,5 @@ html(lang="en" class="h-100")
         main(class="flex-shrink-0")            
             div(class="container-fluid")
                 block content
-        footer(class="footer mt-auto py-3 bg-body-tertiary")
-            .container
-                if isAuthenticated
-                    span(class="text-body-secondary" id="clock")
-                    span(class="text-body-secondary")=` | `
-                    span(class="text-body-secondary")=`Logged in as ${currentUser.username}`
-                else
-                    span(class="text-body-secondary clock")
-                script(src="/javascripts/clock.js")
+        include includes/footer.pug
 

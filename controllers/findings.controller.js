@@ -1,3 +1,5 @@
+const { Parser } = require("json2csv");
+
 const {
   createFinding,
   getFindings,
@@ -69,6 +71,29 @@ exports.findingDelete = async (req, res, next) => {
     // You might use a function like deleteFinding from your queries
     await deleteFinding(req.params.id);
     res.redirect("/findings");
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.exportToCSV = async (req, res, next) => {
+  try {
+    const findings = await getFindings(); // Replace with your function to fetch findings
+
+    const fields = ["reference", "title", "type", "severity", "status"]; // Add more fields as needed
+    const opts = { fields };
+    const parser = new Parser(opts);
+    const csv = parser.parse(findings);
+
+    const currentTimestamp = new Date()
+      .toISOString()
+      .replace(/[:T]/g, "-")
+      .slice(0, 19);
+    const filename = `findings-${currentTimestamp}.csv`;
+
+    res.header("Content-Type", "text/csv");
+    res.attachment(filename);
+    return res.send(csv);
   } catch (error) {
     next(error);
   }

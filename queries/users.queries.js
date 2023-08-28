@@ -44,3 +44,11 @@ exports.searchUsersPerUsername = (search) => {
 exports.updateUserDetails = async (userId, details) => {
   return await User.findByIdAndUpdate(userId, details, { new: true });
 };
+
+exports.deleteUser = async (id) => {
+  try {
+    return await User.findByIdAndDelete(id).exec();
+  } catch (e) {
+    throw e;
+  }
+};
