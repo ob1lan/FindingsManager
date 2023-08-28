@@ -3,6 +3,7 @@
 Currently in DRAFT
 # TO DO
 - Add an admin menu and find out how to handle the roles
+- Add a due date to the findings and conditional coloring in the table
 - Allow admins to create/delete users
 - Allow admins to change logo and other settings (maybe)
 - Allow admins to view user's activity (log everything then)
@@ -12,7 +13,7 @@ Currently in DRAFT
 - Create a dashboard chart for issue type / OWASP Category (use several Top 10)
 - Refactor the visual to fully use Bootstrap (see their examples)
 - dropdowns : use svg icons or colored circles (cf bootstrap examples)
-- policies in setting to calculate due date by computing the creation date
+- Settings: policies in setting to calculate due date by computing the creation date
 - SAML auth support
 - User profile:
     - add the user's created findings (last 5)
@@ -22,3 +23,4 @@ Currently in DRAFT
     - correct the picture upload (only when clicking on the picture + hover animation with UL logo)
     - Notification preferences (checkboxes)
     - Audit data (last login + UA + location + IP)
+- move the profile page and related code to a separate file to match /me/ URL/path

@@ -7,14 +7,17 @@ app.use(
   session({
     secret: "MySuperSecret",
     resave: false,
+    rolling: true,
     saveUninitialized: false,
     cookie: {
-      httpOnly: false,
-      maxAge: 1000 * 60 * 60 * 24 * 14,
+      sameSite: "lax",
+      httpOnly: true,
+      secure: true,
+      maxAge: 1000 * 60 * 60 * 24 * 1, // 1 day
     },
     store: MongoStore.create({
       clientPromise: clientPromise.then((m) => m.connection.getClient()),
-      ttl: 60 * 60 * 24 * 14,
+      ttl: 60 * 60 * 24 * 1, // 1 day
     }),
   })
 );

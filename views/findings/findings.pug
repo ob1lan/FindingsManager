@@ -7,20 +7,21 @@ include mixins/delete-confirmation-modal
 block content
     h1 Findings
 
-    //- New Finding button
-    button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#newFindingModal") New Finding
+    div.d-flex.pb-2
+        //- New Finding button
+        button.btn.btn-primary.me-2(data-bs-toggle="modal" data-bs-target="#newFindingModal") New Finding
 
-    //- Export to CSV button
-    div.dropdown
-        button.btn.btn-success.dropdown-toggle(type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false")
-            | Export to CSV
-        div.dropdown-menu(aria-labelledby="exportDropdown")
-            form(action="/findings/export" method="get")
-                select(name="projectReference" class="form-control mb-2")
-                    option(value="") All Projects
-                    each project in projects
-                        option(value=project.reference)= project.title
-                button.btn.btn-primary(type="submit") Export
+        //- Export to CSV button
+        div.dropdown
+            button.btn.btn-success.dropdown-toggle(type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false")
+                | Export to CSV
+            div.dropdown-menu(aria-labelledby="exportDropdown")
+                form(action="/findings/export" method="get")
+                    select(name="projectReference" class="form-control mb-2")
+                        option(value="") All Projects
+                        each project in projects
+                            option(value=project.reference)= project.title
+                    button.btn.btn-primary(type="submit") Export
 
     //- New Finding Modal
     +newFindingModal(finding)
