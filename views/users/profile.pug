@@ -34,4 +34,24 @@ block content
               label(for="bio" class="form-label") Bio
               textarea(id="bio" name="bio" class="form-control")= user.bio
           button(type="submit" class="btn btn-primary mt-2") Update Details
+          if !user.twoFA.isTFA
+              a.btn.btn-primary(href="/2fa/2fa-setup") Enable 2FA
+          else
+              button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#2faModal") Verify 2FA     
+              .modal.fade(id="2faModal" tabindex="-1" aria-labelledby="2faModalLabel" aria-hidden="true")
+                .modal-dialog
+                    .modal-content
+                        .modal-header
+                            h5.modal-title 2FA Setup
+                            button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                        .modal-body
+                            p Scan the QR code below with your 2FA app (like Google Authenticator).
+                            img(src=user.twoFA.dataURL)
+                            p= user.twoFA.secret
+                            form(action="/2fa/2fa-verify" method="post")
+                                .form-group
+                                    label Enter the 2FA code from your app
+                                    input.form-control(type="text" name="token" required)
+                                button.btn.btn-primary(type="submit") Verify
+
 
