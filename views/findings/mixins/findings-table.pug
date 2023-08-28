@@ -4,6 +4,7 @@ mixin findingsTable(findings)
             thead
                 tr
                     th Reference
+                    th Project
                     th Title
                     th Type
                     th Severity
@@ -18,6 +19,7 @@ mixin findingsTable(findings)
                 each finding in findings
                     tr
                         td= finding.reference
+                        td= finding.project
                         td= finding.title
                         td= finding.type
                         td= finding.severity
@@ -34,10 +36,6 @@ mixin findingsTable(findings)
                             //- Edit button
                             button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editFindingModal-${finding._id}`)
                                 i.fas.fa-pencil-alt
-                            //- Delete button
-                            //- form(method="post" action=`/findings/${finding._id}/delete` style="display: inline;")
-                            //-     button.btn.btn-danger.btn-sm(type="submit") 
-                            //-         i.fas.fa-trash-alt
                             button.btn.btn-danger.btn-sm(data-bs-toggle="modal" data-bs-target="#deleteFindingConfirmationModal" data-finding-id=`${finding._id}`)
                                 i.fas.fa-trash-alt
                         //- Details Modal for each finding
@@ -49,6 +47,7 @@ mixin findingsTable(findings)
                                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                                     .modal-body
                                         p Reference: #{finding.reference}
+                                        p Project: #{finding.project}
                                         p Status: #{finding.status}
                                         p Assignee: #{finding.assignee}
                                         p Origin: #{finding.origin}

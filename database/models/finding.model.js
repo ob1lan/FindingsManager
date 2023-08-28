@@ -15,6 +15,7 @@ const findingSchema = schema(
     cve: { type: String, default: "None" },
     cvss: { type: String, default: "" },
     createdBy: { type: String, required: true, default: "" },
+    project: { type: String, default: "None" },
   },
   {
     timestamps: true, // This will automatically add `createdAt` and `updatedAt` fields

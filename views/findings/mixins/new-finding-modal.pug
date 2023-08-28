@@ -45,6 +45,11 @@ mixin newFindingModal(finding)
                                     input#reportedBy.form-control(type="text" name="reportedBy")
                             .col-md-6
                                 .form-group
+                                    label(for="project") Project
+                                    select#project.form-control(name="project")
+                                        each project in projects
+                                            option(value=project.reference)= project.reference
+                                .form-group
                                     label(for="status") Status
                                     select#status.form-control(name="status")
                                         option(value="In Remediation") In Remediation

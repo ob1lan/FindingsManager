@@ -11,6 +11,11 @@ mixin editFindingModal(finding)
                             label(for="reference") Reference
                             input#reference.form-control(type="text" name="reference" value= finding.reference required)
                         .mb-3
+                            label(for="project") Project
+                            select#project.form-control(name="project")
+                                each project in projects
+                                    option(value=project.reference)= project.reference
+                        .mb-3
                             label(for="title") Title
                             input#title.form-control(type="text" name="title" value= finding.title required)
                         .mb-3

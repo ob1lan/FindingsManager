@@ -48,7 +48,6 @@ exports.updateUser = async (req, res, next) => {
   }
 };
 
-
 exports.deleteUser = async (req, res, next) => {
   try {
     // Here, you'll delete the finding using its ID

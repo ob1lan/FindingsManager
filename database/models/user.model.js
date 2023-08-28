@@ -9,10 +9,10 @@ const userSchema = schema({
     password: { type: String, required: true },
   },
   avatar: { type: String, default: "/images/default-profile.svg" },
-  firstname: { type: String, default: "" }, // Added firstname
-  lastname: { type: String, default: "" }, // Added lastname
-  function: { type: String, default: "" }, // Added function
-  bio: { type: String, default: "" }, // Added bio
+  firstname: { type: String, default: "" },
+  lastname: { type: String, default: "" },
+  function: { type: String, default: "" },
+  bio: { type: String, default: "" },
   role: {
     type: String,
     enum: ["user", "admin"],

@@ -4,6 +4,7 @@ mixin projectsTable(projects)
             thead
                 tr
                     th Reference
+                    th Type
                     th Title 
                     th Description
                     th Status 
@@ -14,6 +15,7 @@ mixin projectsTable(projects)
                     each project in projects
                         tr
                             td= project.reference
+                            td= project.type
                             td= project.title
                             td= project.description
                             td= project.status

@@ -8,6 +8,7 @@ exports.createFinding = async (finding) => {
   try {
     const newFinding = new Finding({
       reference: finding.reference,
+      project: finding.project,
       status: finding.status,
       assignee: finding.assignee,
       origin: finding.origin,

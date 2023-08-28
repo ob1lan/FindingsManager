@@ -32,7 +32,7 @@ const projectSchema = schema(
     closedDate: { type: Date },
   },
   {
-    timestamps: true, // This will automatically add `createdAt` and `updatedAt` fields
+    timestamps: true,
   }
 );
 

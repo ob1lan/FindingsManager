@@ -8,11 +8,15 @@ const {
   deleteFinding,
 } = require("../queries/findings.queries");
 
+const { getProjects } = require("../queries/projects.queries");
+
 exports.findings = async (req, res, next) => {
   try {
     const findings = await getFindings();
+    const projects = await getProjects();
     res.render("findings/findings", {
       findings,
+      projects,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
       user: req.user,
@@ -55,8 +59,6 @@ exports.findingEdit = async (req, res, next) => {
     }
   } else if (req.method === "POST") {
     try {
-      // Here, you'll update the finding with the new data from req.body
-      // You might use a function like updateFinding from your queries
       await updateFinding(req.params.id, req.body);
       res.redirect("/findings");
     } catch (error) {
