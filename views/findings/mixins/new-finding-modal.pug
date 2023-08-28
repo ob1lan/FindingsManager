@@ -11,16 +11,16 @@ mixin newFindingModal(finding)
                             .col-md-6
                                 .form-group
                                     label(for="reference") Reference
-                                    input#reference.form-control(type="text" name="reference" required)
+                                    input#reference.form-control(type="text" name="reference" placeholder="e.g. Ticket-ID" required)
                                 .form-group
                                     label(for="assignee") Assignee
-                                    input#assignee.form-control(type="text" name="assignee")
+                                    input#assignee.form-control(type="text" name="assignee" placeholder="e.g. John Doe")
                                 .form-group
                                     label(for="origin") Origin
-                                    input#origin.form-control(type="text" name="origin")
+                                    input#origin.form-control(type="text" name="origin" placeholder="e.g. WAPT, NVA, BBP" required)
                                 .form-group
                                     label(for="title") Title
-                                    input#title.form-control(type="text" name="title" required)
+                                    input#title.form-control(type="text" name="title" placeholder="e.g. SXSS in the blog component" required)
                                 .form-group
                                     .form-group
                                     label(for="type") Type
@@ -39,10 +39,10 @@ mixin newFindingModal(finding)
                                         option(value="Business Logic Flaws") Business Logic Flaws
                                 .form-group
                                     label(for="description") Description
-                                    textarea#description.form-control(name="description" required)
+                                    textarea#description.form-control(name="description" placeholder="e.g. There is a Stored XSS in the blog application" required)
                                 .form-group
                                     label(for="reportedBy") Reported By
-                                    input#reportedBy.form-control(type="text" name="reportedBy")
+                                    input#reportedBy.form-control(type="text" name="reportedBy" placeholder="e.g. John Smith")
                             .col-md-6
                                 .form-group
                                     label(for="project") Project
@@ -66,10 +66,10 @@ mixin newFindingModal(finding)
                                         option(value="Info") Info
                                 .form-group
                                     label(for="cve") CVE
-                                    input#cve.form-control(type="text" name="cve" value="None")
+                                    input#cve.form-control(type="text" name="cve" placeholder="CVE-2023-1234")
                                 .form-group
                                     label(for="cvss") CVSS
-                                    input#cvss.form-control(type="text" name="cvss")
+                                    input#cvss.form-control(type="text" name="cvss" placeholder="CVSS 3.0 Base Score")
                     .modal-footer
                         button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
                         button.btn.btn-primary(type="submit") Create Finding

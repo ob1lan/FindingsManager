@@ -8,7 +8,7 @@ const {
   updateUserDetails,
 } = require("../controllers/users.controller");
 
-router.get("/profile", userProfile);
+router.get("/profile", ensureAuthenticated, userProfile);
 router.get("/signup/form", signupForm);
 router.post("/signup", signup);
 router.post("/update/image", ensureAuthenticated, uploadImage);
