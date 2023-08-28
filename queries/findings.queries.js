@@ -84,3 +84,14 @@ exports.getCountByProject = () => {
     },
   ]).exec();
 };
+
+exports.getCountByOrigin = () => {
+  return Finding.aggregate([
+    {
+      $group: {
+        _id: "$origin",
+        count: { $sum: 1 },
+      },
+    },
+  ]).exec();
+};

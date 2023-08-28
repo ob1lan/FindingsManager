@@ -1,0 +1,30 @@
+mixin originPieChart(chart4)
+    canvas#chart4
+        script.
+            const originData = {
+                labels: !{JSON.stringify(findingsByOrigin.map(item => item._id))},
+                datasets: [{
+                label: 'Findings by Origin',
+                data: !{JSON.stringify(findingsByOrigin.map(item => item.count))},
+                backgroundColor: ['blue', 'green', 'red', 'yellow'], // Colors for 'Automated Scan', 'Manual Testing', 'External Report', 'Other'
+                borderColor: ['blue', 'green', 'red', 'yellow'],
+                borderWidth: 1
+                }]
+            };
+            const ctxOrigin = document.getElementById('chart4').getContext('2d');
+            const myPieChart4 = new Chart(ctxOrigin, {
+                type: 'pie',
+                data: originData,
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Findings by Origin'
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                        },
+                    },
+                }
+            });

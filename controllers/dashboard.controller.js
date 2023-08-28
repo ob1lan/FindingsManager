@@ -1,4 +1,9 @@
-const { getCountBySeverity, getCountByStatus, getCountByProject } = require("../queries/findings.queries");
+const {
+  getCountBySeverity,
+  getCountByStatus,
+  getCountByProject,
+  getCountByOrigin,
+} = require("../queries/findings.queries");
 
 exports.getDashboard = async (req, res, next) => {
   try {
@@ -7,11 +12,13 @@ exports.getDashboard = async (req, res, next) => {
     const sortedStatusData = sortStatusData(statusCounts);
     const sortedData = sortSeverityData(severityCounts);
     const findingsByProject = await getCountByProject();
+    const findingsByOrigin = await getCountByOrigin();
 
     res.render("dashboard/dashboard", {
       sortedData,
       sortedStatusData,
       findingsByProject,
+      findingsByOrigin,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
       user: req.user,
