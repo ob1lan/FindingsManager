@@ -6,14 +6,7 @@ exports.getProjects = () => {
 
 exports.createProject = async (project) => {
   try {
-    const newProject = new Project({
-      reference: project.reference,
-      status: project.status,
-      createdBy: project.createdBy,
-      title: project.title,
-      type: project.type,
-      description: project.description,
-    });
+    const newProject = new Project(project);
     return newProject.save();
   } catch (e) {
     throw e;

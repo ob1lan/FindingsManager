@@ -2,6 +2,10 @@ extends ../layout
 
 block content
   h1 User Profile
+  if user.firstname 
+      h3 Hi, #{ user.firstname }!
+  else
+      h3 Hi, #{ user.username }!
   script(src="/javascripts/profile.js")
   div(class="container")
     .row.justify-content-center 
@@ -11,6 +15,11 @@ block content
           img(src=user.avatar class="img-fluid" id="image-profile")
         div(class="d-flex flex-row justify-content-center align-items-center")
           p= `${ user.username } (${ user.local.email })`
+        div(class="d-flex flex-row justify-content-center align-items-center")
+          if user.role === 'admin'
+            span(class="badge bg-danger-subtle text-danger-emphasis rounded-pill") Admin
+          else
+            span(class="badge bg-danger-subtle text-danger-emphasis rounded-pill") User
         form(action="/users/update/details" method="post")
           div(class="mb-3")
               label(for="firstname" class="form-label") First Name

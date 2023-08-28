@@ -6,21 +6,7 @@ exports.getFindings = () => {
 
 exports.createFinding = async (finding) => {
   try {
-    const newFinding = new Finding({
-      reference: finding.reference,
-      project: finding.project,
-      status: finding.status,
-      assignee: finding.assignee,
-      origin: finding.origin,
-      title: finding.title,
-      type: finding.type,
-      description: finding.description,
-      severity: finding.severity,
-      reportedBy: finding.reportedBy,
-      cve: finding.cve,
-      cvss: finding.cvss,
-      createdBy: finding.createdBy,
-    });
+    const newFinding = new Finding(finding);
     return newFinding.save();
   } catch (e) {
     throw e;
@@ -82,4 +68,8 @@ exports.getCountByStatus = () => {
       },
     },
   ]).exec();
+};
+
+exports.getFindingsByProjectReference = (projectReference) => {
+  return Finding.find({ project: projectReference }).exec();
 };

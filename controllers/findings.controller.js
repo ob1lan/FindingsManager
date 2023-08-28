@@ -6,6 +6,7 @@ const {
   findFindingPerId,
   updateFinding,
   deleteFinding,
+  getFindingsByProjectReference,
 } = require("../queries/findings.queries");
 
 const { getProjects } = require("../queries/projects.queries");
@@ -78,9 +79,40 @@ exports.findingDelete = async (req, res, next) => {
   }
 };
 
+// exports.exportToCSV = async (req, res, next) => {
+//   try {
+//     const findings = await getFindings(); // Replace with your function to fetch findings
+
+//     const fields = ["reference", "title", "type", "severity", "status"]; // Add more fields as needed
+//     const opts = { fields };
+//     const parser = new Parser(opts);
+//     const csv = parser.parse(findings);
+
+//     const currentTimestamp = new Date()
+//       .toISOString()
+//       .replace(/[:T]/g, "-")
+//       .slice(0, 19);
+//     const filename = `findings-${currentTimestamp}.csv`;
+
+//     res.header("Content-Type", "text/csv");
+//     res.attachment(filename);
+//     return res.send(csv);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
 exports.exportToCSV = async (req, res, next) => {
   try {
-    const findings = await getFindings(); // Replace with your function to fetch findings
+    const { projectReference } = req.query;
+
+    let findings;
+
+    if (projectReference) {
+      findings = await getFindingsByProjectReference(projectReference);
+    } else {
+      findings = await getFindings();
+    }
 
     const fields = ["reference", "title", "type", "severity", "status"]; // Add more fields as needed
     const opts = { fields };
