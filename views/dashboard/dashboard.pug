@@ -1,7 +1,7 @@
 extends ../layout.pug
 include mixins/severity-pie-chart
 include mixins/status-pie-chart
-//- include mixins/type-pie-chart
+include mixins/project-pie-chart
 
 block content
     h1 Dashboard
@@ -12,4 +12,4 @@ block content
         div(class="chart-container")
             +statusPieChart(chart2)
         div(class="chart-container")
-            //- +typePieChart(chart3)
+            +projectPieChart(chart3)

@@ -73,3 +73,14 @@ exports.getCountByStatus = () => {
 exports.getFindingsByProjectReference = (projectReference) => {
   return Finding.find({ project: projectReference }).exec();
 };
+
+exports.getCountByProject = () => {
+  return Finding.aggregate([
+    {
+      $group: {
+        _id: "$project",
+        count: { $sum: 1 },
+      },
+    },
+  ]).exec();
+};

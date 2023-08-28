@@ -1,7 +1,7 @@
 mixin severityPieChart(chart1)
     canvas#chart1
         script.
-            const data = {
+            const severityData = {
                 labels: ['Critical', 'High', 'Medium', 'Low', 'Info'],
                 datasets: [{
                 label: 'Findings:',
@@ -11,10 +11,10 @@ mixin severityPieChart(chart1)
                 borderWidth: 1
                 }]
             };
-            const ctx = document.getElementById('chart1').getContext('2d');
-            const myPieChart = new Chart(ctx, {
+            const ctxSeverity = document.getElementById('chart1').getContext('2d');
+            const myPieChart1 = new Chart(ctxSeverity, {
                 type: 'pie',
-                data: data,
+                data: severityData,
                 options: {
                     plugins: {
                         title: {

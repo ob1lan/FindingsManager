@@ -1,0 +1,30 @@
+mixin projectPieChart(chart3)
+    canvas#chart3
+        script.
+            const dataProject = {
+                labels: !{JSON.stringify(findingsByProject.map(item => item._id))}, // Project references
+                datasets: [{
+                label: 'Findings:',
+                data: !{JSON.stringify(findingsByProject.map(item => item.count))}, // Counts
+                backgroundColor: ['darkred', 'red', 'orange', 'green', 'blue', /*... add more colors if you have more projects */],
+                borderColor: ['darkred', 'red', 'orange', 'green', 'blue', /*... add more border colors if you have more projects */],
+                borderWidth: 1
+                }]
+            };
+            const ctxProject = document.getElementById('chart3').getContext('2d');
+            const myPieChart3 = new Chart(ctxProject, {
+                type: 'pie',
+                data: dataProject,
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Findings by Project'
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                        },
+                    },
+                }
+            });

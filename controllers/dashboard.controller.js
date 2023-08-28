@@ -1,4 +1,4 @@
-const { getCountBySeverity, getCountByStatus } = require("../queries/findings.queries");
+const { getCountBySeverity, getCountByStatus, getCountByProject } = require("../queries/findings.queries");
 
 exports.getDashboard = async (req, res, next) => {
   try {
@@ -6,9 +6,12 @@ exports.getDashboard = async (req, res, next) => {
     const statusCounts = await getCountByStatus();
     const sortedStatusData = sortStatusData(statusCounts);
     const sortedData = sortSeverityData(severityCounts);
+    const findingsByProject = await getCountByProject();
+
     res.render("dashboard/dashboard", {
       sortedData,
       sortedStatusData,
+      findingsByProject,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
       user: req.user,
@@ -28,6 +31,15 @@ function sortSeverityData(data) {
 }
 
 function sortStatusData(data) {
+  const order = ["In Remediation", "Remediated", "Declined", "Accepted"];
+  const sorted = order.map((status) => {
+    const item = data.find((d) => d._id === status) || { count: 0 };
+    return item.count;
+  });
+  return sorted;
+}
+
+function sortProjectData(data) {
   const order = ["In Remediation", "Remediated", "Declined", "Accepted"];
   const sorted = order.map((status) => {
     const item = data.find((d) => d._id === status) || { count: 0 };
