@@ -8,7 +8,7 @@ Currently in DRAFT
 - Allow admins to change logo and other settings (maybe)
 - Allow admins to view user's activity (log everything then)
 - Allow users to change their password
-- Export findings to CSV (+ filter per project)
+- Import findings from CSV (no file upload, all in the client)
 - Report on findings using a PDF template (with branding)
 - Create a dashboard chart for issue type / OWASP Category (use several Top 10)
 - Refactor the visual to fully use Bootstrap (see their examples)
@@ -24,3 +24,4 @@ Currently in DRAFT
     - Notification preferences (checkboxes)
     - Audit data (last login + UA + location + IP)
 - move the profile page and related code to a separate file to match /me/ URL/path
+- refactor all modals to use Bootstrap 5.3 (footer, etc...)

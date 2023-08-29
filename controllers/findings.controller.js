@@ -1,8 +1,4 @@
 const { Parser } = require("json2csv");
-// const Papa = require("papaparse");
-const fs = require("fs");
-const path = require("path");
-const csv = require("csv-parser");
 
 const {
   createFinding,
@@ -131,51 +127,6 @@ exports.exportToCSV = async (req, res, next) => {
     res.header("Content-Type", "text/csv");
     res.attachment(filename);
     return res.send(csv);
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.importFromCSV = async (req, res, next) => {
-  try {
-    if (!req.files || Object.keys(req.files).length === 0) {
-      return res.status(400).send("No files were uploaded.");
-    }
-
-    const csvFile = req.files.csvFile;
-    const findings = [];
-
-    const filePath = path.join(__dirname, "..", "uploads", csvFile.name);
-
-    csvFile.mv(filePath, function (err) {
-      if (err) return res.status(500).send(err);
-
-      fs.createReadStream(filePath)
-        .pipe(
-          csv({
-            mapHeaders: ({ header, index }) => header.trim(),
-            mapValues: ({ header, index, value }) => value.trim(),
-            trim: true,
-            skipLines: 1,
-          })
-        )
-        .on("data", (row) => {
-          findings.push({
-            ...row,
-            createdBy: req.user.username, // Set createdBy to the current user
-          });
-        })
-        .on("end", async () => {
-          try {
-            for (const finding of findings) {
-              await createFinding(finding);
-            }
-            res.redirect("/findings");
-          } catch (e) {
-            next(e);
-          }
-        });
-    });
   } catch (error) {
     next(error);
   }

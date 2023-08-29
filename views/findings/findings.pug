@@ -23,10 +23,6 @@ block content
                             option(value=project.reference)= project.title
                     button.btn.btn-primary(type="submit") Export
 
-        form(action="/findings/import" method="post" enctype="multipart/form-data")
-            input(type="file" name="csvFile" accept=".csv")
-            button.btn.btn-primary(type="submit") Import from CSV
-
     //- New Finding Modal
     +newFindingModal(finding)
 
