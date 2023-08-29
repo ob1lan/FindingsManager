@@ -18,7 +18,7 @@ const userSchema = schema({
     enum: ["user", "admin"],
     default: "user",
   },
-  twoFASecret: { type: String, default: "" },
+  twoFASecret: { type: String, default: null },
   twoFAEnabled: { type: Boolean, default: false },
 });
 

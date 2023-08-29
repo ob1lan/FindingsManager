@@ -24,10 +24,14 @@ window.addEventListener("DOMContentLoaded", () => {
     );
 
     try {
+      console.error("Sending OTP and Secret");
       const response = await axios.post("/users/verify-2fa", formData);
+      console.error(response);
+      console.error(response.data);
       if (response.data.success) {
         window.location.href = "/users/profile";
       } else {
+        console.error(response.data);
         errorMessage.style.display = "block";
       }
     } catch (error) {
