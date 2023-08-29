@@ -79,29 +79,6 @@ exports.findingDelete = async (req, res, next) => {
   }
 };
 
-// exports.exportToCSV = async (req, res, next) => {
-//   try {
-//     const findings = await getFindings(); // Replace with your function to fetch findings
-
-//     const fields = ["reference", "title", "type", "severity", "status"]; // Add more fields as needed
-//     const opts = { fields };
-//     const parser = new Parser(opts);
-//     const csv = parser.parse(findings);
-
-//     const currentTimestamp = new Date()
-//       .toISOString()
-//       .replace(/[:T]/g, "-")
-//       .slice(0, 19);
-//     const filename = `findings-${currentTimestamp}.csv`;
-
-//     res.header("Content-Type", "text/csv");
-//     res.attachment(filename);
-//     return res.send(csv);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
 exports.exportToCSV = async (req, res, next) => {
   try {
     const { projectReference } = req.query;
@@ -114,7 +91,21 @@ exports.exportToCSV = async (req, res, next) => {
       findings = await getFindings();
     }
 
-    const fields = ["reference", "title", "type", "severity", "status"]; // Add more fields as needed
+    const fields = [
+      "reference",
+      "project",
+      "title",
+      "type",
+      "severity",
+      "status",
+      "assignee",
+      "cve",
+      "cvss",
+      "reportedBy",
+      "conductedBy",
+      "description",
+      "origin",
+    ]; // Add more fields as needed
     const opts = { fields };
     const parser = new Parser(opts);
     const csv = parser.parse(findings);
