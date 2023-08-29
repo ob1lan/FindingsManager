@@ -135,7 +135,7 @@ exports.verify2FA = async (req, res, next) => {
     encoding: "base32",
     token: otp,
   });
-  console.error("OTP Verified:", verified);
+  console.error("OTP Verified :", verified);
   if (verified) {
     req.user.twoFASecret = secret;
     req.user.twoFAEnabled = true;
