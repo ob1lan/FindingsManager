@@ -2,10 +2,11 @@ extends ../layout
 
 block content
   h1 User Profile
+  script(src="/javascripts/profile.js")
   if user.firstname 
-      h3 Hi, #{ user.firstname }!
+    h3 Hi, #{ user.firstname }!
   else
-      h3 Hi, #{ user.username }!
+    h3 Hi, #{ user.username }!
   div(class="container")
     .row.justify-content-center 
       .col-md-6
@@ -21,33 +22,33 @@ block content
             span(class="badge bg-danger-subtle text-danger-emphasis rounded-pill") User
         form(action="/users/update/details" method="post")
           div(class="mb-3")
-              label(for="firstname" class="form-label") First Name
-              input(type="text" id="firstname" name="firstname" value=user.firstname class="form-control")
+            label(for="firstname" class="form-label") First Name
+            input(type="text" id="firstname" name="firstname" value=user.firstname class="form-control")
           div(class="mb-3")
-              label(for="lastname" class="form-label") Last Name
-              input(type="text" id="lastname" name="lastname" value=user.lastname class="form-control")
+            label(for="lastname" class="form-label") Last Name
+            input(type="text" id="lastname" name="lastname" value=user.lastname class="form-control")
           div(class="mb-3")
-              label(for="function" class="form-label") Function
-              input(type="text" id="function" name="function" value=user.function class="form-control")
+            label(for="function" class="form-label") Function
+            input(type="text" id="function" name="function" value=user.function class="form-control")
           div(class="mb-3")
-              label(for="bio" class="form-label") Bio
-              textarea(id="bio" name="bio" class="form-control")= user.bio
+            label(for="bio" class="form-label") Bio
+            textarea(id="bio" name="bio" class="form-control")= user.bio
           button(type="submit" class="btn btn-primary mt-2") Update Details
-          br
-          button.btn.btn-primary(id="setup2FAButton" data-toggle="modal" data-target="#setup2FAModal") Setup Two-Factor Authentication
-          div.modal.fade(id="setup2FAModal" tabindex="-1" aria-labelledby="setup2FAModalLabel" aria-hidden="true")
-            div.modal-dialog
-              div.modal-content
-                div.modal-header
-                  h5.modal-title Setup Two-Factor Authentication
-                  button.btn-close(type="button" data-dismiss="modal" aria-label="Close")
-                div.modal-body
-                  img(src=dataURL alt="QR Code")
-                  p Scan the QR code or enter the secret manually: #{secret}
-                  form(action="/users/verify-2fa" method="post")
-                    input(type="hidden" name="secret" value=secret)
-                    div.form-group
-                      label Enter OTP
-                      input(type="text" name="otp" class="form-control")
-                    button(type="submit" class="btn btn-primary") Verify
-          script(src="/javascripts/profile.js")
+        br
+        button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#setup2FAModal") Setup Two-Factor Authentication
+        
+        div.modal.fade(id="setup2FAModal" tabindex="-1" aria-labelledby="setup2FAModalLabel" aria-hidden="true")
+          div.modal-dialog
+            div.modal-content
+              div.modal-header
+                h5.modal-title Setup Two-Factor Authentication
+                button.btn-close(type="button" data-dismiss="modal" aria-label="Close")
+              div.modal-body
+                img(src=dataURL alt="QR Code")
+                p Scan the QR code or enter the secret manually: #{secret}
+                form(action="/users/verify-2fa" method="post")
+                  input(type="hidden" name="secret" value=secret)
+                  div.form-group
+                    label Enter OTP
+                    input(type="text" name="otp" class="form-control")
+                  button(type="submit" class="btn btn-primary") Verify
