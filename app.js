@@ -1,5 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
+const morganBody = require("morgan-body");
+const bodyParser = require("body-parser");
 const path = require("path");
 const index = require("./routes");
 const errorHandler = require("errorhandler");
@@ -13,8 +15,11 @@ app.set("view engine", "pug");
 
 require("./config/session.config");
 require("./config/passport.config");
+app.use(bodyParser.json());
 
-app.use(morgan("short"));
+// hook morganBody to express app
+morganBody(app);
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

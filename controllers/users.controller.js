@@ -1,4 +1,5 @@
 const {
+  User,
   createUser,
   findUserPerUsername,
   searchUsersPerUsername,
@@ -129,23 +130,19 @@ exports.setup2FAForm = async (req, res, next) => {
 };
 
 exports.verify2FA = async (req, res, next) => {
-  console.error("Verifying OTP");
   const { otp, secret } = req.body;
   const verified = speakeasy.totp.verify({
     secret: secret,
     encoding: "base32",
     token: otp,
   });
-  console.error("OTP Verified :", verified);
   if (verified) {
-    console.error("OTP is verified. Saving secret:", secret);
+    const user = await User.findById(req.user._id);
     req.user.twoFASecret = secret;
     req.user.twoFAEnabled = true;
-    await req.user.save();
-    console.error("User after save:", req.user);
+    await user.save();
     res.json({ success: true });
   } else {
-    console.error("OTP verification failed.");
     res.json({ success: false });
   }
 };
