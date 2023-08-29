@@ -102,11 +102,19 @@ exports.exportToCSV = async (req, res, next) => {
       "cve",
       "cvss",
       "reportedBy",
-      "conductedBy",
       "description",
       "origin",
-    ]; // Add more fields as needed
-    const opts = { fields };
+      "createdBy",
+      "createdAt",
+      "updatedAt",
+    ];
+    const opts = {
+      fields,
+      quote: "",
+      delimiter: ",",
+      header: true,
+      quoteEmpty: true,
+    };
     const parser = new Parser(opts);
     const csv = parser.parse(findings);
 
