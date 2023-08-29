@@ -1,5 +1,4 @@
 const {
-  User,
   createUser,
   findUserPerUsername,
   searchUsersPerUsername,
@@ -64,7 +63,6 @@ exports.userProfile = async (req, res, next) => {
     next(e);
   }
 };
-
 
 exports.signupForm = (req, res, next) => {
   res.render("users/user-form", {
@@ -131,17 +129,18 @@ exports.setup2FAForm = async (req, res, next) => {
 
 exports.verify2FA = async (req, res, next) => {
   const { otp, secret } = req.body;
-  console.log("Received OTP:", otp);
-  console.log("Received Secret:", secret);
+  const user = await findUserPerId(req.user._id);
+  if (!user) {
+    return res.json({ success: false, message: "User not found" });
+  }
   const verified = speakeasy.totp.verify({
     secret: secret,
     encoding: "base32",
     token: otp,
   });
   if (verified) {
-    const user = await User.findById(req.user._id);
-    req.user.twoFASecret = secret;
-    req.user.twoFAEnabled = true;
+    user.twoFASecret = secret;
+    user.twoFAEnabled = true;
     await user.save();
     res.json({ success: true });
   } else {

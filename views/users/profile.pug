@@ -2,6 +2,9 @@ extends ../layout
 
 block content
   h1 User Profile
+
+  script(src="/javascripts/profile.js")
+  
   if user.firstname 
     h3 Hi, #{ user.firstname }!
   else
@@ -67,5 +70,4 @@ block content
                 form(action="/users/disable-2fa" method="post")
                   button(type="submit" class="btn btn-danger") Confirm
                   button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
-  script(src="/javascripts/profile.js")
 
