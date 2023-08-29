@@ -1,5 +1,5 @@
 const express = require("express");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const morganBody = require("morgan-body");
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -23,6 +23,8 @@ morganBody(app);
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(index);
 
 if (process.env.NODE_ENV === "development") {

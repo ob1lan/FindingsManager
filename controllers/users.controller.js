@@ -131,6 +131,8 @@ exports.setup2FAForm = async (req, res, next) => {
 
 exports.verify2FA = async (req, res, next) => {
   const { otp, secret } = req.body;
+  console.log("Received OTP:", otp);
+  console.log("Received Secret:", secret);
   const verified = speakeasy.totp.verify({
     secret: secret,
     encoding: "base32",

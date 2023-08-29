@@ -25,7 +25,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
     try {
       console.error("Sending OTP and Secret");
-      const response = await axios.post("/users/verify-2fa", formData);
+      const response = await axios.post("/users/verify-2fa", formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
       console.error(response);
       console.error(response.data);
       if (response.data.success) {
