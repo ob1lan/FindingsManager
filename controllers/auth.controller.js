@@ -1,5 +1,6 @@
 const passport = require("passport");
 const speakeasy = require("speakeasy");
+const authLog = require("../database/models/authLog.model");
 
 exports.signinForm = (req, res, next) => {
   res.render("auth/auth-form", {
@@ -10,25 +11,53 @@ exports.signinForm = (req, res, next) => {
 };
 
 exports.signin = (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
+  passport.authenticate("local", async (err, user, info) => {
     if (err) {
-      next(err);
+      return next(err);
     } else if (!user) {
-      res.render("auth/auth-form", {
-        errors: [info.message],
-        isAuthenticated: req.isAuthenticated(),
-        currentUser: req.user,
-      });
+      // Log the failed login attempt
+      try {
+        const log = new authLog({
+          attemptedEmail: req.body.email,
+          attemptedAction: "login",
+          userAgent: req.headers["user-agent"],
+          clientIP: req.ip,
+          status: "failed",
+        });
+        await log.save();
+
+        return res.render("auth/auth-form", {
+          errors: [info.message],
+          isAuthenticated: req.isAuthenticated(),
+          currentUser: req.user,
+        });
+      } catch (error) {
+        return next(error);
+      }
     } else {
-      req.login(user, (err) => {
+      req.login(user, async (err) => {
         if (err) {
-          next(err);
+          return next(err);
         } else {
+          // Log the successful login attempt
+          try {
+            const log = new authLog({
+              attemptedEmail: req.body.email,
+              attemptedAction: "login",
+              userAgent: req.headers["user-agent"],
+              clientIP: req.ip,
+              status: "success",
+            });
+            await log.save();
+          } catch (error) {
+            return next(error);
+          }
+
           if (user.twoFAEnabled) {
             // Redirect to OTP verification page
             return res.redirect("/auth/verify-otp");
           } else {
-            res.redirect("/findings");
+            return res.redirect("/findings");
           }
         }
       });
@@ -37,11 +66,23 @@ exports.signin = (req, res, next) => {
 };
 
 exports.signout = (req, res, next) => {
-  req.logout((err) => {
+  req.logout(async (err) => {
     if (err) {
       return next(err);
     }
-    res.redirect("/auth/signin/form");
+    try {
+      const log = new authLog({
+        attemptedEmail: req.body.email,
+        attemptedAction: "logout",
+        userAgent: req.headers["user-agent"],
+        clientIP: req.ip,
+        status: "success",
+      });
+      await log.save();
+      res.redirect("/auth/signin/form");
+    } catch (error) {
+      return next(error);
+    }
   });
 };
 
@@ -70,4 +111,14 @@ exports.verifyOtp = (req, res, next) => {
       currentUser: req.user,
     });
   }
+};
+
+exports.viewAllLoginLogs = async (req, res, next) => {
+  const logs = await LoginLog.find().populate("userId").exec();
+  res.render("auth/admin-logs", { logs });
+};
+
+exports.viewUserLoginLogs = async (req, res, next) => {
+  const logs = await LoginLog.find({ userId: req.user._id }).limit(5).exec();
+  res.render("auth/user-logs", { logs });
 };
