@@ -1,7 +1,5 @@
 const express = require("express");
-// const morgan = require("morgan");
 const morganBody = require("morgan-body");
-const bodyParser = require("body-parser");
 const path = require("path");
 const index = require("./routes");
 const errorHandler = require("errorhandler");
@@ -15,7 +13,6 @@ app.set("view engine", "pug");
 
 require("./config/session.config");
 require("./config/passport.config");
-app.use(bodyParser.json());
 
 // hook morganBody to express app
 morganBody(app);
@@ -23,8 +20,6 @@ morganBody(app);
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(index);
 
 if (process.env.NODE_ENV === "development") {

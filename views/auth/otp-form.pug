@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  main(class="form-signin text-center")
+    form(data-bitwarden-watching="1" method="post" action="/auth/verify-otp")
+      h1(class="h3 mb-3 fw-normal") Enter OTP
+      div(class="form-floating")
+        input(type="text" name="otp" class="form-control" id="floatingOtp" placeholder="OTP")
+        label(for="floatingOtp") OTP
+      input(class="w-100 btn btn-lg btn-primary" type="submit" value="Verify")
+      if errors
+        span(class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill")= errors
