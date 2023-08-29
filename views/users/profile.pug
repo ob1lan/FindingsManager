@@ -34,7 +34,7 @@ block content
               textarea(id="bio" name="bio" class="form-control")= user.bio
           button(type="submit" class="btn btn-primary mt-2") Update Details
           br
-          button.btn.btn-primary(id="setup2FAButton") Setup Two-Factor Authentication
+          button.btn.btn-primary(id="setup2FAButton" data-toggle="modal" data-target="#setup2FAModal") Setup Two-Factor Authentication
           div.modal.fade(id="setup2FAModal" tabindex="-1" aria-labelledby="setup2FAModalLabel" aria-hidden="true")
             div.modal-dialog
               div.modal-content

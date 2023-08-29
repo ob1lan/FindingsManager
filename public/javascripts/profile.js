@@ -1,6 +1,7 @@
 window.addEventListener("DOMContentLoaded", () => {
   const inputAvatar = document.querySelector("#input-avatar");
   const formContainer = document.querySelector("#form-container");
+  const setup2FAButton = document.getElementById("setup2FAButton");
 
   formContainer.addEventListener("click", () => {
     inputAvatar.click();
@@ -9,11 +10,10 @@ window.addEventListener("DOMContentLoaded", () => {
   inputAvatar.addEventListener("change", () => {
     formContainer.submit();
   });
-});
 
-document
-  .getElementById("setup2FAButton")
-  .addEventListener("click", function () {
-    var modal = new bootstrap.Modal(document.getElementById("setup2FAModal"));
-    modal.show();
-  });
+  if (setup2FAButton) {
+    setup2FAButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+  }
+});
