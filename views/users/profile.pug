@@ -2,7 +2,6 @@ extends ../layout
 
 block content
   h1 User Profile
-  script(src="/javascripts/profile.js")
   if user.firstname 
     h3 Hi, #{ user.firstname }!
   else
@@ -35,7 +34,10 @@ block content
             textarea(id="bio" name="bio" class="form-control")= user.bio
           button(type="submit" class="btn btn-primary mt-2") Update Details
         br
-        button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#setup2FAModal") Setup Two-Factor Authentication
+        if user.twoFAEnabled
+          button.btn.btn-danger(data-bs-toggle="modal" data-bs-target="#disable2FAModal") Disable Two-Factor Authentication
+        else
+          button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#setup2FAModal") Setup Two-Factor Authentication
         
         div.modal.fade(id="setup2FAModal" tabindex="-1" aria-labelledby="setup2FAModalLabel" aria-hidden="true")
           div.modal-dialog
@@ -51,4 +53,19 @@ block content
                   div.form-group
                     label Enter OTP
                     input(type="text" name="otp" class="form-control")
+                    p#error-message.text-danger(style="display: none;") Invalid OTP. Try again.
                   button(type="submit" class="btn btn-primary") Verify
+        
+        div.modal.fade(id="disable2FAModal" tabindex="-1" aria-labelledby="disable2FAModalLabel" aria-hidden="true")
+          div.modal-dialog
+            div.modal-content
+              div.modal-header
+                h5.modal-title Disable Two-Factor Authentication
+                button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+              div.modal-body
+                p Are you sure you want to disable Two-Factor Authentication?
+                form(action="/users/disable-2fa" method="post")
+                  button(type="submit" class="btn btn-danger") Confirm
+                  button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
+  script(src="/javascripts/profile.js")
+

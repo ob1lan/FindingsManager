@@ -135,17 +135,24 @@ exports.verify2FA = async (req, res, next) => {
     encoding: "base32",
     token: otp,
   });
+  console.error("OTP Verified:", verified);
   if (verified) {
     req.user.twoFASecret = secret;
     req.user.twoFAEnabled = true;
     await req.user.save();
-    res.redirect("/users/profile");
+    res.json({ success: true });
   } else {
-    res.render("users/setup-2fa", {
-      error: "Invalid OTP. Try again.",
-      secret,
-      isAuthenticated: req.isAuthenticated(),
-      currentUser: req.user,
-    });
+    res.json({ success: false });
+  }
+};
+
+exports.disable2FA = async (req, res, next) => {
+  try {
+    req.user.twoFASecret = null;
+    req.user.twoFAEnabled = false;
+    await req.user.save();
+    res.redirect("/users/profile");
+  } catch (e) {
+    next(e);
   }
 };
