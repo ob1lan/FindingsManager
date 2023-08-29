@@ -6,7 +6,6 @@ block content
       h3 Hi, #{ user.firstname }!
   else
       h3 Hi, #{ user.username }!
-  script(src="/javascripts/profile.js")
   div(class="container")
     .row.justify-content-center 
       .col-md-6
@@ -34,3 +33,21 @@ block content
               label(for="bio" class="form-label") Bio
               textarea(id="bio" name="bio" class="form-control")= user.bio
           button(type="submit" class="btn btn-primary mt-2") Update Details
+          br
+          button.btn.btn-primary(id="setup2FAButton") Setup Two-Factor Authentication
+          div.modal.fade(id="setup2FAModal" tabindex="-1" aria-labelledby="setup2FAModalLabel" aria-hidden="true")
+            div.modal-dialog
+              div.modal-content
+                div.modal-header
+                  h5.modal-title Setup Two-Factor Authentication
+                  button.btn-close(type="button" data-dismiss="modal" aria-label="Close")
+                div.modal-body
+                  img(src=dataURL alt="QR Code")
+                  p Scan the QR code or enter the secret manually: #{secret}
+                  form(action="/users/verify-2fa" method="post")
+                    input(type="hidden" name="secret" value=secret)
+                    div.form-group
+                      label Enter OTP
+                      input(type="text" name="otp" class="form-control")
+                    button(type="submit" class="btn btn-primary") Verify
+          script(src="/javascripts/profile.js")

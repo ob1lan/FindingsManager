@@ -5,6 +5,8 @@ const {
   findUserPerId,
   updateUserDetails,
 } = require("../queries/users.queries");
+const speakeasy = require("speakeasy");
+const QRCode = require("qrcode");
 const path = require("path");
 const multer = require("multer");
 const upload = multer({
@@ -18,21 +20,50 @@ const upload = multer({
   }),
 });
 
+// exports.userProfile = async (req, res, next) => {
+//   try {
+//     const username = req.user.username;
+//     const user = await findUserPerUsername(username);
+//     console.log(user);
+//     res.render("users/profile", {
+//       username,
+//       isAuthenticated: req.isAuthenticated(),
+//       currentUser: req.user,
+//       user,
+//     });
+//   } catch (e) {
+//     next(e);
+//   }
+// };
+
 exports.userProfile = async (req, res, next) => {
   try {
     const username = req.user.username;
     const user = await findUserPerUsername(username);
-    console.log(user);
-    res.render("users/profile", {
-      username,
-      isAuthenticated: req.isAuthenticated(),
-      currentUser: req.user,
-      user,
-    });
+    if (!user.twoFAEnabled) {
+      const secret = speakeasy.generateSecret({ length: 20 });
+      const dataURL = await QRCode.toDataURL(secret.otpauth_url);
+      res.render("users/profile", {
+        username,
+        isAuthenticated: req.isAuthenticated(),
+        currentUser: req.user,
+        user,
+        secret: secret.base32,
+        dataURL,
+      });
+    } else {
+      res.render("users/profile", {
+        username,
+        isAuthenticated: req.isAuthenticated(),
+        currentUser: req.user,
+        user,
+      });
+    }
   } catch (e) {
     next(e);
   }
 };
+
 
 exports.signupForm = (req, res, next) => {
   res.render("users/user-form", {
@@ -83,5 +114,38 @@ exports.updateUserDetails = async (req, res, next) => {
     res.redirect("/users/profile");
   } catch (e) {
     next(e);
+  }
+};
+
+exports.setup2FAForm = async (req, res, next) => {
+  const secret = speakeasy.generateSecret({ length: 20 });
+  const dataURL = await QRCode.toDataURL(secret.otpauth_url);
+  res.render("users/setup-2fa", {
+    secret: secret.base32,
+    dataURL,
+    isAuthenticated: req.isAuthenticated(),
+    currentUser: req.user,
+  });
+};
+
+exports.verify2FA = async (req, res, next) => {
+  const { otp, secret } = req.body;
+  const verified = speakeasy.totp.verify({
+    secret: secret,
+    encoding: "base32",
+    token: otp,
+  });
+  if (verified) {
+    req.user.twoFASecret = secret;
+    req.user.twoFAEnabled = true;
+    await req.user.save();
+    res.redirect("/users/profile");
+  } else {
+    res.render("users/setup-2fa", {
+      error: "Invalid OTP. Try again.",
+      secret,
+      isAuthenticated: req.isAuthenticated(),
+      currentUser: req.user,
+    });
   }
 };

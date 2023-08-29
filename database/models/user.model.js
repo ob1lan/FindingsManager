@@ -18,6 +18,8 @@ const userSchema = schema({
     enum: ["user", "admin"],
     default: "user",
   },
+  twoFASecret: { type: String, default: "" },
+  twoFAEnabled: { type: Boolean, default: false },
 });
 
 userSchema.statics.hashPassword = (password) => {

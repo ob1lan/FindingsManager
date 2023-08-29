@@ -10,3 +10,10 @@ window.addEventListener("DOMContentLoaded", () => {
     formContainer.submit();
   });
 });
+
+document
+  .getElementById("setup2FAButton")
+  .addEventListener("click", function () {
+    var modal = new bootstrap.Modal(document.getElementById("setup2FAModal"));
+    modal.show();
+  });
