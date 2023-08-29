@@ -1,0 +1,2 @@
+"""reference"",""project"",""title"",""type"",""severity"",""status"",""assignee"",""cve"",""cvss"",""reportedBy"",""conductedBy"",""description"",""origin"", ""createdBy"""
+"""SEC-9990"",""WAPT2023-MyApp-UK"",""RXSS in the mail parameter"",""Cross-Site Scripting (XSS)"",""Medium"",""In Remediation"",""Antoine DELRUE"",""None"",""Antoine"",""Pentesting Company"",""Me"",""There is an XSS there"",""WAPT"",""ob1lan"""
