@@ -33,11 +33,11 @@ mixin user-profile-form
                             label(for="bio" class="form-label") Bio
                             textarea(id="bio" name="bio" class="form-control" rows="4")= user.bio
                         button(type="submit" class="btn btn-primary mt-2") Update Details
-                        br
-                        if user.twoFAEnabled
-                            button.btn.btn-danger(data-bs-toggle="modal" data-bs-target="#disable2FAModal") Disable Two-Factor Authentication
-                        else
-                            button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#setup2FAModal") Setup Two-Factor Authentication             
+                
+                    if user.twoFAEnabled
+                        button.btn.btn-danger(data-bs-toggle="modal" data-bs-target="#disable2FAModal") Disable Two-Factor Authentication
+                    else
+                        button.btn.btn-success(data-bs-toggle="modal" data-bs-target="#setup2FAModal") Setup Two-Factor Authentication             
             .col-md-5
                 .row.justify-content-center.border-card
                     .user-created-findings

@@ -60,7 +60,7 @@ exports.userProfile = async (req, res, next) => {
 };
 
 exports.signupForm = (req, res, next) => {
-  res.render("users/user-form", {
+  res.render("users/user-registration-form", {
     errors: null,
     isAuthenticated: req.isAuthenticated(),
     currentUser: req.user,
