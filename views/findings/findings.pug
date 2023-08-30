@@ -23,6 +23,24 @@ block content
                             option(value=project.reference)= project.title
                     button.btn.btn-primary(type="submit") Export
 
+        button.btn.btn-secondary.me-2(data-bs-toggle="modal" data-bs-target="#importFindingsModal") Import Findings
+        //- Import Findings Modal
+        div.modal.fade(id="importFindingsModal" tabindex="-1" aria-labelledby="importFindingsModalLabel" aria-hidden="true")
+            div.modal-dialog
+                div.modal-content
+                    form(action="/findings/import-csv" method="post" enctype="multipart/form-data")
+                        div.modal-header
+                            h5.modal-title Import Findings from CSV
+                            button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                        div.modal-body
+                            div.mb-3
+                                label(for="csvFile" class="form-label") Choose CSV File
+                                input.form-control(type="file" id="csvFile" name="csvFile" accept=".csv")
+                            p Ensure your CSV file matches the findings model structure.
+                        div.modal-footer
+                            button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close
+                            button.btn.btn-primary(type="submit") Import
+
     //- New Finding Modal
     +newFindingModal(finding)
 

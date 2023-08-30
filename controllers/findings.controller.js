@@ -1,4 +1,6 @@
 const { Parser } = require("json2csv");
+const csv = require("csv-parser");
+const { Readable } = require("stream");
 
 const {
   createFinding,
@@ -127,6 +129,41 @@ exports.exportToCSV = async (req, res, next) => {
     res.header("Content-Type", "text/csv");
     res.attachment(filename);
     return res.send(csv);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.importFindings = async (req, res, next) => {
+  try {
+    const findings = [];
+    const fileBuffer = req.files.csvFile.data;
+
+    const stream = new Readable({
+      read() {
+        this.push(fileBuffer);
+        this.push(null);
+      },
+    });
+
+    stream
+      .pipe(csv())
+      .on("data", (row) => {
+        // Transform each value: Remove outer double quotes if present
+        for (let key in row) {
+          row[key] = row[key].trim().replace(/^"(.*)"$/, "$1");
+        }
+        console.log(row);
+        // Validate and transform the row as per the Finding model
+        findings.push(row);
+      })
+      .on("end", async () => {
+        // Save findings to the database using the createFinding function
+        for (const finding of findings) {
+          await createFinding(finding);
+        }
+        res.redirect("/findings");
+      });
   } catch (error) {
     next(error);
   }
