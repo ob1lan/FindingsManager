@@ -20,22 +20,6 @@ const upload = multer({
   }),
 });
 
-// exports.userProfile = async (req, res, next) => {
-//   try {
-//     const username = req.user.username;
-//     const user = await findUserPerUsername(username);
-//     console.log(user);
-//     res.render("users/profile", {
-//       username,
-//       isAuthenticated: req.isAuthenticated(),
-//       currentUser: req.user,
-//       user,
-//     });
-//   } catch (e) {
-//     next(e);
-//   }
-// };
-
 exports.userProfile = async (req, res, next) => {
   try {
     const username = req.user.username;
@@ -78,7 +62,7 @@ exports.signup = async (req, res, next) => {
     const user = await createUser(body);
     res.redirect("/");
   } catch (e) {
-    res.render("users/user-form", {
+    res.render("users/user-registration-form", {
       errors: [e.message],
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,

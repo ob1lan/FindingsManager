@@ -1,0 +1,34 @@
+mixin import-export-features()
+    div.d-flex.pb-2
+        //- New Finding button
+        button.btn.btn-primary.me-2(data-bs-toggle="modal" data-bs-target="#newFindingModal") New Finding
+
+        //- Export to CSV button
+        div.dropdown
+            button.btn.btn-success.dropdown-toggle(type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false")
+                | Export to CSV
+            div.dropdown-menu(aria-labelledby="exportDropdown")
+                form(action="/findings/export" method="get")
+                    select(name="projectReference" class="form-control mb-2")
+                        option(value="") All Projects
+                        each project in projects
+                            option(value=project.reference)= project.title
+                    button.btn.btn-primary(type="submit") Export
+
+        button.btn.btn-secondary.me-2(data-bs-toggle="modal" data-bs-target="#importFindingsModal") Import Findings
+        //- Import Findings Modal
+        div.modal.fade(id="importFindingsModal" tabindex="-1" aria-labelledby="importFindingsModalLabel" aria-hidden="true")
+            div.modal-dialog
+                div.modal-content
+                    form(action="/findings/import-csv" method="post" enctype="multipart/form-data")
+                        div.modal-header
+                            h5.modal-title Import Findings from CSV
+                            button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                        div.modal-body
+                            div.mb-3
+                                label(for="csvFile" class="form-label") Choose CSV File
+                                input.form-control(type="file" id="csvFile" name="csvFile" accept=".csv")
+                            p Ensure your CSV file matches the findings model structure.
+                        div.modal-footer
+                            button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close
+                            button.btn.btn-primary(type="submit") Import

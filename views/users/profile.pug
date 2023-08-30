@@ -1,5 +1,8 @@
 extends ../layout
 
+include mixins/user-profile-form
+include mixins/2fa-modals
+
 block content
   h1 User Profile
 
@@ -9,65 +12,7 @@ block content
     h3 Hi, #{ user.firstname }!
   else
     h3 Hi, #{ user.username }!
-  div(class="container")
-    .row.justify-content-center 
-      .col-md-6
-        form( id="form-container" class="d-flex p-3 flex-row justify-content-center align-items-center" action="/users/update/image" method="post" enctype="multipart/form-data" )
-          input(type="file" name="avatar" class="d-none" id="input-avatar")
-          img(src=user.avatar class="img-fluid" id="image-profile")
-        div(class="d-flex flex-row justify-content-center align-items-center")
-          p= `${ user.username } (${ user.local.email })`
-        div(class="d-flex flex-row justify-content-center align-items-center")
-          if user.role === 'admin'
-            span(class="badge bg-danger-subtle text-danger-emphasis rounded-pill") Admin
-          else
-            span(class="badge bg-danger-subtle text-danger-emphasis rounded-pill") User
-        form(action="/users/update/details" method="post")
-          div(class="mb-3")
-            label(for="firstname" class="form-label") First Name
-            input(type="text" id="firstname" name="firstname" value=user.firstname class="form-control")
-          div(class="mb-3")
-            label(for="lastname" class="form-label") Last Name
-            input(type="text" id="lastname" name="lastname" value=user.lastname class="form-control")
-          div(class="mb-3")
-            label(for="function" class="form-label") Function
-            input(type="text" id="function" name="function" value=user.function class="form-control")
-          div(class="mb-3")
-            label(for="bio" class="form-label") Bio
-            textarea(id="bio" name="bio" class="form-control")= user.bio
-          button(type="submit" class="btn btn-primary mt-2") Update Details
-        br
-        if user.twoFAEnabled
-          button.btn.btn-danger(data-bs-toggle="modal" data-bs-target="#disable2FAModal") Disable Two-Factor Authentication
-        else
-          button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#setup2FAModal") Setup Two-Factor Authentication
+  
+  +user-profile-form
         
-        div.modal.fade(id="setup2FAModal" tabindex="-1" aria-labelledby="setup2FAModalLabel" aria-hidden="true")
-          div.modal-dialog
-            div.modal-content
-              div.modal-header
-                h5.modal-title Setup Two-Factor Authentication
-                button.btn-close(type="button" data-dismiss="modal" aria-label="Close")
-              div.modal-body
-                img(src=dataURL alt="QR Code")
-                p Scan the QR code or enter the secret manually: #{secret}
-                form(action="/users/verify-2fa" method="post")
-                  input(type="hidden" name="secret" value=secret)
-                  div.form-group
-                    label Enter OTP
-                    input(type="text" name="otp" class="form-control")
-                    p#error-message.text-danger(style="display: none;") Invalid OTP. Try again.
-                  button(type="submit" class="btn btn-primary") Verify
-        
-        div.modal.fade(id="disable2FAModal" tabindex="-1" aria-labelledby="disable2FAModalLabel" aria-hidden="true")
-          div.modal-dialog
-            div.modal-content
-              div.modal-header
-                h5.modal-title Disable Two-Factor Authentication
-                button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
-              div.modal-body
-                p Are you sure you want to disable Two-Factor Authentication?
-                form(action="/users/disable-2fa" method="post")
-                  button(type="submit" class="btn btn-danger") Confirm
-                  button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
-
+  +2fa-modals

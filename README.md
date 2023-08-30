@@ -24,4 +24,3 @@ Currently in DRAFT
     - Notification preferences (checkboxes)
     - Audit data (last login + UA + location + IP)
 - move the profile page and related code to a separate file to match /me/ URL/path
-- refactor all modals to use Bootstrap 5.3 (footer, etc...)
