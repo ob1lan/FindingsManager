@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { ensureAuthenticated } = require("../config/guards.config");
+const { uploadAvatar } = require("../config/upload.config");
 const {
   signup,
   signupForm,
@@ -14,7 +15,12 @@ const {
 router.get("/profile", ensureAuthenticated, userProfile);
 router.get("/signup/form", signupForm);
 router.post("/signup", signup);
-router.post("/update/image", ensureAuthenticated, uploadImage);
+router.post(
+  "/update/image",
+  ensureAuthenticated,
+  uploadAvatar.single("avatar"),
+  uploadImage
+);
 router.post("/update/details", ensureAuthenticated, updateUserDetails);
 
 router.get("/setup-2fa", ensureAuthenticated, setup2FAForm);

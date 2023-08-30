@@ -136,8 +136,12 @@ exports.exportToCSV = async (req, res, next) => {
 
 exports.importFindings = async (req, res, next) => {
   try {
+    const file = req.file;
+     if (!file) {
+       return res.status(400).send({ message: "Please upload a CSV file!" });
+     }
     const findings = [];
-    const fileBuffer = req.files.csvFile.data;
+    const fileBuffer = req.file.data;
 
     const stream = new Readable({
       read() {
