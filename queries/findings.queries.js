@@ -95,3 +95,11 @@ exports.getCountByOrigin = () => {
     },
   ]).exec();
 };
+
+exports.getFindingsCreatedByUsername = async (username) => {
+  return Finding.find({ createdBy: username });
+};
+
+exports.getFindingsAssignedToUsername = async (username) => {
+  return Finding.find({ assignee: username });
+};

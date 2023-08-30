@@ -5,6 +5,10 @@ const {
   findUserPerId,
   updateUserDetails,
 } = require("../queries/users.queries");
+const {
+  getFindingsCreatedByUsername,
+  getFindingsAssignedToUsername,
+} = require("../queries/findings.queries");
 const speakeasy = require("speakeasy");
 const QRCode = require("qrcode");
 const path = require("path");
@@ -24,11 +28,16 @@ exports.userProfile = async (req, res, next) => {
   try {
     const username = req.user.username;
     const user = await findUserPerUsername(username);
+    const createdFindings = await getFindingsCreatedByUsername(user.username);
+    const assignedFindings = await getFindingsAssignedToUsername(user.username);
+
     if (!user.twoFAEnabled) {
       const secret = speakeasy.generateSecret({ length: 20 });
       const dataURL = await QRCode.toDataURL(secret.otpauth_url);
       res.render("users/profile", {
         username,
+        createdFindings,
+        assignedFindings,
         isAuthenticated: req.isAuthenticated(),
         currentUser: req.user,
         user,
@@ -38,6 +47,8 @@ exports.userProfile = async (req, res, next) => {
     } else {
       res.render("users/profile", {
         username,
+        createdFindings,
+        assignedFindings,
         isAuthenticated: req.isAuthenticated(),
         currentUser: req.user,
         user,

@@ -1,3 +1,5 @@
+include details-findings-modal
+
 mixin findingsTable(findings)
     if findings.length
         table(id="findingsTable" class="display").table.table-bordered
@@ -38,25 +40,7 @@ mixin findingsTable(findings)
                                 i.fas.fa-pencil-alt
                             button.btn.btn-danger.btn-sm(data-bs-toggle="modal" data-bs-target="#deleteFindingConfirmationModal" data-finding-id=`${finding._id}`)
                                 i.fas.fa-trash-alt
-                        //- Details Modal for each finding
-                        .modal.fade(id="detailsModal-" + finding._id, tabindex="-1", aria-labelledby="detailsModalLabel-" + finding._id, aria-hidden="true").modal.fade
-                            .modal-dialog
-                                .modal-content
-                                    .modal-header
-                                        h5.modal-title Details for #{finding.reference}
-                                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
-                                    .modal-body
-                                        p Reference: #{finding.reference}
-                                        p Project: #{finding.project}
-                                        p Status: #{finding.status}
-                                        p Assignee: #{finding.assignee}
-                                        p Origin: #{finding.origin}
-                                        p Title: #{finding.title}
-                                        p Type: #{finding.type}
-                                        p Description: #{finding.description}
-                                        p Severity: #{finding.severity}
-                                        p Reported By: #{finding.reportedBy}
-                                        p CVE: #{finding.cve}
-                                        p CVSS: #{finding.cvss}
+
+                    +detailsModal(finding)
     else
         p No findings available.

@@ -1,3 +1,5 @@
+include ../../findings/mixins/details-findings-modal
+
 mixin user-profile-form
     div(class="container")
         .row
@@ -39,7 +41,55 @@ mixin user-profile-form
             .col-md-5
                 .row.justify-content-center.border-card
                     .user-created-findings
-                        p= "Placeholder for user's created findings"
+                        div(style="display: flex; align-items: center;" )
+                            span(class="badge text-bg-primary rounded-pill") #{createdFindings.length}
+                            h2= "Findings I created"
+                        each finding in createdFindings
+                            - var badgeClass;
+                                case finding.severity
+                                    when 'Critical'
+                                        - badgeClass = 'bg-darkred';
+                                    when 'High'
+                                        - badgeClass = 'bg-danger';
+                                    when 'Medium'
+                                        - badgeClass = 'bg-warning';
+                                    when 'Low'
+                                        - badgeClass = 'bg-success';
+                                    when 'Info'
+                                        - badgeClass = 'bg-primary';
+                                    default
+                                        - badgeClass = 'bg-secondary';
+                            p
+                                span(class="badge " + badgeClass + " rounded-pill")
+                                    a(class="flat-link" href="#" data-bs-toggle="modal" data-bs-target="#detailsModal-" + finding._id)
+                                        strong= finding.reference
+                                | #{' '}
+                                = finding.title
+                            +detailsModal(finding)
                 .row.justify-content-center.border-card
                     .user-assigned-findings
-                        p= "Placeholder for user's assigned findings"
+                        div(style="display: flex; align-items: center;" )
+                            span(class="badge text-bg-primary rounded-pill") #{assignedFindings.length}
+                            h2= "Findings assigned to me"
+                        each finding in assignedFindings
+                            - var badgeClass;
+                                case finding.severity
+                                    when 'Critical'
+                                        - badgeClass = 'bg-darkred';
+                                    when 'High'
+                                        - badgeClass = 'bg-danger';
+                                    when 'Medium'
+                                        - badgeClass = 'bg-warning';
+                                    when 'Low'
+                                        - badgeClass = 'bg-success';
+                                    when 'Info'
+                                        - badgeClass = 'bg-primary';
+                                    default
+                                        - badgeClass = 'bg-secondary';
+                            p
+                                span(class="badge " + badgeClass + " rounded-pill")
+                                    a(class="flat-link" href="#" data-bs-toggle="modal" data-bs-target="#detailsModal-" + finding._id)
+                                        strong= finding.reference
+                                | #{' '}
+                                = finding.title
+                            +detailsModal(finding)
