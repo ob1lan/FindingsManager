@@ -14,7 +14,7 @@ main > .container-fluid {
 }
 
 .text-center {
-    text-align: center!important;
+  text-align: center !important;
 }
 
 .content {
@@ -57,4 +57,12 @@ canvas {
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
     0 1px 3px 1px rgba(60, 64, 67, 0.15);
   background: white;
+}
+
+.border-card {
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+    0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  background: white;
+  padding: 10px;
+  margin: 10px;
 }

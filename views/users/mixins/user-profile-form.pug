@@ -1,33 +1,45 @@
 mixin user-profile-form
     div(class="container")
-        .row.justify-content-center 
-            .col-md-6
-                form( id="form-container" class="d-flex p-3 flex-row justify-content-center align-items-center" action="/users/update/image" method="post" enctype="multipart/form-data" )
-                    input(type="file" name="avatar" class="d-none" id="input-avatar")
-                    img(src=user.avatar class="img-fluid" id="image-profile")
-                div(class="d-flex flex-row justify-content-center align-items-center")
-                    p= `${ user.username } (${ user.local.email })`
-                div(class="d-flex flex-row justify-content-center align-items-center")
-                    if user.role === 'admin'
-                        span(class="badge bg-danger-subtle text-danger-emphasis rounded-pill") Admin
-                    else
-                        span(class="badge bg-danger-subtle text-danger-emphasis rounded-pill") User
-                form(action="/users/update/details" method="post")
-                    div(class="mb-3")
-                        label(for="firstname" class="form-label") First Name
-                        input(type="text" id="firstname" name="firstname" value=user.firstname class="form-control")
-                    div(class="mb-3")
-                        label(for="lastname" class="form-label") Last Name
-                        input(type="text" id="lastname" name="lastname" value=user.lastname class="form-control")
-                    div(class="mb-3")
-                        label(for="function" class="form-label") Function
-                        input(type="text" id="function" name="function" value=user.function class="form-control")
-                    div(class="mb-3")
-                        label(for="bio" class="form-label") Bio
-                        textarea(id="bio" name="bio" class="form-control")= user.bio
-                    button(type="submit" class="btn btn-primary mt-2") Update Details
-                br
-                if user.twoFAEnabled
-                    button.btn.btn-danger(data-bs-toggle="modal" data-bs-target="#disable2FAModal") Disable Two-Factor Authentication
-                else
-                    button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#setup2FAModal") Setup Two-Factor Authentication
+        .row
+            .col-md-3
+                .row.justify-content-center.border-card
+                    form( id="form-container" class="d-flex p-3 flex-row justify-content-center align-items-center" action="/users/update/image" method="post" enctype="multipart/form-data" )
+                        input(type="file" name="avatar" class="d-none" id="input-avatar")
+                        img(src=user.avatar class="img-fluid" id="image-profile")
+                    div(class="d-flex flex-column justify-content-center align-items-center")
+                        p(style="font-weight: bold; font-size: 16px;")= `${ user.firstname } ${ user.lastname }`
+                        p= `${ user.username } (${ user.local.email })`
+                        p= `${ user.function }`
+                    div(class="d-flex flex-row justify-content-center align-items-center")
+                        if user.role === 'admin'
+                            span(class="badge bg-danger-subtle text-danger-emphasis rounded-pill") Admin
+                        else
+                            span(class="badge bg-danger-subtle text-danger-emphasis rounded-pill") User
+            .col-md-4
+                .row.justify-content-center.border-card
+                    form(action="/users/update/details" method="post")
+                        div(class="mb-3")
+                            label(for="firstname" class="form-label") First Name
+                            input(type="text" id="firstname" name="firstname" value=user.firstname class="form-control")
+                        div(class="mb-3")
+                            label(for="lastname" class="form-label") Last Name
+                            input(type="text" id="lastname" name="lastname" value=user.lastname class="form-control")
+                        div(class="mb-3")
+                            label(for="function" class="form-label") Function
+                            input(type="text" id="function" name="function" value=user.function class="form-control")
+                        div(class="mb-3")
+                            label(for="bio" class="form-label") Bio
+                            textarea(id="bio" name="bio" class="form-control" rows="4")= user.bio
+                        button(type="submit" class="btn btn-primary mt-2") Update Details
+                        br
+                        if user.twoFAEnabled
+                            button.btn.btn-danger(data-bs-toggle="modal" data-bs-target="#disable2FAModal") Disable Two-Factor Authentication
+                        else
+                            button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#setup2FAModal") Setup Two-Factor Authentication             
+            .col-md-5
+                .row.justify-content-center.border-card
+                    .user-created-findings
+                        p= "Placeholder for user's created findings"
+                .row.justify-content-center.border-card
+                    .user-assigned-findings
+                        p= "Placeholder for user's assigned findings"
