@@ -24,3 +24,5 @@ Currently in DRAFT
 - move the profile page and related code to a separate file to match /me/ URL/path
 - set the max size for inputs (project name, finding name, etc.)
 - set the max size for uploads (CSV and pictures)
+- implement rate-limiting on routes using the express-rate-limit
+- implement protections for NoSQL injections (cf security findings)
