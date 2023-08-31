@@ -2,6 +2,7 @@ include details-findings-modal
 
 mixin findingsTable(findings)
     if findings.length
+
         table(id="findingsTable" class="display").table.table-bordered
             thead
                 tr
@@ -16,21 +17,36 @@ mixin findingsTable(findings)
                     th Reported By
                     th CVE
                     th CVSS
+                    th Due Date
                     th Actions
             tbody
                 each finding in findings
+                    - var severityClass;
+                    if finding.severity === 'Critical'
+                        - severityClass = 'bg-darkred text-white'
+                    else if finding.severity === 'High'
+                        - severityClass = 'bg-danger text-white'
+                    else if finding.severity === 'Medium'
+                        - severityClass = 'bg-warning'
+                    else if finding.severity === 'Low'
+                        - severityClass = 'bg-success text-white'
+                    else if finding.severity === 'Info'
+                        - severityClass = 'bg-primary text-white'
+                    else
+                        - severityClass = ''
                     tr
                         td= finding.reference
                         td= finding.project
                         td= finding.title
                         td= finding.type
-                        td= finding.severity
+                        td(class=severityClass)= finding.severity
                         td= finding.status
                         td= finding.assignee
                         td= finding.origin
                         td= finding.reportedBy
                         td= finding.cve
                         td= finding.cvss
+                        td(class= finding.isOverdue ? 'bg-light-red' : '')= finding.formattedDueDate
                         td
                             //- View button
                             button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${finding._id}`)

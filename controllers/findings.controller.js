@@ -17,8 +17,24 @@ exports.findings = async (req, res, next) => {
   try {
     const findings = await getFindings();
     const projects = await getProjects();
+
+    // Format the dueDate for each finding
+    const formattedFindings = findings.map((finding) => {
+      const options = {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      };
+      finding.formattedDueDate = finding.dueDate
+        ? finding.dueDate.toLocaleDateString(undefined, options)
+        : "";
+      finding.isOverdue = finding.dueDate && finding.dueDate < new Date();
+      return finding;
+    });
+
     res.render("findings/findings", {
-      findings,
+      findings: formattedFindings,
       projects,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,

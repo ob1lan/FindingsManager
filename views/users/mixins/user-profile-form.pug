@@ -32,18 +32,19 @@ mixin user-profile-form
                         div(class="mb-3")
                             label(for="bio" class="form-label") Bio
                             textarea(id="bio" name="bio" class="form-control" rows="4")= user.bio
-                        button(type="submit" class="btn btn-primary mt-2") Update Details
-                
-                    if user.twoFAEnabled
-                        button.btn.btn-danger(data-bs-toggle="modal" data-bs-target="#disable2FAModal") Disable Two-Factor Authentication
-                    else
-                        button.btn.btn-success(data-bs-toggle="modal" data-bs-target="#setup2FAModal") Setup Two-Factor Authentication             
+                        div(class="d-flex justify-content-center mb-1")
+                            button(type="submit" class="btn btn-primary mt-2") Update Details
+                    div(class="d-flex justify-content-center mb-1")
+                        if user.twoFAEnabled
+                            button.btn.btn-danger(data-bs-toggle="modal" data-bs-target="#disable2FAModal") Disable Two-Factor Authentication
+                        else
+                            button.btn.btn-success(data-bs-toggle="modal" data-bs-target="#setup2FAModal") Setup Two-Factor Authentication             
             .col-md-5
                 .row.justify-content-center.border-card
                     .user-created-findings
                         div(style="display: flex; align-items: center;" )
                             span(class="badge text-bg-primary rounded-pill") #{createdFindings.length}
-                            h2= "Findings I created"
+                            h2= "Findings created by me"
                         each finding in createdFindings
                             - var badgeClass;
                                 case finding.severity

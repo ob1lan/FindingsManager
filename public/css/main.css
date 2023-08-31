@@ -75,3 +75,7 @@ canvas {
 .bg-darkred {
     background-color: darkred !important;
 }
+
+.bg-light-red {
+  background-color: #FFCCCC; /* Adjust the color as needed */
+}
