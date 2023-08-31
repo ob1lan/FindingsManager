@@ -80,6 +80,6 @@ canvas {
   background-color: #FFCCCC; /* Adjust the color as needed */
 }
 
-.table-findings {
-  max-width: 100%;
+table {
+  width: 100%;
 }

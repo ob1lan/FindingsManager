@@ -22,7 +22,7 @@ block content
     script.
         $(document).ready(function() {
             $('table').DataTable({
-                select:true, responsive: true, dom: 'B<"clear">lfrtip', buttons: [ 'copy', 'colvis', 
+                select:true, stateSave: true, responsive: true, dom: 'Bf<"clear">rtipl', buttons: [ 'copy', 'colvis', 
                 {
                     extend: 'pdfHtml5',
                     text: 'Vue to PDF',
@@ -41,6 +41,6 @@ block content
                 columnDefs: [{
                     targets: [3, 9, 10],
                     visible: false
-                }]
+                }],
             });
         });
