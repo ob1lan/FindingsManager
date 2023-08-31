@@ -80,7 +80,7 @@ exports.signout = (req, res, next) => {
         status: "success",
       });
       await log.save();
-      res.redirect("/auth/signin/form");
+      res.redirect("/auth/signin");
     } catch (error) {
       return next(error);
     }

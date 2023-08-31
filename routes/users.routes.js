@@ -13,7 +13,7 @@ const {
 } = require("../controllers/users.controller");
 
 router.get("/profile", ensureAuthenticated, userProfile);
-router.get("/signup/form", signupForm);
+router.get("/signup", signupForm);
 router.post("/signup", signup);
 router.post(
   "/update/image",

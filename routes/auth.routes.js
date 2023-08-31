@@ -10,7 +10,7 @@ const {
   viewUserLoginLogs,
 } = require("../controllers/auth.controller");
 
-router.get("/signin/form", signinForm);
+router.get("/signin", signinForm);
 router.post("/signin", signin);
 router.get("/signout", ensureAuthenticated, signout);
 
