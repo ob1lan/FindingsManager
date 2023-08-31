@@ -28,7 +28,7 @@ const projectSchema = schema(
     description: { type: String, default: "" },
     conductedBy: { type: String, default: "Internal" },
     createdBy: { type: String, required: true },
-    totalFindings: { type: Number, default: 0 },
+    members: { type: [String], default: [] },
     closedDate: { type: Date },
   },
   {

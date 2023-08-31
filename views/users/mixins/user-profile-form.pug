@@ -96,3 +96,11 @@ mixin user-profile-form
                             +detailsModal(finding)
                 .row.justify-content-center.border-card
                     .user-last-logins
+                        div(style="display: flex; flex-direction: column; align-items: left;" )
+                            h2= "Last logins"
+                            if logs && logs.length
+                                ul
+                                    each log in logs
+                                        li= log.attemptedAction + ' (' + log.status + ') at ' + log.formattedTimestamp + ' from IP ' + log.clientIP
+                            else
+                                p No logs available.

@@ -4,6 +4,7 @@ const {
   searchUsersPerUsername,
   findUserPerId,
   updateUserDetails,
+  findLastFiveLogsByEmail,
 } = require("../queries/users.queries");
 const {
   getFindingsCreatedByUsername,
@@ -30,6 +31,39 @@ exports.userProfile = async (req, res, next) => {
     const user = await findUserPerUsername(username);
     const createdFindings = await getFindingsCreatedByUsername(user.username);
     const assignedFindings = await getFindingsAssignedToUsername(user.username);
+    const logs = (await findLastFiveLogsByEmail(req.user.local.email)) || [];
+    logs.forEach((log) => {
+      const date = new Date(log.timestamp);
+      const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const dayName = days[date.getUTCDay()];
+      const monthName = months[date.getUTCMonth()];
+      const day = date.getUTCDate();
+      const year = date.getUTCFullYear();
+      const hours = String(date.getUTCHours()).padStart(2, "0");
+      const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+      const seconds = String(date.getUTCSeconds()).padStart(2, "0");
+      const offset = -date.getTimezoneOffset() / 60;
+      const timezone = `GMT${offset >= 0 ? "+" : "-"}${Math.abs(offset)
+        .toString()
+        .padStart(2, "0")}00`;
+      log.formattedTimestamp = `${dayName} ${monthName} ${day} ${year} ${hours}:${minutes}:${seconds} ${timezone}`;
+    });
+
+    console.log(logs);
 
     if (!user.twoFAEnabled) {
       const secret = speakeasy.generateSecret({ length: 20 });
@@ -38,6 +72,7 @@ exports.userProfile = async (req, res, next) => {
         username,
         createdFindings,
         assignedFindings,
+        logs,
         isAuthenticated: req.isAuthenticated(),
         currentUser: req.user,
         user,
@@ -49,6 +84,7 @@ exports.userProfile = async (req, res, next) => {
         username,
         createdFindings,
         assignedFindings,
+        logs,
         isAuthenticated: req.isAuthenticated(),
         currentUser: req.user,
         user,

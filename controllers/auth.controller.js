@@ -66,13 +66,14 @@ exports.signin = (req, res, next) => {
 };
 
 exports.signout = (req, res, next) => {
+  const email = req.user.local.email;
   req.logout(async (err) => {
     if (err) {
       return next(err);
     }
     try {
       const log = new authLog({
-        attemptedEmail: req.body.email,
+        attemptedEmail: email,
         attemptedAction: "logout",
         userAgent: req.headers["user-agent"],
         clientIP: req.ip,

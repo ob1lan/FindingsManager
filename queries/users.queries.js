@@ -1,4 +1,5 @@
 const User = require("../database/models/user.model");
+const authLog = require("../database/models/authLog.model");
 
 exports.createUser = async (user) => {
   try {
@@ -52,3 +53,11 @@ exports.deleteUser = async (id) => {
     throw e;
   }
 };
+
+exports.findLastFiveLogsByEmail = (email) => {
+  return authLog.find({ attemptedEmail: email })
+    .sort({ timestamp: -1 })
+    .limit(5)
+    .exec();
+};
+

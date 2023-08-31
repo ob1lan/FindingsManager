@@ -12,7 +12,7 @@ const {
 
 router.get("/signin/form", signinForm);
 router.post("/signin", signin);
-router.get("/signout", signout);
+router.get("/signout", ensureAuthenticated, signout);
 
 router.get("/verify-otp", otpForm);
 router.post("/verify-otp", verifyOtp);

@@ -26,3 +26,9 @@ Currently in DRAFT
 - set the max size for uploads (CSV and pictures)
 - implement rate-limiting on routes using the express-rate-limit
 - implement protections for NoSQL injections (cf security findings)
+- make CSV import more robust (check for required fields, replace with System values, etc.)
+- Dashboard: add a view on findings approaching due date (3 days)
+- Project: add the ability to mention team members
+- Export feature: refactor to use a modal with ability to chose filters (project, status, etc.)
+- Findings table: add the ability to select multiple findings at once and bulk action (change status, delete,...)
+- refactor datatable without jQuery (use npm to instal packages)
