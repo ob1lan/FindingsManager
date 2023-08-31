@@ -31,4 +31,5 @@ Currently in DRAFT
 - Project: add the ability to mention team members
 - Export feature: refactor to use a modal with ability to chose filters (project, status, etc.)
 - Findings table: add the ability to select multiple findings at once and bulk action (change status, delete,...)
+- Refactor findings table to only use datatable buttons (custom action to open modals) + double click to open finding details
 - refactor datatable without jQuery (use npm to instal packages)
