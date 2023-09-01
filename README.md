@@ -34,3 +34,4 @@ Currently in DRAFT
 - Refactor findings table to only use datatable buttons (custom action to open modals) + double click to open finding details
 - refactor datatable without jQuery (use npm to instal packages)
 - fix 2FA bypass
+- add confirmation modal for user delete
