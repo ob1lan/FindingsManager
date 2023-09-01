@@ -39,6 +39,7 @@ exports.findings = async (req, res, next) => {
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
       user: req.user,
+      is2FAVerified: req.session.is2FAVerified,
     });
   } catch (error) {
     next(error);

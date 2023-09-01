@@ -6,7 +6,7 @@ header
         span(class="navbar-toggler-icon")
       div(class="collapse navbar-collapse" id="navbarCollapse")
         ul(class="navbar-nav me-auto mb-2 mb-md-0")
-          if isAuthenticated
+          if isAuthenticated && (!currentUser.twoFAEnabled || (currentUser.twoFAEnabled && is2FAVerified))
             li.nav-item
               a.nav-link.active(aria-current='page' href='/dashboard') Dashboard
             li.nav-item

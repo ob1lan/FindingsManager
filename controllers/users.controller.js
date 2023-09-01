@@ -63,8 +63,6 @@ exports.userProfile = async (req, res, next) => {
       log.formattedTimestamp = `${dayName} ${monthName} ${day} ${year} ${hours}:${minutes}:${seconds} ${timezone}`;
     });
 
-    console.log(logs);
-
     if (!user.twoFAEnabled) {
       const secret = speakeasy.generateSecret({ length: 20 });
       const dataURL = await QRCode.toDataURL(secret.otpauth_url);

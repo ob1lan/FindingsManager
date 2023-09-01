@@ -71,6 +71,7 @@ exports.signout = (req, res, next) => {
     if (err) {
       return next(err);
     }
+    req.session.is2FAVerified = false;
     try {
       const log = new authLog({
         attemptedEmail: email,
@@ -104,6 +105,7 @@ exports.verifyOtp = (req, res, next) => {
   });
 
   if (verified) {
+    req.session.is2FAVerified = true;
     res.redirect("/findings");
   } else {
     res.render("auth/otp-form", {
