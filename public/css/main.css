@@ -80,10 +80,6 @@ canvas {
   background-color: #ffcccc; /* Adjust the color as needed */
 }
 
-table {
-  width: 100%;
-}
-
 table.dataTable {
   border-collapse: collapse !important;
   width: 100% !important;
