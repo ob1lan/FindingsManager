@@ -36,6 +36,8 @@ Currently in DRAFT
 - add confirmation modal for user delete
 - delete old avatar on avatar change
 - error in modal in case something goes wrong during pasdword change
+- explore datatable rendering from server-side (instead of HTML table)
+- explore modal/html rendering from MongoDB (automatically generate HTML from fields in DB)
 
 # Default credentials
 - admin@example.com:MySup3rStr0ngP@$$w0rd
