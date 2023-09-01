@@ -33,3 +33,4 @@ Currently in DRAFT
 - Findings table: add the ability to select multiple findings at once and bulk action (change status, delete,...)
 - Refactor findings table to only use datatable buttons (custom action to open modals) + double click to open finding details
 - refactor datatable without jQuery (use npm to instal packages)
+- fix 2FA bypass

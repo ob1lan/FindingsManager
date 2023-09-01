@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "NODE_ENV=development nodemon ./bin/www",
+    "start:docker": "NODE_ENV=docker nodemon ./bin/www",
     "start:prod": "NODE_ENV=production nodemon ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -30,5 +30,8 @@ block content
                 | Login
         .card-footer.py-3.border-0
           .text-center
+            if errors
+              span(class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill")= errors
+              br
             | Don&apos;t have an account? 
-            a.text-dark(href='/users/signup/form') Create One
+            a.text-dark(href='/users/signup') Create One
