@@ -34,6 +34,8 @@ Currently in DRAFT
 - refactor datatable without jQuery (use npm to instal packages)
 - fix 2FA bypass
 - add confirmation modal for user delete
+- delete old avatar on avatar change
+- error in modal in case something goes wrong during pasdword change
 
 # Default credentials
 - admin@example.com:MySup3rStr0ngP@$$w0rd

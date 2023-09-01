@@ -1,30 +1,23 @@
 const {
   createUser,
   findUserPerUsername,
-  searchUsersPerUsername,
   findUserPerId,
   updateUserDetails,
   findLastFiveLogsByEmail,
 } = require("../queries/users.queries");
+
 const {
   getFindingsCreatedByUsername,
   getFindingsAssignedToUsername,
 } = require("../queries/findings.queries");
+
+const authLog = require("../database/models/authLog.model");
+
 const speakeasy = require("speakeasy");
 const QRCode = require("qrcode");
 const path = require("path");
 const bcrypt = require("bcrypt");
-const multer = require("multer");
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, path.join(__dirname, "../public/images/avatars"));
-    },
-    filename: (req, file, cb) => {
-      cb(null, `${Date.now()}-${file.originalname}`);
-    },
-  }),
-});
+const { uploadAvatar } = require("../config/upload.config");
 
 exports.userProfile = async (req, res, next) => {
   try {
@@ -121,7 +114,7 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.uploadImage = [
-  upload.single("avatar"),
+  uploadAvatar.single("avatar"),
   async (req, res, next) => {
     try {
       const user = req.user;
@@ -201,6 +194,14 @@ exports.updatePassword = async (req, res) => {
 
     // Check if current password is correct
     if (!bcrypt.compareSync(currentPassword, user.local.password)) {
+      const log = new authLog({
+        attemptedEmail: user.local.email,
+        attemptedAction: "password-change",
+        userAgent: req.headers["user-agent"],
+        clientIP: req.ip,
+        status: "failed",
+      });
+      await log.save();
       // Handle error: Current password is incorrect
       return res.status(400).send("Current password is incorrect");
     }
@@ -215,6 +216,15 @@ exports.updatePassword = async (req, res) => {
     user.local.password = bcrypt.hashSync(newPassword, 10);
     await user.save();
 
+    const log = new authLog({
+      attemptedEmail: user.local.email,
+      attemptedAction: "password-change",
+      userAgent: req.headers["user-agent"],
+      clientIP: req.ip,
+      status: "success",
+    });
+    await log.save();
+    
     res.redirect("/users/profile"); // Redirect to profile or any other page
   } catch (error) {
     console.error(error);
