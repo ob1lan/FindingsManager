@@ -12,6 +12,7 @@ const userSchema = schema({
   firstname: { type: String, default: "" },
   lastname: { type: String, default: "" },
   function: { type: String, default: "" },
+  phone: { type: String, default: "" },
   bio: { type: String, default: "" },
   role: {
     type: String,

@@ -15,7 +15,6 @@ const authLog = require("../database/models/authLog.model");
 
 const speakeasy = require("speakeasy");
 const QRCode = require("qrcode");
-const path = require("path");
 const bcrypt = require("bcrypt");
 const { uploadAvatar } = require("../config/upload.config");
 
@@ -129,14 +128,7 @@ exports.uploadImage = [
 
 exports.updateUserDetails = async (req, res, next) => {
   try {
-    const { firstname, lastname, function: userFunction, bio } = req.body;
-    const userId = req.user._id; // Assuming you have user ID in the session
-    await updateUserDetails(userId, {
-      firstname,
-      lastname,
-      function: userFunction,
-      bio,
-    });
+    await updateUserDetails(req.user._id, req.body);
     res.redirect("/users/profile");
   } catch (e) {
     next(e);
@@ -224,7 +216,7 @@ exports.updatePassword = async (req, res) => {
       status: "success",
     });
     await log.save();
-    
+
     res.redirect("/users/profile"); // Redirect to profile or any other page
   } catch (error) {
     console.error(error);

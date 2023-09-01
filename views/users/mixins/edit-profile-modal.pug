@@ -18,6 +18,9 @@ mixin edit-profile-modal
                             label.form-label(for="function") Function
                             input.form-control(type="text" id="function" name="function" value=user.function)
                         div.mb-3
+                            label.form-label(for="phone") Phone
+                            input.form-control(type="text" id="phone" name="phone" value=user.phone)
+                        div.mb-3
                             label.form-label(for="bio") Bio
                             textarea.form-control(id="bio" name="bio" rows="4")= user.bio
                     div.modal-footer

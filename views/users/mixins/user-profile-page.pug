@@ -42,37 +42,37 @@ mixin user-profile-page
                             .col-sm-3 
                                 p.mb-0 Full Name
                             .col-sm-9
-                                P.text-muted.mb-0= `${ user.firstname } ${ user.lastname }`
+                                P.text-muted.mb-0= `${user.firstname } ${user.lastname }`
                         hr
                         .row
                             .col-sm-3 
                                 p.mb-0 Username
                             .col-sm-9
-                                P.text-muted.mb-0= `${ user.username }`
+                                P.text-muted.mb-0= `${user.username }`
                         hr
                         .row
                             .col-sm-3 
                                 p.mb-0 Email
                             .col-sm-9
-                                P.text-muted.mb-0= `${ user.local.email}`
+                                P.text-muted.mb-0= `${user.local.email}`
                         hr
                         .row
                             .col-sm-3 
                                 p.mb-0 Phone
                             .col-sm-9
-                                P.text-muted.mb-0 TBD
+                                P.text-muted.mb-0= `${user.phone}`
                         hr
                         .row
                             .col-sm-3 
                                 p.mb-0 Function
                             .col-sm-9
-                                P.text-muted.mb-0= `${ user.function}`
+                                P.text-muted.mb-0= `${user.function}`
                         hr
                         .row
                             .col-sm-3 
                                 p.mb-0 Bio
                             .col-sm-9
-                                P.text-muted.mb-0= `${ user.bio}`
+                                P.text-muted.mb-0= `${user.bio}`
 
                 //- .row.justify-content-center.border-card
                 //-     form(action="/users/update/details" method="post")

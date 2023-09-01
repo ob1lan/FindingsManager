@@ -32,12 +32,12 @@ Currently in DRAFT
 - Findings table: add the ability to select multiple findings at once and bulk action (change status, delete,...)
 - Refactor findings table to only use datatable buttons (custom action to open modals) + double click to open finding details
 - refactor datatable without jQuery (use npm to instal packages)
-- fix 2FA bypass
 - add confirmation modal for user delete
 - delete old avatar on avatar change
 - error in modal in case something goes wrong during pasdword change
 - explore datatable rendering from server-side (instead of HTML table)
 - explore modal/html rendering from MongoDB (automatically generate HTML from fields in DB)
+- dashboard horizontal bar chart: projects findings by status
 
 # Default credentials
 - admin@example.com:MySup3rStr0ngP@$$w0rd
