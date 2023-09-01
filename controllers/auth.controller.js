@@ -29,6 +29,7 @@ exports.signin = (req, res, next) => {
         return res.render("auth/auth-form", {
           errors: [info.message],
           isAuthenticated: req.isAuthenticated(),
+          is2FAVerified: req.session.is2FAVerified,
           currentUser: req.user,
         });
       } catch (error) {
@@ -92,6 +93,7 @@ exports.otpForm = (req, res, next) => {
   res.render("auth/otp-form", {
     errors: null,
     isAuthenticated: req.isAuthenticated(),
+    is2FAVerified: req.session.is2FAVerified,
     currentUser: req.user,
   });
 };
@@ -111,6 +113,7 @@ exports.verifyOtp = (req, res, next) => {
     res.render("auth/otp-form", {
       errors: ["Invalid OTP. Try again."],
       isAuthenticated: req.isAuthenticated(),
+      is2FAVerified: req.session.is2FAVerified,
       currentUser: req.user,
     });
   }

@@ -72,6 +72,7 @@ exports.userProfile = async (req, res, next) => {
         assignedFindings,
         logs,
         isAuthenticated: req.isAuthenticated(),
+        is2FAVerified: req.session.is2FAVerified,
         currentUser: req.user,
         user,
         secret: secret.base32,
@@ -84,6 +85,7 @@ exports.userProfile = async (req, res, next) => {
         assignedFindings,
         logs,
         isAuthenticated: req.isAuthenticated(),
+        is2FAVerified: req.session.is2FAVerified,
         currentUser: req.user,
         user,
       });
@@ -97,6 +99,7 @@ exports.signupForm = (req, res, next) => {
   res.render("users/user-registration-form", {
     errors: null,
     isAuthenticated: req.isAuthenticated(),
+    is2FAVerified: req.session.is2FAVerified,
     currentUser: req.user,
   });
 };
@@ -110,6 +113,7 @@ exports.signup = async (req, res, next) => {
     res.render("users/user-registration-form", {
       errors: [e.message],
       isAuthenticated: req.isAuthenticated(),
+      is2FAVerified: req.session.is2FAVerified,
       currentUser: req.user,
     });
   }
@@ -152,6 +156,7 @@ exports.setup2FAForm = async (req, res, next) => {
     secret: secret.base32,
     dataURL,
     isAuthenticated: req.isAuthenticated(),
+    is2FAVerified: req.session.is2FAVerified,
     currentUser: req.user,
   });
 };

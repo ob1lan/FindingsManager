@@ -56,6 +56,7 @@ exports.findingCreate = async (req, res, next) => {
     res.status(400).render("findings/findings", {
       errors,
       isAuthenticated: req.isAuthenticated(),
+      is2FAVerified: req.session.is2FAVerified,
       currentUser: req.user,
     });
   }

@@ -22,6 +22,7 @@ exports.viewUsers = async (req, res, next) => {
     res.render("admin/users-list", {
       users,
       isAuthenticated: req.isAuthenticated(),
+      is2FAVerified: req.session.is2FAVerified,
       currentUser: req.user,
       user: req.user,
     });
@@ -64,6 +65,7 @@ exports.viewProjects = async (req, res, next) => {
     res.render("admin/projects-list", {
       projects,
       isAuthenticated: req.isAuthenticated(),
+      is2FAVerified: req.session.is2FAVerified,
       currentUser: req.user,
       user: req.user,
     });
@@ -82,6 +84,7 @@ exports.createProject = async (req, res, next) => {
     res.status(400).render("admin/projects-list", {
       errors,
       isAuthenticated: req.isAuthenticated(),
+      is2FAVerified: req.session.is2FAVerified,
       currentUser: req.user,
     });
   }

@@ -36,7 +36,11 @@ block content
                             order: 'applied',
                     }
                 }
-            } ], 
+            } ],
+                columnDefs: [{
+                    targets: -1,
+                    orderable: false
+                }], 
                 colReorder: true,
                 columnDefs: [{
                     targets: [3, 9, 10],

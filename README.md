@@ -35,3 +35,6 @@ Currently in DRAFT
 - refactor datatable without jQuery (use npm to instal packages)
 - fix 2FA bypass
 - add confirmation modal for user delete
+
+# Default credentials
+- admin@example.com:MySup3rStr0ngP@$$w0rd

@@ -20,6 +20,7 @@ exports.getDashboard = async (req, res, next) => {
       findingsByProject,
       findingsByOrigin,
       isAuthenticated: req.isAuthenticated(),
+      is2FAVerified: req.session.is2FAVerified,
       currentUser: req.user,
       user: req.user,
     });
