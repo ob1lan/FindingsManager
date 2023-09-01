@@ -73,13 +73,18 @@ canvas {
 }
 
 .bg-darkred {
-    background-color: darkred !important;
+  background-color: darkred !important;
 }
 
 .bg-light-red {
-  background-color: #FFCCCC; /* Adjust the color as needed */
+  background-color: #ffcccc; /* Adjust the color as needed */
 }
 
 table {
   width: 100%;
+}
+
+table.dataTable {
+  border-collapse: collapse !important;
+  width: 100% !important;
 }
