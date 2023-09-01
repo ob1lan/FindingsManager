@@ -10,6 +10,7 @@ const {
   setup2FAForm,
   verify2FA,
   disable2FA,
+  updatePassword,
 } = require("../controllers/users.controller");
 
 router.get("/profile", ensureAuthenticated, userProfile);
@@ -32,5 +33,7 @@ router.get("/session-expiry", ensureAuthenticated, (req, res) => {
   const sessionExpiryDate = new Date(req.session.cookie.expires);
   res.json({ expiry: sessionExpiryDate });
 });
+
+router.post("/password/update", ensureAuthenticated, updatePassword);
 
 module.exports = router;

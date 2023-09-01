@@ -1,6 +1,6 @@
 extends ../layout
 
-include mixins/user-profile-form
+include mixins/user-profile-page
 include mixins/2fa-modals
 
 block content
@@ -13,6 +13,6 @@ block content
   else
     h3 Hi, #{ user.username }!
   
-  +user-profile-form
+  +user-profile-page
         
   +2fa-modals

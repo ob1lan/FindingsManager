@@ -1,0 +1,26 @@
+mixin edit-profile-modal
+    //- Modal
+    div.modal.fade(id="updateDetailsModal" tabindex="-1" aria-labelledby="updateDetailsModalLabel" aria-hidden="true")
+        div.modal-dialog
+            div.modal-content
+                form(action="/users/update/details" method="post")
+                    div.modal-header
+                        h5.modal-title(id="updateDetailsModalLabel") Update Details
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    div.modal-body
+                        div.mb-3
+                            label.form-label(for="firstname") First Name
+                            input.form-control(type="text" id="firstname" name="firstname" value=user.firstname)
+                        div.mb-3
+                            label.form-label(for="lastname") Last Name
+                            input.form-control(type="text" id="lastname" name="lastname" value=user.lastname)
+                        div.mb-3
+                            label.form-label(for="function") Function
+                            input.form-control(type="text" id="function" name="function" value=user.function)
+                        div.mb-3
+                            label.form-label(for="bio") Bio
+                            textarea.form-control(id="bio" name="bio" rows="4")= user.bio
+                    div.modal-footer
+                        button.btn.btn-primary(type="submit") Update
+                        button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close
+                        

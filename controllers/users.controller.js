@@ -13,6 +13,7 @@ const {
 const speakeasy = require("speakeasy");
 const QRCode = require("qrcode");
 const path = require("path");
+const bcrypt = require("bcrypt");
 const multer = require("multer");
 const upload = multer({
   storage: multer.diskStorage({
@@ -190,5 +191,33 @@ exports.disable2FA = async (req, res, next) => {
     res.redirect("/users/profile");
   } catch (e) {
     next(e);
+  }
+};
+
+exports.updatePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+    const user = await findUserPerId(req.user._id);
+
+    // Check if current password is correct
+    if (!bcrypt.compareSync(currentPassword, user.local.password)) {
+      // Handle error: Current password is incorrect
+      return res.status(400).send("Current password is incorrect");
+    }
+
+    // Check if new password and confirm password match
+    if (newPassword !== confirmPassword) {
+      // Handle error: Passwords do not match
+      return res.status(400).send("Passwords do not match");
+    }
+
+    // Hash the new password and save
+    user.local.password = bcrypt.hashSync(newPassword, 10);
+    await user.save();
+
+    res.redirect("/users/profile"); // Redirect to profile or any other page
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
   }
 };

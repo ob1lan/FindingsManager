@@ -25,10 +25,6 @@ app.use(function (req, res, next) {
   res.status(404).send("Sorry, we can't find that!");
 });
 
-app.use(function (req, res, next) {
-  res.status(500).send("Sorry, we had a problem!");
-});
-
 if (process.env.NODE_ENV === "development") {
   app.use(errorHandler());
 } else {

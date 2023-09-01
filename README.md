@@ -2,7 +2,6 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
-- Add a due date to the findings and conditional coloring in the table
 - Allow admins to create/delete users
 - Allow admins to change logo and other settings (maybe)
 - Allow admins to view user's activity (log every action then)
