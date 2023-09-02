@@ -11,6 +11,7 @@ const {
   verify2FA,
   disable2FA,
   updatePassword,
+  verifyEmail,
 } = require("../controllers/users.controller");
 
 router.get("/profile", ensureAuthenticated, userProfile);
@@ -35,5 +36,7 @@ router.get("/session-expiry", ensureAuthenticated, (req, res) => {
 });
 
 router.post("/password/update", ensureAuthenticated, updatePassword);
+
+router.get("/verify-email", verifyEmail);
 
 module.exports = router;

@@ -7,6 +7,7 @@ exports.signinForm = (req, res, next) => {
     errors: null,
     isAuthenticated: req.isAuthenticated(),
     currentUser: req.user,
+    verified: req.query.verified,
   });
 };
 

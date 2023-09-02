@@ -10,13 +10,25 @@ exports.ensureAdmin = (req, res, next) => {
   if (req.isAuthenticated() && req.user.role === "admin") {
     return next();
   }
-  res.redirect("/findings"); // or wherever you want non-admins to go
+  res.redirect("/findings");
+};
+
+exports.ensureEmailVerified = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    if (req.user.isVerified) {
+      return next();
+    } else {
+      return res.status(403).json({ message: "Email not verified" });
+    }
+  } else {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 };
 
 exports.ensure2FAVerified = (req, res, next) => {
   console.log(`Accessing route: ${req.path}`);
 
-  if (req.path === "/signup") {
+  if (req.path === "/signup" || req.path === "/verify-email") {
     console.log("Accessing signup route, allowing...");
     return next();
   }

@@ -19,6 +19,10 @@ const userSchema = schema({
     enum: ["user", "admin"],
     default: "user",
   },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
   twoFASecret: { type: String, default: null },
   twoFAEnabled: { type: Boolean, default: false },
 });
