@@ -8,7 +8,10 @@ const {
   viewProjects,
   createProject,
   updateProject,
-  deleteProject
+  deleteProject,
+  viewSettings,
+  saveSettings,
+  sendTestEmail,
 } = require("../controllers/admin.controller");
 
 router.get("/", ensureAdmin, (req, res, next) => {
@@ -23,5 +26,16 @@ router.get("/projects", ensureAuthenticated, ensureAdmin, viewProjects);
 router.post("/projects/create", ensureAdmin, createProject);
 router.post("/projects/:id/edit", ensureAdmin, updateProject);
 router.get("/projects/:id/delete", ensureAdmin, deleteProject);
+
+router.get("/settings", ensureAuthenticated, ensureAdmin, viewSettings);
+router.post(
+  "/settings",
+  ensureAuthenticated,
+  ensureAdmin,
+  saveSettings
+);
+
+router.post("/test-email", ensureAuthenticated, ensureAdmin, sendTestEmail);
+
 
 module.exports = router;

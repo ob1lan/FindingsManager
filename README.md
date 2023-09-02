@@ -38,6 +38,7 @@ Currently in DRAFT
 - explore datatable rendering from server-side (instead of HTML table)
 - explore modal/html rendering from MongoDB (automatically generate HTML from fields in DB)
 - dashboard horizontal bar chart: projects findings by status
+- separate the controllers into more files (one per purpose)
 
 # Default credentials
 - admin@example.com:MySup3rStr0ngP@$$w0rd
