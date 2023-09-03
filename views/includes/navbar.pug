@@ -12,7 +12,7 @@ header
             li.nav-item
               a.nav-link(href='/findings') Findings
             li.nav-item
-              a.nav-link(href='/users/profile') Profile
+              a.nav-link(href='/me/profile') Profile
             if currentUser && currentUser.role === 'admin'
               li.nav-item.dropdown
                 a.nav-link.dropdown-toggle(href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false")
@@ -30,4 +30,4 @@ header
             li.nav-item
               a.nav-link(href='/auth/signin') Signin
             li.nav-item
-              a.nav-link(href='/users/signup') Signup
+              a.nav-link(href='/auth/signup') Signup

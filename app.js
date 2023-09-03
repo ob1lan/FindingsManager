@@ -25,7 +25,7 @@ app.use(flash());
 app.use(index);
 
 app.use(function (req, res, next) {
-  res.status(404).send("Sorry, we can't find that!");
+  res.status(404).send("Sorry, we can't find that: " + req.url );
 });
 
 if (process.env.NODE_ENV === "development") {

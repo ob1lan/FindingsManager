@@ -1,18 +1,26 @@
 const router = require("express").Router();
 const { ensureAuthenticated, ensureAdmin } = require("../config/guards.config");
+
 const {
   viewUsers,
   createUser,
   updateUser,
   deleteUser,
+} = require("../controllers/admin-users.controller");
+
+const {
   viewProjects,
   createProject,
   updateProject,
   deleteProject,
+} = require("../controllers/admin-projects.controller");
+
+const {
   viewSettings,
   saveSettings,
   sendTestEmail,
-} = require("../controllers/admin.controller");
+} = require("../controllers/admin-setting.controller");
+
 
 router.get("/", ensureAdmin, (req, res, next) => {
   res.redirect("/admin/users");
@@ -28,14 +36,8 @@ router.post("/projects/:id/edit", ensureAdmin, updateProject);
 router.get("/projects/:id/delete", ensureAdmin, deleteProject);
 
 router.get("/settings", ensureAuthenticated, ensureAdmin, viewSettings);
-router.post(
-  "/settings",
-  ensureAuthenticated,
-  ensureAdmin,
-  saveSettings
-);
+router.post("/settings", ensureAuthenticated, ensureAdmin, saveSettings);
 
 router.post("/test-email", ensureAuthenticated, ensureAdmin, sendTestEmail);
-
 
 module.exports = router;

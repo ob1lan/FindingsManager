@@ -2,7 +2,7 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
-- Allow admins to create/delete users
+- Allow admins to create users
 - Allow admins to change logo and other settings (maybe)
 - Allow admins to view user's activity (log every action then)
 - Allow users to change their password
@@ -16,11 +16,10 @@ Currently in DRAFT
     - add the user's created findings 5 by 5 (pagination)
     - add the user's assigned findings 5 by 5 (pagination)
     - add the user's created projects 5 by 5 (pagination)
-    - add new fields (phone, location, prefered language)
+    - add new fields (phone, location, prefered language) + handle their TZ 
     - correct the picture upload (only when clicking on the picture + hover animation with UL logo)
     - Notification preferences (checkboxes)
-    - Audit data (last login + UA + location + IP)
-- move the profile page and related code to a separate file to match /me/ URL/path
+    - Audit data (last login + UA + location + IP) + modal to see more
 - set the max size for inputs (project name, finding name, etc.)
 - set the max size for uploads (CSV and pictures)
 - implement rate-limiting on routes using the express-rate-limit
@@ -39,6 +38,8 @@ Currently in DRAFT
 - explore modal/html rendering from MongoDB (automatically generate HTML from fields in DB)
 - dashboard horizontal bar chart: projects findings by status
 - separate the controllers into more files (one per purpose)
+- clean unused code and simplify/harmonize the code and make it consistent
+- variables CSS for color themes (consistent)
 
 # Default credentials
 - admin@example.com:MySup3rStr0ngP@$$w0rd

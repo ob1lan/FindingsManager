@@ -7,7 +7,7 @@ mixin user-profile-page
         .row
             .col-md-3
                 .row.justify-content-center.border-card
-                    form( id="form-container" class="d-flex p-3 flex-row justify-content-center align-items-center" action="/users/update/image" method="post" enctype="multipart/form-data" )
+                    form( id="form-container" class="d-flex p-3 flex-row justify-content-center align-items-center" action="/me/update/image" method="post" enctype="multipart/form-data" )
                         input(type="file" name="avatar" class="d-none" id="input-avatar")
                         img(src=user.avatar class="img-fluid" id="image-profile")
                     div(class="d-flex flex-column justify-content-center align-items-center")
@@ -73,28 +73,6 @@ mixin user-profile-page
                                 p.mb-0 Bio
                             .col-sm-9
                                 P.text-muted.mb-0= `${user.bio}`
-
-                //- .row.justify-content-center.border-card
-                //-     form(action="/users/update/details" method="post")
-                //-         div(class="mb-3")
-                //-             label(for="firstname" class="form-label") First Name
-                //-             input(type="text" id="firstname" name="firstname" value=user.firstname class="form-control")
-                //-         div(class="mb-3")
-                //-             label(for="lastname" class="form-label") Last Name
-                //-             input(type="text" id="lastname" name="lastname" value=user.lastname class="form-control")
-                //-         div(class="mb-3")
-                //-             label(for="function" class="form-label") Function
-                //-             input(type="text" id="function" name="function" value=user.function class="form-control")
-                //-         div(class="mb-3")
-                //-             label(for="bio" class="form-label") Bio
-                //-             textarea(id="bio" name="bio" class="form-control" rows="4")= user.bio
-                //-         div(class="d-flex justify-content-center mb-1")
-                //-             button(type="submit" class="btn btn-primary mt-2") Update Details
-                //-     div(class="d-flex justify-content-center mb-1")
-                //-         if user.twoFAEnabled
-                //-             button.btn.btn-danger(data-bs-toggle="modal" data-bs-target="#disable2FAModal") Disable Two-Factor Authentication
-                //-         else
-                //-             button.btn.btn-success(data-bs-toggle="modal" data-bs-target="#setup2FAModal") Setup Two-Factor Authentication             
             .col-md-5
                 .row.justify-content-center.border-card
                     .user-created-findings

@@ -1,6 +1,6 @@
 // 1.3 Fetch Session Expiry Time
 async function fetchSessionExpiry() {
-  const response = await fetch("/users/session-expiry");
+  const response = await fetch("/me/session-expiry");
   const data = await response.json();
   return new Date(data.expiry);
 }

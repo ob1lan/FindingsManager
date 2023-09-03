@@ -9,13 +9,13 @@ window.addEventListener("DOMContentLoaded", () => {
     const secretValue = document.querySelector("input[name='secret']").value;
 
     try {
-      const response = await axios.post("/users/verify-2fa", {
+      const response = await axios.post("/me/verify-2fa", {
         otp: otpValue,
         secret: secretValue,
       });
 
       if (response.data.success) {
-        window.location.href = "/users/profile";
+        window.location.href = "/me/profile";
       } else {
         errorMessage.style.display = "block";
       }

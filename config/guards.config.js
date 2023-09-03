@@ -27,12 +27,6 @@ exports.ensureEmailVerified = (req, res, next) => {
 
 exports.ensure2FAVerified = (req, res, next) => {
   console.log(`Accessing route: ${req.path}`);
-
-  if (req.path === "/signup" || req.path === "/verify-email") {
-    console.log("Accessing signup route, allowing...");
-    return next();
-  }
-
   if (req.isAuthenticated()) {
     if (req.user.twoFAEnabled && !req.session.is2FAVerified) {
       console.log("Redirecting to OTP verification");

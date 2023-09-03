@@ -3,7 +3,7 @@ mixin edit-profile-modal
     div.modal.fade(id="updateDetailsModal" tabindex="-1" aria-labelledby="updateDetailsModalLabel" aria-hidden="true")
         div.modal-dialog
             div.modal-content
-                form(action="/users/update/details" method="post")
+                form(action="/me/update/details" method="post")
                     div.modal-header
                         h5.modal-title(id="updateDetailsModalLabel") Update Details
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")

@@ -6,10 +6,12 @@ const {
   ensureEmailVerified,
 } = require("../config/guards.config");
 const auth = require("./auth.routes");
-const users = require("./users.routes");
 const findings = require("./findings.routes");
-const admin = require("./admin.routes");
 const dashboard = require("./dashboard.routes");
+const me = require("./me.routes");
+const admin = require("./admin.routes");
+
+router.use("/auth", auth);
 
 router.use(
   "/findings",
@@ -18,6 +20,7 @@ router.use(
   ensure2FAVerified,
   findings
 );
+
 router.use(
   "/dashboard",
   ensureAuthenticated,
@@ -25,6 +28,15 @@ router.use(
   ensure2FAVerified,
   dashboard
 );
+
+router.use(
+  "/me",
+  ensureAuthenticated,
+  ensure2FAVerified,
+  ensureEmailVerified,
+  me
+);
+
 router.use(
   "/admin",
   ensureAuthenticated,
@@ -33,8 +45,6 @@ router.use(
   ensureEmailVerified,
   admin
 );
-router.use("/users", users);
-router.use("/auth", auth);
 
 router.get("/", (req, res) => {
   res.redirect("/findings");

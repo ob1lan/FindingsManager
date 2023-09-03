@@ -2,13 +2,13 @@ mixin 2fa-modals
     div.modal.fade(tabindex="-1" aria-labelledby="setup2FAModalLabel" aria-hidden="true" id="setup2FAModal")
         div.modal-dialog
             div.modal-content
-                form(action="/users/verify-2fa" method="post")
+                form(action="/me/verify-2fa" method="post")
                     div.modal-header
                         h5.modal-title(id="setup2FAModalLabel") Setup Two-Factor Authentication
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                     div.modal-body
                         img(src=dataURL alt="QR Code")
-                        p Scan the QR code or enter the secret manually: #{secret}
+                        p Scan the QR code or enter this secret manually: #{secret}
                             input(type="hidden" name="secret" value=secret)
                             div.form-group
                                 label(for="otp") Enter OTP
@@ -27,7 +27,7 @@ mixin 2fa-modals
                 div.modal-body
                     p Are you sure you want to disable Two-Factor Authentication?
                 div.modal-footer
-                    form(action="/users/disable-2fa" method="post")
+                    form(action="/me/disable-2fa" method="post")
                         button(type="submit" class="btn btn-danger") Confirm
                     button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
 
