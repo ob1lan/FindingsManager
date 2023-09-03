@@ -5,7 +5,6 @@ Currently in DRAFT
 - Allow admins to create users
 - Allow admins to change logo and other settings (maybe)
 - Allow admins to view user's activity (log every action then)
-- Allow users to change their password
 - Report on findings using a PDF template (with branding)
 - Create a dashboard chart for issue type / OWASP Category (use several Top 10)
 - Refactor the visual to fully use Bootstrap (see their examples)
