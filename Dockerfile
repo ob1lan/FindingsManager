@@ -17,7 +17,7 @@ COPY . .
 RUN rm -rf node_modules && npm install
 
 # Expose port 3000 (or the port your app runs on) to be accessed outside the container
-EXPOSE 3000
+EXPOSE 3000 3001
 
 # Command to run the application
 CMD ["npm", "run", "start:docker"]
