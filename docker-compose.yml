@@ -13,7 +13,6 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-
   db:
     image: mongo:latest
     volumes:
@@ -23,6 +22,5 @@ services:
       MONGO_INITDB_DATABASE: findings
       # MONGO_INITDB_ROOT_USERNAME: rootUser
       # MONGO_INITDB_ROOT_PASSWORD: rootPassword
-
 volumes:
   mongo-data:
