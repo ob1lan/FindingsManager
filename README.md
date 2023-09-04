@@ -2,7 +2,6 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
-- Allow admins to create users
 - Allow admins to change logo and other settings (maybe)
 - Allow admins to view user's activity (log every action then)
 - Report on findings using a PDF template (with branding)
@@ -12,9 +11,9 @@ Currently in DRAFT
 - Settings: policies in setting to calculate due date by computing the creation date
 - SAML auth support
 - User profile:
-    - add the user's created findings 5 by 5 (pagination)
-    - add the user's assigned findings 5 by 5 (pagination)
-    - add the user's created projects 5 by 5 (pagination)
+    - add the user's created findings 5 by 5 (pagination sliding effect)
+    - add the user's assigned findings 5 by 5 (pagination sliding effect)
+    - add the user's created projects 5 by 5 (pagination sliding effect)
     - add new fields (phone, location, prefered language) + handle their TZ 
     - correct the picture upload (only when clicking on the picture + hover animation with UL logo)
     - Notification preferences (checkboxes)

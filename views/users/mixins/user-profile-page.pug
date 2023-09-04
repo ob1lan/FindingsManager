@@ -106,28 +106,36 @@ mixin user-profile-page
                         div(style="display: flex; align-items: center;" )
                             span(class="badge text-bg-primary rounded-pill") #{assignedFindings.length}
                             h2= "Findings assigned to me"
-                        each finding in assignedFindings
-                            - var badgeClass;
-                                case finding.severity
-                                    when 'Critical'
-                                        - badgeClass = 'bg-darkred';
-                                    when 'High'
-                                        - badgeClass = 'bg-danger';
-                                    when 'Medium'
-                                        - badgeClass = 'bg-warning';
-                                    when 'Low'
-                                        - badgeClass = 'bg-success';
-                                    when 'Info'
-                                        - badgeClass = 'bg-primary';
-                                    default
-                                        - badgeClass = 'bg-secondary';
-                            p
-                                span(class="badge " + badgeClass + " rounded-pill")
-                                    a(class="flat-link" href="#" data-bs-toggle="modal" data-bs-target="#detailsModal-" + finding._id)
-                                        strong= finding.reference
-                                | #{' '}
-                                = finding.title
-                            +detailsModal(finding)
+                        div(id="findingsList")  
+                            each finding in assignedFindings
+                                .finding-card.paginatable-finding
+                                    - var badgeClass;
+                                        case finding.severity
+                                            when 'Critical'
+                                                - badgeClass = 'bg-darkred';
+                                            when 'High'
+                                                - badgeClass = 'bg-danger';
+                                            when 'Medium'
+                                                - badgeClass = 'bg-warning';
+                                            when 'Low'
+                                                - badgeClass = 'bg-success';
+                                            when 'Info'
+                                                - badgeClass = 'bg-primary';
+                                            default
+                                                - badgeClass = 'bg-secondary';
+                                    p
+                                        span(class="badge " + badgeClass + " rounded-pill")
+                                            a(class="flat-link" href="#" data-bs-toggle="modal" data-bs-target="#detailsModal-" + finding._id)
+                                                strong= finding.reference
+                                        | #{' '}
+                                        = finding.title
+                                +detailsModal(finding)
+                        nav(aria-label="Page navigation")
+                            ul(class="pagination justify-content-center")
+                                li(class="page-item")
+                                    a(class="page-link" href="#" id="prevPage") Previous
+                                li(class="page-item")
+                                    a(class="page-link" href="#" id="nextPage") Next
                 .row.justify-content-center.border-card
                     .user-last-logins
                         div(style="display: flex; flex-direction: column; align-items: left;" )
@@ -140,3 +148,39 @@ mixin user-profile-page
                                 p No logs available.
                 +edit-profile-modal
                 +change-password-modal
+            script.
+                document.addEventListener('DOMContentLoaded', function() {
+                    const findings = document.querySelectorAll('.paginatable-finding');
+                    console.log(findings);
+                    let currentPage = 1;
+                    const findingsPerPage = 5;
+                    const totalPages = Math.ceil(findings.length / findingsPerPage);
+
+                    function showPage(page) {
+                        const start = (page - 1) * findingsPerPage;
+                        const end = page * findingsPerPage;
+
+                        $(findingsList).fadeOut(400, function() {
+                            findings.forEach((finding, index) => {
+                                finding.style.display = (index >= start && index < end) ? "" : "none";
+                            });
+                            $(findingsList).fadeIn(400);
+                        });
+                    }
+
+                    document.getElementById('nextPage').addEventListener('click', function() {
+                        if (currentPage < totalPages) {
+                        currentPage++;
+                        showPage(currentPage);
+                        }
+                    });
+
+                    document.getElementById('prevPage').addEventListener('click', function() {
+                        if (currentPage > 1) {
+                        currentPage--;
+                        showPage(currentPage);
+                        }
+                    });
+
+                    showPage(currentPage);
+                    });
