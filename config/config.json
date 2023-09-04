@@ -1,0 +1,5 @@
+{
+    "server_hostname": "localhost",
+    "http_port": 3000,
+    "https_port": 3001
+}

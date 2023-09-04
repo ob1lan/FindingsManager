@@ -1,11 +1,14 @@
 const passport = require("passport");
 const speakeasy = require("speakeasy");
 const authLog = require("../database/models/authLog.model");
+const fs = require("fs");
 const VerificationToken = require("../database/models/verificationToken.model");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const Settings = require("../database/models/settings.model");
 const { createUser, findUserPerId } = require("../queries/users.queries");
+let config = JSON.parse(fs.readFileSync('config/config.json', 'utf8'));
+
 
 exports.signupForm = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -44,9 +47,9 @@ exports.signup = async (req, res, next) => {
     const https = req.connection.encrypted;
     let link;
     if (!https) {
-      link = `http://${req.headers.host}/auth/verify-email?token=${token}`;
+      link = `http://${config.server_hostname}:${config.http_port}/auth/verify-email?token=${token}`;
     } else {
-      link = `https://${req.headers.host}/auth/verify-email?token=${token}`;
+      link = `https://${config.server_hostname}:${config.https_port}/auth/verify-email?token=${token}`;
     }
 
     const mailOptions = {
