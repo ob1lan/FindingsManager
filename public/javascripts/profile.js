@@ -26,8 +26,19 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const inputAvatar = document.querySelector("#input-avatar");
   const formContainer = document.querySelector("#form-container");
+  const imgavatar = document.querySelector("#image-profile");
 
-  formContainer.addEventListener("click", () => {
+  // Change opacity and show icon when mouse hovers over the image
+  imgavatar.addEventListener("mouseover", function () {
+    this.style.opacity = "0.5";
+  });
+
+  // Reset opacity and hide icon when mouse leaves the image
+  imgavatar.addEventListener("mouseout", function () {
+    this.style.opacity = "1";
+  });
+
+  imgavatar.addEventListener("click", () => {
     inputAvatar.click();
   });
 
