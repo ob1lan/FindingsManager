@@ -4,7 +4,7 @@ const path = require("path");
 const index = require("./routes");
 const errorHandler = require("errorhandler");
 const flash = require("connect-flash");
-
+var RateLimit = require("express-rate-limit");
 require("./database");
 
 const app = express();
@@ -27,6 +27,11 @@ app.use((req, res, next) => {
   res.locals.error_msg = req.flash('error_msg');
   next();
 });
+var limiter = RateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // max 100 requests per windowMs
+});
+app.use(limiter);
 app.use(index);
 
 app.use(function (req, res, next) {
