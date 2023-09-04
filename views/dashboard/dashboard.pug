@@ -3,6 +3,7 @@ include mixins/severity-pie-chart
 include mixins/status-pie-chart
 include mixins/project-pie-chart
 include mixins/origin-pie-chart
+include mixins/created-date-chart
 
 block content
     h1 Dashboard
@@ -16,3 +17,6 @@ block content
             +projectPieChart(chart3)
         div(class="chart-container")
             +originPieChart(chart4)
+    div(class="charts-row")
+        div(class="chart-container")
+            +createdDateChart(chart5)

@@ -1,4 +1,5 @@
 const Finding = require("../database/models/finding.model");
+const moment = require('moment');
 
 exports.getFindings = () => {
   return Finding.find({}).exec();
@@ -102,4 +103,33 @@ exports.getFindingsCreatedByUsername = async (username) => {
 
 exports.getFindingsAssignedToUsername = async (username) => {
   return Finding.find({ assignee: username });
+};
+
+exports.getFindingsCountByDate = async (createdAt) => {
+  return await Finding.countDocuments({
+    createdAt: createdAt,
+  });
+};
+
+exports.getFindingsCountByDate = async (days) => {
+  const startDate = moment().subtract(days, 'days').toDate();
+  const endDate = new Date();
+
+  // MongoDB aggregation to group findings by date and count them
+  return await Finding.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: startDate, $lte: endDate }
+      }
+    },
+    {
+      $group: {
+        _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+        count: { $sum: 1 }
+      }
+    },
+    {
+      $sort: { "_id": 1 }
+    }
+  ]);
 };

@@ -1,0 +1,68 @@
+mixin createdDateChart(chart5)
+  label(for='dateRangeSelector') Select Date Range:
+  select#dateRangeSelector
+    option(value='7') Last 7 Days
+    option(value='30') Last 30 Days
+
+    canvas#chart5
+        script.
+            document.addEventListener('DOMContentLoaded', function() {
+                let findingsByDate7 = !{JSON.stringify(findingsByDate7)};
+                let findingsByDate30 = !{JSON.stringify(findingsByDate30)};
+                let currentData = findingsByDate7; // Default to 7 days
+
+                const labels = currentData.map(item => item._id);
+                const counts = currentData.map(item => item.count);
+
+                const ctxCreated = document.getElementById('chart5').getContext('2d');
+                const findingsOverTimeChart = new Chart(ctxCreated, {
+                    type: 'line',
+                    data: {
+                        labels: labels, // Populate from server data
+                        datasets: [{
+                            label: 'Findings Over Time',
+                            data: counts, // Populate from server data
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1,
+                            fill: false
+                        }]
+                        },
+                        options: {
+                            scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                unit: 'day'
+                                },
+                                title: {
+                                display: true,
+                                text: 'Date'
+                                }
+                            },
+                            y: {
+                                title: {
+                                display: true,
+                                text: 'Number of Findings'
+                                }
+                            }
+                            }
+                        }
+                    });
+                document.getElementById('dateRangeSelector').addEventListener('change', (e) => {
+                    const days = e.target.value;
+                    currentData = days === '7' ? findingsByDate7 : findingsByDate30;
+
+                    const labels = currentData.map(item => item._id);
+                    const counts = currentData.map(item => item.count);
+
+                    findingsOverTimeChart.data.labels = labels;
+                    findingsOverTimeChart.data.datasets[0].data = counts;
+                    findingsOverTimeChart.update();
+                });
+            });
+
+
+
+
+
+
