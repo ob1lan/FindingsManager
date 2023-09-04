@@ -5,6 +5,7 @@ const index = require("./routes");
 const errorHandler = require("errorhandler");
 const flash = require("connect-flash");
 var RateLimit = require("express-rate-limit");
+var escape = require("escape-html");
 require("./database");
 
 const app = express();
@@ -23,8 +24,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(flash());
 app.use((req, res, next) => {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
   next();
 });
 var limiter = RateLimit({
@@ -35,7 +36,7 @@ app.use(limiter);
 app.use(index);
 
 app.use(function (req, res, next) {
-  res.status(404).send("Sorry, we can't find that: " + req.url );
+  res.status(404).send("Sorry, we can't find that: " + escape(req.url));
 });
 
 if (process.env.NODE_ENV === "development") {
