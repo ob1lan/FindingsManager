@@ -1,5 +1,7 @@
 const nodemailer = require("nodemailer");
 const smtpSettingsQuery = require("../queries/settings.queries");
+const sendEmail = require('../utils/emailSender');
+
 
 exports.viewSettings = async (req, res, next) => {
   try {
@@ -35,41 +37,31 @@ exports.saveSettings = async (req, res, next) => {
 
 exports.sendTestEmail = async (req, res, next) => {
   try {
-    const { smtpHost, smtpPort, smtpUsername, smtpPassword, testEmail } =
-      req.body;
+    const { testEmail } = req.body;
 
-    // Create a transporter using the SMTP settings
-    let transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: false,
-      tls: {
-        rejectUnauthorized: false, // Don't fail on invalid certs (useful for local development)
-      },
-    });
+    // Fetch the SMTP settings using the getSMTPSettings function
+    const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
 
-    if (smtpUsername && smtpPassword) {
-      transporter.auth = {
-        user: smtpUsername,
-        pass: smtpPassword,
-      };
-    }
-
-    // Send a test email
-    await transporter.sendMail({
-      from: smtpUsername || "default@example.com",
+    // Prepare the email options
+    const mailOptions = {
+      from: smtpSettings.smtpUsername || "default@example.com",
       to: testEmail,
       subject: "Test Email from FindingsManager",
-      text: "This is a test email to verify SMTP settings.",
-    });
+      text: "This is a test email to verify SMTP settings."
+    };
 
-    req.flash("success_msg", "Test email sent successfully!");
+    // Send the email using the centralized sendEmail function
+    const emailSent = await sendEmail(smtpSettings, mailOptions);
+
+    if (emailSent) {
+      req.flash("success_msg", "Test email sent successfully!");
+    } else {
+      req.flash("error_msg", "Failed to send test email. Please check SMTP settings.");
+    }  
+
     res.redirect("/admin/settings");
   } catch (error) {
-    req.flash(
-      "error_msg",
-      "Failed to send test email. Please check SMTP settings."
-    );
+    req.flash("error_msg", "Failed to send test email. Please check SMTP settings.");
     res.redirect("/admin/settings");
   }
 };

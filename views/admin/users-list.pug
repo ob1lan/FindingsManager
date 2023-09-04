@@ -2,12 +2,17 @@ extends ../layout.pug
 include mixins/users/users-table
 include mixins/users/edit-user-modal
 include mixins/users/user-details-modal
+include mixins/users/create-user-modal
+
 
 block content
     h1 Admin - Users
 
+    button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#createUserModal") Create New User
+
     +usersTable(users)
-    
+    +createUserModal
+
     //- modals for each user
     each user in users
         +userDetailsModal(user)

@@ -23,7 +23,13 @@ exports.viewUsers = async (req, res, next) => {
 };
 
 exports.createUser = async (req, res, next) => {
-  // Logic to create a new user
+  try {
+    const userData = req.body;
+    await createUser(userData);
+    res.redirect("/admin/users");
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.updateUser = async (req, res, next) => {

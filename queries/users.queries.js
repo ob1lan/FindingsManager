@@ -6,6 +6,11 @@ exports.createUser = async (user) => {
     const hashedPassword = await User.hashPassword(user.password);
     const newUser = new User({
       username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      bio: user.bio,
+      function: user.function,
+      phone: user.phone,
       local: {
         email: user.email,
         password: hashedPassword,

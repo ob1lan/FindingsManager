@@ -1,0 +1,44 @@
+mixin createUserModal
+  .modal.fade(id="createUserModal", tabindex="-1", aria-labelledby="createUserModalLabel", aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        form(method="post" action="/admin/users/create")
+          .modal-header
+            h5.modal-title(id="createUserModalLabel") Create New User
+            button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+          .modal-body
+            .mb-3
+              label(for="newUsername") Username
+              input#newUsername.form-control(type="text" name="username" placeholder="Enter username" required)
+            .mb-3
+              label(for="newEmail") Email
+              input#newEmail.form-control(type="email" name="email" placeholder="Enter email" required)
+            .mb-3
+              label(for="newPassword") Password
+              input#newPassword.form-control(type="password" name="password" placeholder="Enter password" required)
+            .mb-3
+              label(for="newFirstname") Firstname
+              input#newFirstname.form-control(type="text" name="firstname" placeholder="Enter first name")
+            .mb-3
+              label(for="newLastname") Lastname
+              input#newLastname.form-control(type="text" name="lastname" placeholder="Enter last name")
+            .mb-3
+              label(for="newFunction") Function
+              input#newFunction.form-control(type="text" name="function" placeholder="Enter function")
+            .mb-3
+              label(for="newPhone") Phone
+              input#newPhone.form-control(type="text" name="phone" placeholder="Phone number")
+            .mb-3
+              label(for="newBio") Bio
+              textarea#newBio.form-control(name="bio" rows="3" placeholder="Enter bio")
+            .mb-3
+              label(for="newRole") Role
+              select#newRole.form-control(name="role")
+                option(value="user") User
+                option(value="admin") Admin
+            .mb-3.form-check
+                input#sendEmail.form-check-input(type="checkbox" name="sendEmail")
+                label.form-check-label(for="sendEmail") Send Email Notification
+          .modal-footer
+            button.btn.btn-primary(type="submit") Create User
+            button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close

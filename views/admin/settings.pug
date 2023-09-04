@@ -25,3 +25,7 @@ block content
                         input#testEmail.form-control(type="email" name="testEmail" placeholder="Enter an email address to send a test email")
                     .mb-3
                         button.btn.btn-secondary(type="submit" formaction="/admin/test-email") Send Test Email
+                if success_msg.length > 0
+                    .alert.alert-success #{success_msg[0]}
+                if error_msg.length > 0
+                    .alert.alert-danger #{error_msg[0]}

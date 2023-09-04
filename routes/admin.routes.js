@@ -26,7 +26,7 @@ router.get("/", ensureAdmin, (req, res, next) => {
   res.redirect("/admin/users");
 });
 router.get("/users", ensureAuthenticated, ensureAdmin, viewUsers);
-router.post("/users", ensureAuthenticated, ensureAdmin, createUser);
+router.post("/users/create", ensureAuthenticated, ensureAdmin, createUser);
 router.get("/users/:id/delete", ensureAuthenticated, ensureAdmin, deleteUser);
 router.post("/users/:id/edit", ensureAuthenticated, ensureAdmin, updateUser);
 

@@ -6,7 +6,7 @@ const smtpSettingsSchema = schema({
   smtpPort: { type: Number, required: true },
   smtpUsername: { type: String, required: false },
   smtpPassword: { type: String, required: false },
-  // Add any other settings you want to save
+  smtpSecure: { type: Boolean, required: true },
 });
 
 const SMTPSettings = mongoose.model("SMTPSettings", smtpSettingsSchema);
