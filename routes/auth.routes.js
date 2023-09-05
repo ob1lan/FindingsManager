@@ -9,8 +9,10 @@ const {
   otpForm,
   verifyOtp,
   verifyEmail,
-  viewAllLoginLogs,
-  viewUserLoginLogs,
+  forgotPasswordForm,
+  sendResetLink,
+  resetPasswordForm,  
+  resetPassword,
 } = require("../controllers/auth.controller");
 
 router.get("/signup", signupForm);
@@ -24,7 +26,10 @@ router.get("/signout", ensureAuthenticated, signout);
 router.get("/verify-otp", otpForm);
 router.post("/verify-otp", verifyOtp);
 
-// router.get("/admin/login-logs", ensureAdmin, viewAllLoginLogs);
-// router.get("/user/login-logs", ensureAuthenticated, viewUserLoginLogs);
+router.get('/forgot-password', forgotPasswordForm);
+router.post('/forgot-password', sendResetLink);
+router.get('/reset-password/:token', resetPasswordForm);
+router.post('/reset-password/:token', resetPassword);
+
 
 module.exports = router;

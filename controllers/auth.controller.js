@@ -4,11 +4,16 @@ const authLog = require("../database/models/authLog.model");
 const fs = require("fs");
 const VerificationToken = require("../database/models/verificationToken.model");
 const crypto = require("crypto");
-const nodemailer = require("nodemailer");
-const Settings = require("../database/models/settings.model");
-const { createUser, findUserPerId } = require("../queries/users.queries");
-let config = JSON.parse(fs.readFileSync('config/config.json', 'utf8'));
-
+const bcrypt = require("bcrypt");
+const smtpSettingsQuery = require("../queries/settings.queries");
+const { sendEmail } = require("../utils/emailSender");
+const {
+  createUser,
+  findUserPerId,
+  findUserPerEmail,
+  findUserByResetToken,
+} = require("../queries/users.queries");
+let config = JSON.parse(fs.readFileSync("config/config.json", "utf8"));
 
 exports.signupForm = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -33,16 +38,8 @@ exports.signup = async (req, res, next) => {
     });
     await verificationToken.save();
 
-    const smtpSettings = await Settings.findOne();
-    console.log(smtpSettings);
-    const transporter = nodemailer.createTransport({
-      host: smtpSettings.smtpHost,
-      port: smtpSettings.smtpPort,
-      // auth: {
-      //   user: smtpSettings.smtpUsername,
-      //   pass: smtpSettings.smtpPassword,
-      // },
-    });
+    const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
+    const sendEmail = require("../utils/emailSender");
 
     const https = req.connection.encrypted;
     let link;
@@ -53,23 +50,24 @@ exports.signup = async (req, res, next) => {
     }
 
     const mailOptions = {
-      from: smtpSettings.smtpUsername || "noreply@findingsmanager.com", // sender address
-      to: user.local.email, // user's email address
+      from: smtpSettings.smtpUsername || "noreply@findingsmanager.com",
+      to: user.local.email,
       subject: "Email Verification",
       text: `Hello ${user.username},\n\nPlease verify your email by clicking on the following link: ${link}\n\nIf you did not request this, please ignore this email.\n`,
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log("Error sending email:", error);
-        // Handle the error appropriately in your application
-      } else {
-        console.log("Email sent:", info.response);
-        // Handle successful email sending, maybe redirect the user to a page informing them to check their email
-      }
-    });
+    const emailSent = await sendEmail(smtpSettings, mailOptions);
 
-    res.redirect("/");
+    if (emailSent) {
+      req.flash("success_msg", "Registration email sent successfully, please check your inbox!");
+    } else {
+      req.flash(
+        "error_msg",
+        "Failed to send registration email."
+      );
+    }
+
+    res.redirect("/auth/signin");
   } catch (e) {
     res.render("auth/registration-form", {
       errors: [e.message],
@@ -97,7 +95,6 @@ exports.signin = (req, res, next) => {
     if (err) {
       return next(err);
     } else if (!user) {
-      // Log the failed login attempt
       try {
         const log = new authLog({
           attemptedEmail: req.body.email,
@@ -122,7 +119,6 @@ exports.signin = (req, res, next) => {
         if (err) {
           return next(err);
         } else {
-          // Log the successful login attempt
           try {
             const log = new authLog({
               attemptedEmail: req.body.email,
@@ -137,7 +133,6 @@ exports.signin = (req, res, next) => {
           }
 
           if (user.twoFAEnabled) {
-            // Redirect to OTP verification page
             return res.redirect("/auth/verify-otp");
           } else {
             return res.redirect("/findings");
@@ -201,22 +196,11 @@ exports.verifyOtp = (req, res, next) => {
   }
 };
 
-// exports.viewAllLoginLogs = async (req, res, next) => {
-//   const logs = await LoginLog.find().populate("userId").exec();
-//   res.render("auth/admin-logs", { logs });
-// };
-
-// exports.viewUserLoginLogs = async (req, res, next) => {
-//   const logs = await LoginLog.find({ userId: req.user._id }).limit(5).exec();
-//   res.render("auth/user-logs", { logs });
-// };
-
 exports.verifyEmail = async (req, res) => {
   console.log("Verifying email...");
   const token = req.query.token;
   const verificationToken = await VerificationToken.findOne({ token: token });
   if (!verificationToken) {
-    // Token is not valid or has expired
     return res.status(400).send({ msg: "Invalid or expired token" });
   }
   const user = await findUserPerId(verificationToken.userId);
@@ -224,5 +208,75 @@ exports.verifyEmail = async (req, res) => {
   user.isVerified = true;
   await user.save();
   await verificationToken.deleteOne();
-  res.redirect("/auth/signin?verified=true");
+  req.flash("success_msg", "Email verified, you can now login!");
+  res.redirect("/auth/signin");
+};
+
+exports.forgotPasswordForm = (req, res) => {
+  res.render("auth/forgot-password-form");
+};
+
+exports.sendResetLink = async (req, res) => {
+  const email = req.body.email;
+  const user = await findUserPerEmail(email);
+  const token = crypto.randomBytes(32).toString("hex");
+  const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
+  const sendEmail = require("../utils/emailSender");
+
+  user.passwordResetToken = token;
+  user.passwordResetExpires = Date.now() + 3600000; // 1 hour
+  await user.save();
+
+  const https = req.connection.encrypted;
+  let resetURL;
+  if (!https) {
+    resetURL = `http://${config.server_hostname}:${config.http_port}/auth/reset-password/${token}`;
+  } else {
+    resetURL = `https://${config.server_hostname}:${config.https_port}/auth/reset-password/${token}`;
+  }
+
+  const mailOptions = {
+    from: smtpSettings.smtpUsername || "default@example.com",
+    to: email,
+    subject: "Password Reset",
+    text: `Click this link to reset your password: ${resetURL}`,
+  };
+
+  const resetSent = await sendEmail(smtpSettings, mailOptions);
+  if (resetSent) {
+    req.flash("success_msg", "Check your email for the reset link!");
+  } else {
+    req.flash("error_msg", "Failed to send email.");
+  }
+  res.redirect("/auth/signin");
+};
+
+exports.resetPasswordForm = (req, res) => {
+  res.render("auth/reset-password-form", { token: req.params.token });
+};
+
+exports.resetPassword = async (req, res) => {
+  const user = await findUserByResetToken(req.params.token);
+  const body = req.body;
+  if (body.newPassword !== body.confirmPassword) {
+    return res.status(400).send("Passwords do not match");
+  } else {
+    password = body.newPassword;
+  }
+
+  if (!user || !(user.passwordResetExpires > Date.now())) {
+    return res.redirect("/auth/forgot-password");
+  }
+
+  user.local.password = bcrypt.hashSync(body.newPassword, 10);
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+  const updatedUser = await user.save();
+  if (updatedUser) {
+    req.flash("success_msg", "Password reset!");
+  } else {
+    req.flash("error_msg", "Failed to reset password.");
+  }
+
+  res.redirect("/auth/signin");
 };

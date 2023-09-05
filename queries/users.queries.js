@@ -66,3 +66,6 @@ exports.findLastFiveLogsByEmail = (email) => {
     .exec();
 };
 
+exports.findUserByResetToken = async (token) => {
+  return await User.findOne({ "passwordResetToken": token });
+};

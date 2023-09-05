@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
 const smtpSettingsQuery = require("../queries/settings.queries");
 const sendEmail = require('../utils/emailSender');
 
