@@ -8,8 +8,9 @@ mixin user-profile-page
             .col-md-3
                 .row.justify-content-center.border-card
                     form( id="form-container" class="d-flex p-3 flex-row justify-content-center align-items-center" action="/me/update/image" method="post" enctype="multipart/form-data" )
-                        input(type="file" name="avatar" class="d-none" id="input-avatar")
-                        img(src=user.avatar class="img-fluid" id="image-profile")
+                        .profilepic
+                            input(type="file" name="avatar" class="d-none" id="input-avatar")
+                            img(src=user.avatar class="img-fluid profilepic__image" id="image-profile")
                     div(class="d-flex flex-column justify-content-center align-items-center")
                         p(style="font-weight: bold; font-size: 16px;")= `${ user.firstname } ${ user.lastname }`
                         p= `${ user.username } (${ user.local.email })`
