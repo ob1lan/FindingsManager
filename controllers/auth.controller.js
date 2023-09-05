@@ -6,7 +6,7 @@ const VerificationToken = require("../database/models/verificationToken.model");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const smtpSettingsQuery = require("../queries/settings.queries");
-const { sendEmail } = require("../utils/emailSender");
+const sendEmail = require("../utils/emailSender");
 const {
   createUser,
   findUserPerId,
@@ -38,9 +38,6 @@ exports.signup = async (req, res, next) => {
     });
     await verificationToken.save();
 
-    const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
-    const sendEmail = require("../utils/emailSender");
-
     const https = req.connection.encrypted;
     let link;
     if (!https) {
@@ -49,6 +46,7 @@ exports.signup = async (req, res, next) => {
       link = `https://${config.server_hostname}:${config.https_port}/auth/verify-email?token=${token}`;
     }
 
+    const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
     const mailOptions = {
       from: smtpSettings.smtpUsername || "noreply@findingsmanager.com",
       to: user.local.email,
@@ -221,7 +219,6 @@ exports.sendResetLink = async (req, res) => {
   const user = await findUserPerEmail(email);
   const token = crypto.randomBytes(32).toString("hex");
   const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
-  const sendEmail = require("../utils/emailSender");
 
   user.passwordResetToken = token;
   user.passwordResetExpires = Date.now() + 3600000; // 1 hour
@@ -235,6 +232,7 @@ exports.sendResetLink = async (req, res) => {
     resetURL = `https://${config.server_hostname}:${config.https_port}/auth/reset-password/${token}`;
   }
 
+  console.log("smtpSettings: ", smtpSettings)
   const mailOptions = {
     from: smtpSettings.smtpUsername || "default@example.com",
     to: email,
