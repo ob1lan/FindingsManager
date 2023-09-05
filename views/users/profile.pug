@@ -4,14 +4,12 @@ include mixins/user-profile-page
 include mixins/2fa-modals
 
 block content
-  h1 User Profile
+  if user.firstname 
+    h1 #{ user.firstname }'s Profile
+  else 
+    h1 #{ user.username }'s Profile
 
   script(src="/javascripts/profile.js")
-  
-  if user.firstname 
-    h3 Hi, #{ user.firstname }!
-  else
-    h3 Hi, #{ user.username }!
   
   +user-profile-page
         

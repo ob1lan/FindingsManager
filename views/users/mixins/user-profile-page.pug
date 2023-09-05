@@ -73,6 +73,16 @@ mixin user-profile-page
                                 p.mb-0 Bio
                             .col-sm-9
                                 P.text-muted.mb-0= `${user.bio}`
+                .row.justify-content-center.border-card
+                    .user-last-logins
+                        div(style="display: flex; flex-direction: column; align-items: left;" )
+                            h2= "Last logins"
+                            if logs && logs.length
+                                ul
+                                    each log in logs
+                                        li= log.attemptedAction + ' (' + log.status + ') at ' + log.formattedTimestamp + ' from IP ' + log.clientIP
+                            else
+                                p No logs available.
             .col-md-5
                 .row.justify-content-center.border-card
                     .user-created-findings
@@ -143,17 +153,7 @@ mixin user-profile-page
                                 li(class="page-item")
                                     a(class="page-link" href="#" id="prevPage") Previous
                                 li(class="page-item")
-                                    a(class="page-link" href="#" id="nextPage") Next
-                .row.justify-content-center.border-card
-                    .user-last-logins
-                        div(style="display: flex; flex-direction: column; align-items: left;" )
-                            h2= "Last logins"
-                            if logs && logs.length
-                                ul
-                                    each log in logs
-                                        li= log.attemptedAction + ' (' + log.status + ') at ' + log.formattedTimestamp + ' from IP ' + log.clientIP
-                            else
-                                p No logs available.
+                                    a(class="page-link" href="#" id="nextPage") Next               
                 +edit-profile-modal
                 +change-password-modal
             script(src="/javascripts/profile-assigned.js")
