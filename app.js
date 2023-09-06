@@ -33,6 +33,7 @@ var limiter = RateLimit({
   max: 100, // max 100 requests per windowMs
 });
 app.use(limiter);
+
 app.use(index);
 
 app.use(function (req, res, next) {

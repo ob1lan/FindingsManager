@@ -1,27 +1,19 @@
 const router = require("express").Router();
 const { ensureAuthenticated } = require("../config/guards.config");
 const { uploadCSV } = require("../config/upload.config");
-const {
-  findings,
-  findingCreate,
-  findingDetails,
-  findingEdit,
-  findingDelete,
-  exportToCSV,
-  importFindings,
-} = require("../controllers/findings.controller");
+const fndCtrl = require("../controllers/findings.controller");
 
-router.get("/", ensureAuthenticated, findings);
-router.post("/new-finding", ensureAuthenticated, findingCreate);
-router.get("/:id/details", ensureAuthenticated, findingDetails);
-router.post("/:id/edit", ensureAuthenticated, findingEdit);
-router.post("/:id/delete", ensureAuthenticated, findingDelete);
-router.get("/export", ensureAuthenticated, exportToCSV);
+router.get("/", ensureAuthenticated, fndCtrl.findings);
+router.post("/new-finding", ensureAuthenticated, fndCtrl.findingCreate);
+router.get("/:id/details", ensureAuthenticated, fndCtrl.findingDetails);
+router.post("/:id/edit", ensureAuthenticated, fndCtrl.findingEdit);
+router.post("/:id/delete", ensureAuthenticated, fndCtrl.findingDelete);
+router.get("/export", ensureAuthenticated, fndCtrl.exportToCSV);
 router.post(
   "/import-csv",
   ensureAuthenticated,
   uploadCSV.single("file"),
-  importFindings
+  fndCtrl.importFindings
 );
 
 module.exports = router;

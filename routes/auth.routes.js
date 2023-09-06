@@ -1,35 +1,23 @@
 const router = require("express").Router();
-const { ensureAuthenticated, ensureAdmin } = require("../config/guards.config");
-const {
-  signup,
-  signupForm,
-  signinForm,
-  signin,
-  signout,
-  otpForm,
-  verifyOtp,
-  verifyEmail,
-  forgotPasswordForm,
-  sendResetLink,
-  resetPasswordForm,  
-  resetPassword,
-} = require("../controllers/auth.controller");
+const { ensureAuthenticated } = require("../config/guards.config");
+const authController = require("../controllers/auth.controller");
+const registrationController = require("../controllers/auth-registration.controller");
+const passwordResetController = require("../controllers/auth-reset-password.controller");
 
-router.get("/signup", signupForm);
-router.post("/signup", signup);
-router.get("/verify-email", verifyEmail);
+router.get("/signup", registrationController.signupForm);
+router.post("/signup", registrationController.signup);
+router.get("/verify-email", registrationController.verifyEmail);
 
-router.get("/signin", signinForm);
-router.post("/signin", signin);
-router.get("/signout", ensureAuthenticated, signout);
+router.get("/signin", authController.signinForm);
+router.post("/signin", authController.signin);
+router.get("/signout", ensureAuthenticated, authController.signout);
 
-router.get("/verify-otp", otpForm);
-router.post("/verify-otp", verifyOtp);
+router.get("/verify-otp", authController.otpForm);
+router.post("/verify-otp", authController.verifyOtp);
 
-router.get('/forgot-password', forgotPasswordForm);
-router.post('/forgot-password', sendResetLink);
-router.get('/reset-password/:token', resetPasswordForm);
-router.post('/reset-password/:token', resetPassword);
-
+router.get("/forgot-password", passwordResetController.forgotPasswordForm);
+router.post("/forgot-password", passwordResetController.sendResetLink);
+router.get("/reset-password/:token", passwordResetController.resetPasswordForm);
+router.post("/reset-password/:token", passwordResetController.resetPassword);
 
 module.exports = router;
