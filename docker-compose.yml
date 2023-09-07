@@ -20,7 +20,5 @@ services:
       - ./database/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     environment:
       MONGO_INITDB_DATABASE: findings
-      # MONGO_INITDB_ROOT_USERNAME: rootUser
-      # MONGO_INITDB_ROOT_PASSWORD: rootPassword
 volumes:
   mongo-data:

@@ -16,8 +16,7 @@ COPY . .
 # Remove node_modules from local and install dependencies in the container
 RUN rm -rf node_modules && npm install
 
-# Expose port 3000 (or the port your app runs on) to be accessed outside the container
+# Expose port 3000 (HTTP) and 3001 (HTTPS)
 EXPOSE 3000 3001
 
-# Command to run the application
 CMD ["npm", "run", "start:docker"]
