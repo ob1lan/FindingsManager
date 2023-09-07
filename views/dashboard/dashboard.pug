@@ -9,7 +9,7 @@ block content
     h1 Dashboard
     script(src="https://cdn.jsdelivr.net/npm/chart.js")
     script(src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js")
-    div(class="charts-row")
+    div(class="row charts-row")
         div(class="chart-container")
             +severityPieChart(chart1)
         div(class="chart-container")
@@ -19,6 +19,6 @@ block content
         div(class="chart-container")
             +originPieChart(chart4)
     hr
-    div(class="charts-row")
+    div(class="row charts-row")
         div(class="chart-container")
             +createdDateChart(chart5)
