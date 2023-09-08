@@ -29,7 +29,7 @@ Currently in DRAFT
 - Findings table: add the ability to select multiple findings at once and bulk action (change status, delete,...)
 - Refactor findings table to only use datatable buttons (custom action to open modals) + double click to open finding details
 - refactor datatable without jQuery (use npm to instal packages)
-- add confirmation modal for user delete
+- add confirmation modal for user delete (admins)
 - delete old avatar on avatar change
 - error in modal in case something goes wrong during password change (using Flash)
 - explore datatable rendering from server-side (instead of HTML table)
