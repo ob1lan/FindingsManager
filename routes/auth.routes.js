@@ -4,7 +4,6 @@ const authController = require("../controllers/auth.controller");
 const registrationController = require("../controllers/auth-registration.controller");
 const passwordResetController = require("../controllers/auth-reset-password.controller");
 
-router.get("/signup", registrationController.signupForm);
 router.post("/signup", registrationController.signup);
 router.get("/verify-email", registrationController.verifyEmail);
 

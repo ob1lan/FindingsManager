@@ -84,3 +84,7 @@ table.dataTable {
   border-collapse: collapse !important;
   width: 100% !important;
 }
+
+.hidden {
+  display: none;
+}

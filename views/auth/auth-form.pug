@@ -7,35 +7,60 @@ block content
         img(src='https://www.svgrepo.com/show/430079/security-secure-protection-30.svg' alt='logo' width='100')
       .card.shadow-lg
         .card-body.p-5
-          h1.fs-4.card-title.fw-bold.mb-4 Login
-          form.needs-validation(method="post" action="/auth/signin" novalidate='' autocomplete='off')
-            .mb-3
-              label.mb-2.text-muted(for='email') E-Mail Address
-              input#email.form-control(type='email' name='email' value='' required='' autofocus='')
-              .invalid-feedback
-                | Email is invalid
-            .mb-3
-              .mb-2.w-100
-                label.text-muted(for='password') Password
-                a.float-end(href='/auth/forgot-password')
-                  | Forgot Password?
-              input#password.form-control(type='password' name='password' required='')
-              .invalid-feedback
-                | Password is required
-            .d-flex.align-items-center
-              .form-check
-                input#remember.form-check-input(type='checkbox' name='remember')
-                label.form-check-label(for='remember') Remember Me
+          #login-form
+            h1.fs-4.card-title.fw-bold.mb-4 Login
+            form.needs-validation(method="post" action="/auth/signin" autocomplete='off')
+              .mb-3
+                label.mb-2.text-muted(for='email') E-Mail Address
+                input#email.form-control(type='email' name='email' value='' required)
+                .invalid-feedback
+                  | Email is invalid
+              .mb-3
+                .mb-2.w-100
+                  label.text-muted(for='password') Password
+                  a.float-end(href='/auth/forgot-password')
+                    | Forgot Password?
+                input#password.form-control(type='password' name='password' required)
+                .invalid-feedback
+                  | Password is required
+              .d-flex.align-items-center
+                .form-check
+                  input#remember.form-check-input(type='checkbox' name='remember')
+                  label.form-check-label(for='remember') Remember Me
+                button.btn.btn-primary.ms-auto(type='submit')
+                  | Login
+          #register-form.hidden
+            h1.fs-4.card-title.fw-bold.mb-4 Register
+            form.needs-validation(method="post" action="/auth/signup" autocomplete='off')
+              .mb-3
+                label.mb-2.text-muted(for='username') Username
+                input#username.form-control(type='text' name='username' required)
+                .invalid-feedback
+                  | Username is required
+              .mb-3
+                label.mb-2.text-muted(for='email') E-Mail Address
+                input#email.form-control(type='email' name='email' required)
+                .invalid-feedback
+                  | E-Mail Address is required
+              .mb-3
+                label.mb-2.text-muted(for='password') Password
+                input#password.form-control(type='password' name='password' required)
+                .invalid-feedback
+                  | Password is required            
               button.btn.btn-primary.ms-auto(type='submit')
-                | Login
+                | Register
         .card-footer.py-3.border-0
           .text-center
             if errors
               span(class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill")= errors
               br
-            | Don&apos;t have an account? 
-            a.text-dark(href='/auth/signup') Create One
+            #toggle-form
+              span#toggle-static-text Don't have an account?
+              span.space(style="text-decoration: none;") #{' '}
+              a#toggle-form(href="#") 
+                span#toggle-text Create One
         if success_msg.length > 0
           .alert.alert-success #{success_msg[0]}
         if error_msg.length > 0
           .alert.alert-danger #{error_msg[0]}
+  script(src="/javascripts/toggleForms.js")

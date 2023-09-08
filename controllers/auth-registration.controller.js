@@ -6,18 +6,6 @@ const sendEmail = require("../utils/emailSender");
 const fs = require("fs");
 let config = JSON.parse(fs.readFileSync("config/config.json", "utf8"));
 
-exports.signupForm = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return res.redirect("/findings");
-  }
-  res.render("auth/registration-form", {
-    errors: null,
-    isAuthenticated: req.isAuthenticated(),
-    is2FAVerified: req.session.is2FAVerified,
-    currentUser: req.user,
-  });
-};
-
 exports.signup = async (req, res, next) => {
   const body = req.body;
   try {
@@ -58,12 +46,8 @@ exports.signup = async (req, res, next) => {
 
     res.redirect("/auth/signin");
   } catch (e) {
-    res.render("auth/registration-form", {
-      errors: [e.message],
-      isAuthenticated: req.isAuthenticated(),
-      is2FAVerified: req.session.is2FAVerified,
-      currentUser: req.user,
-    });
+    req.flash("error_msg", "Failed to register the user.");
+    res.redirect("/auth/signin");
   }
 };
 
