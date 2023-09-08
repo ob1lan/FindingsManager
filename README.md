@@ -37,6 +37,7 @@ Currently in DRAFT
 - dashboard horizontal bar chart: projects findings by status
 - clean unused code and simplify/harmonize the code and make it consistent
 - variables CSS for color themes (consistent)
+- Overdue status: ontrack, overdue, closed
 
 # Default credentials
 - admin@example.com:MySup3rStr0ngP@$$w0rd
