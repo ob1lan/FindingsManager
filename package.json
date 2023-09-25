@@ -22,7 +22,7 @@
     "datatables.net-dt": "^1.13.6",
     "errorhandler": "^1.5.1",
     "express": "^4.18.2",
-    "express-fileupload": "^1.4.0",
+    "express-fileupload": "^1.4.1",
     "express-rate-limit": "^7.0.1",
     "express-session": "^1.17.3",
     "json2csv": "^6.0.0-alpha.2",
