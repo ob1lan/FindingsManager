@@ -5,7 +5,7 @@ const { uploadAttachment } = require("../config/upload.config");
 const fndCtrl = require("../controllers/findings.controller");
 
 router.get("/", ensureAuthenticated, fndCtrl.findings);
-router.post("/new-finding", ensureAuthenticated, uploadAttachment.single("file"), fndCtrl.findingCreate);
+router.post("/new-finding", ensureAuthenticated, uploadAttachment.single("attachment"), fndCtrl.findingCreate);
 router.get("/:id/details", ensureAuthenticated, fndCtrl.findingDetails);
 router.post("/:id/edit", ensureAuthenticated, fndCtrl.findingEdit);
 router.post("/:id/delete", ensureAuthenticated, fndCtrl.findingDelete);
