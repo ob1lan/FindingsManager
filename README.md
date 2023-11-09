@@ -2,7 +2,8 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
-- Refactor registration form to match login's style + same with OTP and forgot password (use JS to update the card)
+- Refactor OTP and forgot password to match the login card style
+- Ensure the Admin - SMTP Setttings page is showing the same as the others Admin menu pages
 - Consider refactoring and use JWT to authenticate users (instead of sessions)
 - Handle environment variables to configure ports, hostname, etc...
 - Use email templates and harmize the email content (use the same template for all emails) and helpers
@@ -29,7 +30,6 @@ Currently in DRAFT
 - Findings table: add the ability to select multiple findings at once and bulk action (change status, delete,...)
 - Refactor findings table to only use datatable buttons (custom action to open modals) + double click to open finding details
 - refactor datatable without jQuery (use npm to instal packages)
-- add confirmation modal for user delete (admins)
 - delete old avatar on avatar change
 - error in modal in case something goes wrong during password change (using Flash)
 - explore datatable rendering from server-side (instead of HTML table)

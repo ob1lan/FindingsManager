@@ -1,31 +1,28 @@
 extends ../layout.pug
 
 block content
-    .container.mt-5
-        .row
-            .col-md-8.offset-md-2
-                h1 Admin - SMTP Settings
-                form(method="post" action="/admin/settings")
-                    .mb-3
-                        label(for="smtpHost" class="form-label") SMTP Host
-                        input#smtpHost.form-control(type="text" name="smtpHost" value=smtpSettings.smtpHost)
-                    .mb-3
-                        label(for="smtpPort" class="form-label") SMTP Port
-                        input#smtpPort.form-control(type="number" name="smtpPort" value=smtpSettings.smtpPort)
-                    .mb-3
-                        label(for="smtpUsername" class="form-label") SMTP Username
-                        input#smtpUsername.form-control(type="text" name="smtpUsername" value=smtpSettings.smtpUsername)
-                    .mb-3
-                        label(for="smtpPassword" class="form-label") SMTP Password
-                        input#smtpPassword.form-control(type="password" name="smtpPassword" value=smtpSettings.smtpPassword)
-                    .mb-3
-                        button.btn.btn-primary(type="submit") Save Settings
-                    .mb-3
-                        label(for="testEmail" class="form-label") Test Email Address
-                        input#testEmail.form-control(type="email" name="testEmail" placeholder="Enter an email address to send a test email")
-                    .mb-3
-                        button.btn.btn-secondary(type="submit" formaction="/admin/test-email") Send Test Email
-                if success_msg.length > 0
-                    .alert.alert-success #{success_msg[0]}
-                if error_msg.length > 0
-                    .alert.alert-danger #{error_msg[0]}
+    h1 Admin - SMTP Settings
+    form(method="post" action="/admin/settings")
+        .mb-3
+            label(for="smtpHost" class="form-label") SMTP Host
+            input#smtpHost.form-control(type="text" name="smtpHost" value=smtpSettings.smtpHost)
+        .mb-3
+            label(for="smtpPort" class="form-label") SMTP Port
+            input#smtpPort.form-control(type="number" name="smtpPort" value=smtpSettings.smtpPort)
+        .mb-3
+            label(for="smtpUsername" class="form-label") SMTP Username
+            input#smtpUsername.form-control(type="text" name="smtpUsername" value=smtpSettings.smtpUsername)
+        .mb-3
+            label(for="smtpPassword" class="form-label") SMTP Password
+            input#smtpPassword.form-control(type="password" name="smtpPassword" value=smtpSettings.smtpPassword)
+        .mb-3
+            button.btn.btn-primary(type="submit") Save Settings
+        .mb-3
+            label(for="testEmail" class="form-label") Test Email Address
+            input#testEmail.form-control(type="email" name="testEmail" placeholder="Enter an email address to send a test email")
+        .mb-3
+            button.btn.btn-secondary(type="submit" formaction="/admin/test-email") Send Test Email
+    if success_msg.length > 0
+        .alert.alert-success #{success_msg[0]}
+    if error_msg.length > 0
+        .alert.alert-danger #{error_msg[0]}

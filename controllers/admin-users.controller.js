@@ -45,7 +45,7 @@ exports.updateUser = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
   try {
-    // Here, you'll delete the finding using its ID
+    // Here, you'll delete the user using its ID
     await deleteUser(req.params.id);
     res.redirect("/admin/users");
   } catch (error) {
