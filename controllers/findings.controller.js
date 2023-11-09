@@ -1,6 +1,7 @@
 const { Parser } = require("json2csv");
 const csv = require("csv-parser");
 const { Readable } = require("stream");
+const { uploadAttachment } = require("../config/upload.config");
 
 const {
   createFinding,
@@ -49,7 +50,16 @@ exports.findings = async (req, res, next) => {
 exports.findingCreate = async (req, res, next) => {
   try {
     const body = req.body;
-    await createFinding({ ...body, createdBy: req.user.username });
+    let attachmentPath = "";
+    if (req.file) {
+      attachmentPath = req.file.path;
+      uploadAttachment.single("file");
+    }
+    await createFinding({
+      ...body,
+      createdBy: req.user.username,
+      attachment: attachmentPath,
+    });
     res.redirect("/findings");
   } catch (e) {
     const errors = Object.keys(e.errors).map((key) => e.errors[key].message);

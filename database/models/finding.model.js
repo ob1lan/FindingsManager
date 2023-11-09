@@ -30,6 +30,7 @@ const findingSchema = schema(
     createdBy: { type: String, required: true, default: "" },
     project: { type: String, default: "None" },
     dueDate: { type: Date },
+    attachment: { type: String, default: "" },  
   },
   {
     timestamps: true, // This will automatically add `createdAt` and `updatedAt` fields

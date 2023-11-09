@@ -18,5 +18,8 @@ mixin detailsModal(finding)
                     p <b>Reported By:</b> #{finding.reportedBy}
                     p <b>CVE:</b> #{finding.cve}
                     p <b>CVSS:</b> #{finding.cvss}
+                    if finding.attachment
+                        p <b>Attachment:</b>
+                            a(href=`/public/files/attachments/${finding.attachment}`) Download
                 .modal-footer
                     button(type="button" class="btn btn-secondary" data-bs-dismiss="modal") Close
