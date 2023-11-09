@@ -2,7 +2,7 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
-- Report on overdue findings => report on dashboard widget click
+- Report on overdue findings => PDF/CSV report on dashboard widget click (all details)
 - Settings: policies in setting to calculate due date by computing the creation date (reflect on the pre-save query)
 - Refactor OTP and forgot password to match the login card style
 - Add a feature to mention the fixed date (if any) in the finding details, based on the status (Remediated) or manually
@@ -10,10 +10,12 @@ Currently in DRAFT
 - Ensure Dashboard page responsiveness
 - Add a feature/action to share/send a finding to another user (summary in email), button on the finding details modal
 - Add a feature to securely attach files to findings (pictures, PDF, etc.)
+- Add a feature to toggle from pie chart to another chart type by clicking the card
+- Add a 'show more' button under the Last logins list on the profile page (display a table with all logins events)
 - Ensure the Admin - SMTP Setttings page is showing the same as the others Admin menu pages
 - Consider refactoring and use JWT to authenticate users (instead of sessions)
 - Handle environment variables to configure ports, hostname, etc...
-- Use email templates and harmize the email content (use the same template for all emails) and helpers
+- Use email templates and harmonize the email content (use the same template for all emails) and helpers
 - Allow admins to change logo and other settings (maybe)
 - Allow admins to view user's activity (log every action then)
 - Report on findings using a PDF template (with branding)

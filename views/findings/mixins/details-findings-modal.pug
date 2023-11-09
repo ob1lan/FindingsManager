@@ -6,17 +6,17 @@ mixin detailsModal(finding)
                     h5.modal-title Details for #{finding.reference}
                     button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                 .modal-body
-                    p Reference: #{finding.reference}
-                    p Project: #{finding.project}
-                    p Status: #{finding.status}
-                    p Assignee: #{finding.assignee}
-                    p Origin: #{finding.origin}
-                    p Title: #{finding.title}
-                    p Type: #{finding.type}
-                    p Description: #{finding.description}
-                    p Severity: #{finding.severity}
-                    p Reported By: #{finding.reportedBy}
-                    p CVE: #{finding.cve}
-                    p CVSS: #{finding.cvss}
+                    p <b>Reference:</b> #{finding.reference}
+                    p <b>Project:</b> #{finding.project}
+                    p <b>Status:</b> #{finding.status}
+                    p <b>Assignee:</b> #{finding.assignee}
+                    p <b>Origin:</b> #{finding.origin}
+                    p <b>Title:</b> #{finding.title}
+                    p <b>Type:</b> #{finding.type}
+                    p <b>Description:</b> #{finding.description}
+                    p <b>Severity:</b> #{finding.severity}
+                    p <b>Reported By:</b> #{finding.reportedBy}
+                    p <b>CVE:</b> #{finding.cve}
+                    p <b>CVSS:</b> #{finding.cvss}
                 .modal-footer
                     button(type="button" class="btn btn-secondary" data-bs-dismiss="modal") Close

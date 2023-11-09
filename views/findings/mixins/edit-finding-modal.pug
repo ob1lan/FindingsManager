@@ -8,18 +8,18 @@ mixin editFindingModal(finding)
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                     .modal-body
                         .mb-3
-                            label(for="reference") Reference
+                            label(for="reference") <b>Reference</b>
                             input#reference.form-control(type="text" name="reference" value= finding.reference required)
                         .mb-3
-                            label(for="project") Project
+                            label(for="project") <b>Project</b>
                             select#project.form-control(name="project")
                                 each project in projects
                                     option(value=project.reference)= project.reference
                         .mb-3
-                            label(for="title") Title
+                            label(for="title") <b>Title</b>
                             input#title.form-control(type="text" name="title" value= finding.title required)
                         .mb-3
-                            label(for="type") Finding Type
+                            label(for="type") <b>Finding Type</b>
                             select#type.form-control(name="type")
                                 option(value="Configuration Issues" selected=(finding.type === 'Configuration Issues')) Configuration Issues
                                 option(value="Authentication & Authorization Issues" selected=(finding.type === 'Authentication & Authorization Issues')) Authentication & Authorization Issues
@@ -34,10 +34,10 @@ mixin editFindingModal(finding)
                                 option(value="Third-party Component Vulnerabilities" selected=(finding.type === 'Third-party Component Vulnerabilities')) Third-party Component Vulnerabilities
                                 option(value="Business Logic Flaws" selected=(finding.type === 'Business Logic Flaws')) Business Logic Flaws
                         .mb-3
-                            label(for="description") Description
+                            label(for="description") <b>Description</b>
                             textarea#description.form-control(name="description" rows="5" required)= finding.description
                         .mb-3
-                            label(for="severity") Severity
+                            label(for="severity") <b>Severity</b>
                             select#severity.form-control(name="severity")
                                 option(value="Critical" selected=(finding.severity === 'Critical')) Critical
                                 option(value="High" selected=(finding.severity === 'High')) High
@@ -45,7 +45,7 @@ mixin editFindingModal(finding)
                                 option(value="Low" selected=(finding.severity === 'Low')) Low
                                 option(value="Info" selected=(finding.severity === 'Info')) Info
                         .mb-3
-                            label(for="status") Status
+                            label(for="status") <b>Status</b>
                             select#status.form-control(name="status")
                                 option(value="In Remediation" selected=(finding.status === 'In Remediation')) In Remediation
                                 option(value="Remediated" selected=(finding.status === 'Remediated')) Remediated
@@ -53,22 +53,22 @@ mixin editFindingModal(finding)
                                 option(value="Declined" selected=(finding.status === 'Declined')) Declined
 
                         .mb-3
-                            label(for="assignee") Assignee
+                            label(for="assignee") <b>Assignee</b>
                             input#assignee.form-control(type="text" name="assignee" value= finding.assignee)
                         .mb-3
-                            label(for="origin") Origin
+                            label(for="origin") <b>Origin</b>
                             input#origin.form-control(type="text" name="origin" value= finding.origin)
                         .mb-3
-                            label(for="reportedBy") Reported By
+                            label(for="reportedBy") <b>Reported By</b>
                             input#reportedBy.form-control(type="text" name="reportedBy" value= finding.reportedBy)
                         .mb-3
-                            label(for="cve") CVE
+                            label(for="cve") <b>CVE</b>
                             input#cve.form-control(type="text" name="cve" value= finding.cve)
                         .mb-3
-                            label(for="cvss") CVSS
+                            label(for="cvss") <b>CVSS</b>
                             input#cvss.form-control(type="text" name="cvss" value= finding.cvss)
                         .mb-3
-                            label(for="dueDate") Due Date
+                            label(for="dueDate") <b>Due Date</b>
                             input#dueDate.form-control(type="date" name="dueDate" value= finding.dueDate)
                     .modal-footer
                         button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
