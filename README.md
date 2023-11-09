@@ -2,7 +2,14 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
+- Report on overdue findings => report on dashboard widget click
+- Settings: policies in setting to calculate due date by computing the creation date (reflect on the pre-save query)
 - Refactor OTP and forgot password to match the login card style
+- Add a feature to mention the fixed date (if any) in the finding details, based on the status (Remediated) or manually
+- From the above, get a trend graph of findings fixed on time vs overdue + how long it took to fix
+- Ensure Dashboard page responsiveness
+- Add a feature/action to share/send a finding to another user (summary in email), button on the finding details modal
+- Add a feature to securely attach files to findings (pictures, PDF, etc.)
 - Ensure the Admin - SMTP Setttings page is showing the same as the others Admin menu pages
 - Consider refactoring and use JWT to authenticate users (instead of sessions)
 - Handle environment variables to configure ports, hostname, etc...
@@ -13,7 +20,6 @@ Currently in DRAFT
 - Create a dashboard chart for issue type / OWASP Category (use several Top 10)
 - Refactor the visual to fully use Bootstrap (see their examples)
 - dropdowns : use svg icons or colored circles (cf bootstrap examples)
-- Settings: policies in setting to calculate due date by computing the creation date
 - SAML auth support
 - User profile:
     - add the user's created projects 5 by 5 (pagination sliding effect)
@@ -37,7 +43,6 @@ Currently in DRAFT
 - dashboard horizontal bar chart: projects findings by status
 - clean unused code and simplify/harmonize the code and make it consistent
 - variables CSS for color themes (consistent)
-- Overdue status: ontrack, overdue, closed
 
 # Default credentials
 - admin@example.com:MySup3rStr0ngP@$$w0rd

@@ -9,15 +9,11 @@ mixin createdDateChart(chart5)
     canvas#chart5
         script.
             let findingsByDate7 = !{JSON.stringify(findingsByDate7)};
-            console.log(findingsByDate7);
             let findingsByDate30 = !{JSON.stringify(findingsByDate30)};
-            console.log(findingsByDate30);
             let currentData = findingsByDate7; // Default to 7 days
 
             const labels = currentData.map(item => item._id);
-            console.log(labels);
             const counts = currentData.map(item => item.count);
-            console.log(counts);
 
             const ctxCreated = document.getElementById('chart5').getContext('2d');
             const findingsOverTimeChart = new Chart(ctxCreated, {

@@ -1,4 +1,5 @@
 const {
+  getFindings,
   getCountBySeverity,
   getCountByStatus,
   getCountByProject,
@@ -16,6 +17,59 @@ exports.getDashboard = async (req, res, next) => {
     const findingsByOrigin = await getCountByOrigin();
     const findingsByDate7 = await getFindingsCountByDate(7);
     const findingsByDate30 = await getFindingsCountByDate(30);
+    const countFindingsMetOrOverdue = async () => {
+      try {
+        const findings = await getFindings();
+        const currentDate = new Date();
+        const findgindsOverdue = findings.filter(
+          (finding) => finding.dueDate <= currentDate
+        );
+        const numberOfFindingsOverdue = findgindsOverdue.length;
+        return numberOfFindingsOverdue;
+      } catch (error) {
+        console.error("Error fetching or processing findings:", error);
+      }
+    };
+    const numberOfFindingsOverdue = await countFindingsMetOrOverdue();
+
+    const countAllFindings = async () => {
+      try {
+        const findings = await getFindings();
+        const numberOfFindings = findings.length;
+        return numberOfFindings;
+      } catch (error) {
+        console.error("Error fetching or processing findings:", error);
+      }
+    };
+    const numberOfFindings = await countAllFindings();
+
+    const countAllOpenFindings = async () => {
+      try {
+        const findings = await getFindings();
+         const findgindsOpen = findings.filter(
+           (finding) => finding.status === "In Remediation"
+         );
+        const numberOfOpenFindings = findgindsOpen.length;
+        return numberOfOpenFindings;
+      } catch (error) {
+        console.error("Error fetching or processing findings:", error);
+      }
+    };
+    const numberOfOpenFindings = await countAllOpenFindings();
+
+    const countAllClosedFindings = async () => {
+      try {
+        const findings = await getFindings();
+        const findgindsClosed = findings.filter(
+          (finding) => finding.status != "In Remediation"
+        );
+        const numberOfClosedFindings = findgindsClosed.length;
+        return numberOfClosedFindings;
+      } catch (error) {
+        console.error("Error fetching or processing findings:", error);
+      }
+    };
+    const numberOfClosedFindings = await countAllClosedFindings();
 
     res.render("dashboard/dashboard", {
       sortedData,
@@ -24,6 +78,10 @@ exports.getDashboard = async (req, res, next) => {
       findingsByOrigin,
       findingsByDate7,
       findingsByDate30,
+      numberOfFindings,
+      numberOfOpenFindings,
+      numberOfClosedFindings,
+      numberOfFindingsOverdue,
       isAuthenticated: req.isAuthenticated(),
       is2FAVerified: req.session.is2FAVerified,
       currentUser: req.user,

@@ -70,6 +70,9 @@ mixin newFindingModal(finding)
                                 .form-group
                                     label(for="cvss") CVSS
                                     input#cvss.form-control(type="text" name="cvss" placeholder="CVSS 3.0 Base Score")
+                                .form-group 
+                                    label(for="dueDate") Due Date (leave empty for SLA defaults)
+                                    input#dueDate.form-control(type="date" name="dueDate")
                     .modal-footer
                         button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
                         button.btn.btn-primary(type="submit") Create Finding

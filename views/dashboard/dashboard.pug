@@ -9,7 +9,28 @@ block content
     h1 Dashboard
     script(src="https://cdn.jsdelivr.net/npm/chart.js")
     script(src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js")
-    div(class="row charts-row")
+    div(class="row cards-row flex-nowrap")
+        div(class="card-container")
+            div(class="card text-bg-primary")
+                div(class="card-header")|All Findings
+                div(class="card-body")
+                    h1 #{numberOfFindings}
+        div(class="card-container")
+            div(class="card text-bg-warning")
+                div(class="card-header")|Open Findings
+                div(class="card-body")
+                    h1 #{numberOfOpenFindings}
+        div(class="card-container")
+            div(class="card text-bg-danger")
+                div(class="card-header")|Overdue Findings
+                div(class="card-body")
+                    h1 #{numberOfFindingsOverdue}
+        div(class="card-container")
+            div(class="card text-bg-success")
+                div(class="card-header")|Closed Findings
+                div(class="card-body")
+                    h1 #{numberOfClosedFindings}
+    div(class="row charts-row flex-nowrap")
         div(class="chart-container")
             +severityPieChart(chart1)
         div(class="chart-container")
@@ -19,6 +40,6 @@ block content
         div(class="chart-container")
             +originPieChart(chart4)
     hr
-    div(class="row charts-row")
+    div(class="row charts-row flex-nowrap")
         div(class="chart-container")
             +createdDateChart(chart5)

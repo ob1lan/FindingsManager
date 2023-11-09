@@ -67,6 +67,9 @@ mixin editFindingModal(finding)
                         .mb-3
                             label(for="cvss") CVSS
                             input#cvss.form-control(type="text" name="cvss" value= finding.cvss)
+                        .mb-3
+                            label(for="dueDate") Due Date
+                            input#dueDate.form-control(type="date" name="dueDate" value= finding.dueDate)
                     .modal-footer
                         button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
                         button.btn.btn-primary(type="submit") Save Changes
