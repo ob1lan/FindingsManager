@@ -2,6 +2,7 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
+- Fix date on edit details action for projects + same for edit findings
 - Report on overdue findings => PDF/CSV report on dashboard widget click (all details)
 - Settings: policies in setting to calculate due date by computing the creation date (reflect on the pre-save query)
 - Refactor OTP and forgot password to match the login card style

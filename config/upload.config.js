@@ -27,6 +27,9 @@ const uploadCSV = multer({ storage: memoryStorage });
 const uploadAvatar = multer({ storage: diskStorageAvatar });
 const uploadAttachment = multer({
   storage: diskStorageAttachment,
+  limits: {
+    fileSize: 1024 * 1024 * 5, // Limit of 5MB
+  },
 });
 
 module.exports = {

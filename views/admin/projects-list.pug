@@ -1,7 +1,7 @@
 extends ../layout.pug
 include mixins/projects/projects-table
 include mixins/projects/new-project-modal
-//- include mixins/projects/project-details-modal
+include mixins/projects/project-details-modal
 include mixins/projects/edit-project-modal
 include mixins/projects/delete-confirmation-modal
 
@@ -17,7 +17,7 @@ block content
 
     //- modals for each project
     each project in projects
-        //- +projectDetailsModal(project)
+        +projectDetailsModal(project)
         +editProjectModal(project)
 
     script.

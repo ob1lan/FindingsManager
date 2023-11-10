@@ -35,6 +35,18 @@ mixin editProjectModal(project)
                         .mb-3
                             label(for="assessor") Assessor
                             input#assessor.form-control(type="text" name="assessor" value= project.conductedBy)
+                        .mb-3
+                            label(for="environment") Environment
+                            input#environment.form-control(type="text" name="environment" value= project.environment)
+                        .mb-3
+                            label(for="scope") Scope
+                            input#scope.form-control(type="text" name="scope" value= project.scope)
+                        .mb-3
+                            label(for="startDate") Start Date
+                            input#startDate.form-control(type="date" name="startDate" value= project.startDate)
+                        .mb-3
+                            label(for="endDate") End Date
+                            input#endDate.form-control(type="date" name="endDate" value= project.endDate)
                     .modal-footer
                         button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
                         button.btn.btn-primary(type="submit") Save Changes

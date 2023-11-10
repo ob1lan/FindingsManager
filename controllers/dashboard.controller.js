@@ -62,12 +62,3 @@ function sortStatusData(data) {
   });
   return sorted;
 }
-
-function sortProjectData(data) {
-  const order = ["In Remediation", "Remediated", "Declined", "Accepted"];
-  const sorted = order.map((status) => {
-    const item = data.find((d) => d._id === status) || { count: 0 };
-    return item.count;
-  });
-  return sorted;
-}
