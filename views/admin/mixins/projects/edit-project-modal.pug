@@ -43,10 +43,12 @@ mixin editProjectModal(project)
                             input#scope.form-control(type="text" name="scope" value= project.scope)
                         .mb-3
                             label(for="startDate") Start Date
-                            input#startDate.form-control(type="date" name="startDate" value= project.startDate)
+                            - var formattedStartDate = project.startDate ? new Date(project.startDate).toISOString().split('T')[0] : ''
+                            input#startDate.form-control(type="date" name="startDate" value= formattedStartDate)
                         .mb-3
                             label(for="endDate") End Date
-                            input#endDate.form-control(type="date" name="endDate" value= project.endDate)
+                            - var formattedEndDate = project.endDate ? new Date(project.endDate).toISOString().split('T')[0] : ''
+                            input#endDate.form-control(type="date" name="endDate" value= formattedEndDate)
                     .modal-footer
                         button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
                         button.btn.btn-primary(type="submit") Save Changes

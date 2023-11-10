@@ -69,7 +69,8 @@ mixin editFindingModal(finding)
                             input#cvss.form-control(type="text" name="cvss" value= finding.cvss)
                         .mb-3
                             label(for="dueDate") <b>Due Date</b>
-                            input#dueDate.form-control(type="date" name="dueDate" value= finding.dueDate)
+                            - var formattedDueDate = finding.dueDate ? new Date(finding.dueDate).toISOString().split('T')[0] : ''
+                            input#dueDate.form-control(type="date" name="dueDate" value= formattedDueDate)
                     .modal-footer
                         button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
                         button.btn.btn-primary(type="submit") Save Changes
