@@ -133,3 +133,18 @@ exports.getFindingsCountByDate = async (days) => {
     }
   ]);
 };
+
+exports.getOverdueFindings = async () => {
+  try {
+    const currentDate = new Date();
+    const overdueFindings = await Finding.find({
+      dueDate: { $lt: currentDate }, // Select findings where dueDate is less than the current date
+      status: { $nin: ["Remediated", "Accepted", "Declined"] }, // Exclude findings with these statuses
+    }).exec();
+
+    return overdueFindings;
+  } catch (error) {
+    console.error("Error fetching overdue findings:", error);
+    throw error; // Or handle the error as per your application's error handling policy
+  }
+}

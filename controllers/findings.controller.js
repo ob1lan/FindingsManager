@@ -9,6 +9,7 @@ const {
   updateFinding,
   deleteFinding,
   getFindingsByProjectReference,
+  getOverdueFindings,
 } = require("../queries/findings.queries");
 
 const { getProjects } = require("../queries/projects.queries");
