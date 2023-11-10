@@ -51,7 +51,8 @@ exports.findingCreate = async (req, res, next) => {
     const body = req.body;
     let attachmentPath = "";
     if (req.file) {
-      attachmentPath = req.file.path;
+      absolutePath = req.file.path;
+      attachmentPath = absolutePath.replace("public", '');
     }
     await createFinding({
       ...body,
