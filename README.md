@@ -3,6 +3,7 @@
 Currently in DRAFT
 # TO DO
 - Report on overdue findings => PDF/CSV report on dashboard widget click (all details)
+- Allow to filter the findings table
 - Settings: policies in setting to calculate due date by computing the creation date (reflect on the pre-save query)
 - Refactor OTP and forgot password to match the login card style
 - Add a feature to mention the fixed date (if any) in the finding details, based on the status (Remediated) or manually

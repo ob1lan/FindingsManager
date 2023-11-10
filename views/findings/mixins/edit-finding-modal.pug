@@ -71,6 +71,9 @@ mixin editFindingModal(finding)
                             label(for="dueDate") <b>Due Date</b>
                             - var formattedDueDate = finding.dueDate ? new Date(finding.dueDate).toISOString().split('T')[0] : ''
                             input#dueDate.form-control(type="date" name="dueDate" value= formattedDueDate)
+                        .mb-3
+                            label(for="attachment") <b>Attachment</b>
+                            input#attachment.form-control(type="file" name="attachment")
                     .modal-footer
                         button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
                         button.btn.btn-primary(type="submit") Save Changes

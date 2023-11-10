@@ -9,7 +9,6 @@ router.get("/", ensureAuthenticated, fndCtrl.findings);
 router.post("/new-finding", ensureAuthenticated, (req, res, next) => {
   uploadAttachment.single("attachment")(req, res, function (err) {
     if (err instanceof multer.MulterError) {
-      // A Multer error occurred when uploading.
       if (err.code === "LIMIT_FILE_SIZE") {
         return res
           .status(400)
@@ -18,15 +17,11 @@ router.post("/new-finding", ensureAuthenticated, (req, res, next) => {
               "File too large. Please upload a file smaller than the specified limit (5MB).",
           });
       }
-      // Handle other Multer errors here if needed
     } else if (err) {
-      // An unknown error occurred when uploading.
       return res
         .status(500)
         .json({ message: "An error occurred during the file upload." });
     }
-
-    // If no errors, proceed to the controller function
     fndCtrl.findingCreate(req, res);
   });
 });

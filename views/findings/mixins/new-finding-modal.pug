@@ -10,20 +10,20 @@ mixin newFindingModal(finding)
                         .row
                             .col-md-6
                                 .form-group
-                                    label(for="reference") Reference
+                                    label(for="reference") <b>Reference</b>
                                     input#reference.form-control(type="text" name="reference" placeholder="e.g. Ticket-ID" required)
                                 .form-group
-                                    label(for="assignee") Assignee
+                                    label(for="assignee") <b>Assignee</b>
                                     input#assignee.form-control(type="text" name="assignee" placeholder="e.g. John Doe")
                                 .form-group
-                                    label(for="origin") Origin
+                                    label(for="origin") <b>Origin</b>
                                     input#origin.form-control(type="text" name="origin" placeholder="e.g. WAPT, NVA, BBP" required)
                                 .form-group
-                                    label(for="title") Title
+                                    label(for="title") <b>Title</b>
                                     input#title.form-control(type="text" name="title" placeholder="e.g. SXSS in the blog component" required)
                                 .form-group
                                     .form-group
-                                    label(for="type") Type
+                                    label(for="type") <b>Type</b>
                                     select#type.form-control(name="type")
                                         option(value="Configuration Issues") Configuration Issues
                                         option(value="Authentication & Authorization Issues") Authentication & Authorization Issues
@@ -38,26 +38,26 @@ mixin newFindingModal(finding)
                                         option(value="Third-party Component Vulnerabilities") Third-party Component Vulnerabilities
                                         option(value="Business Logic Flaws") Business Logic Flaws
                                 .form-group
-                                    label(for="description") Description
+                                    label(for="description") <b>Description</b>
                                     textarea#description.form-control(name="description" placeholder="e.g. There is a Stored XSS in the blog application" required)
                                 .form-group
-                                    label(for="reportedBy") Reported By
+                                    label(for="reportedBy") <b>Reported By</b>
                                     input#reportedBy.form-control(type="text" name="reportedBy" placeholder="e.g. John Smith")
                             .col-md-6
                                 .form-group
-                                    label(for="project") Project
+                                    label(for="project") <b>Project</b>
                                     select#project.form-control(name="project")
                                         each project in projects
                                             option(value=project.reference)= project.reference
                                 .form-group
-                                    label(for="status") Status
+                                    label(for="status") <b>Status</b>
                                     select#status.form-control(name="status")
                                         option(value="In Remediation") In Remediation
                                         option(value="Remediated") Remediated
                                         option(value="Accepted") Accepted
                                         option(value="Declined") Declined
                                 .form-group
-                                    label(for="severity") Severity
+                                    label(for="severity") <b>Severity</b>
                                     select#severity.form-control(name="severity")
                                         option(value="Critical") Critical
                                         option(value="High") High
@@ -65,13 +65,13 @@ mixin newFindingModal(finding)
                                         option(value="Low") Low
                                         option(value="Info") Info
                                 .form-group
-                                    label(for="cve") CVE
+                                    label(for="cve") <b>CVE</b>
                                     input#cve.form-control(type="text" name="cve" placeholder="CVE-2023-1234")
                                 .form-group
-                                    label(for="cvss") CVSS
+                                    label(for="cvss") <b>CVSS</b>
                                     input#cvss.form-control(type="text" name="cvss" placeholder="CVSS 3.0 Base Score")
                                 .form-group 
-                                    label(for="dueDate") Due Date (leave empty for SLA defaults)
+                                    label(for="dueDate") <b>Due Date (leave empty for SLA defaults)</b>
                                     input#dueDate.form-control(type="date" name="dueDate")
                                 .form-group
                                     label(for="attachment") <b>Attachment</b>

@@ -75,7 +75,7 @@ exports.findingCreate = async (req, res, next) => {
 exports.findingDetails = async (req, res, next) => {
   try {
     const finding = await findFindingPerId(req.params.id);
-    res.json(finding); // This sends the finding details as JSON. You can modify this to render a view if needed.
+    res.json(finding);
   } catch (error) {
     next(error);
   }
@@ -100,8 +100,6 @@ exports.findingEdit = async (req, res, next) => {
 
 exports.findingDelete = async (req, res, next) => {
   try {
-    // Here, you'll delete the finding using its ID
-    // You might use a function like deleteFinding from your queries
     await deleteFinding(req.params.id);
     res.redirect("/findings");
   } catch (error) {
@@ -112,15 +110,12 @@ exports.findingDelete = async (req, res, next) => {
 exports.exportToCSV = async (req, res, next) => {
   try {
     const { projectReference } = req.query;
-
     let findings;
-
     if (projectReference) {
       findings = await getFindingsByProjectReference(projectReference);
     } else {
       findings = await getFindings();
     }
-
     const fields = [
       "reference",
       "project",
