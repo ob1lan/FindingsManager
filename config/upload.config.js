@@ -6,7 +6,7 @@ const memoryStorage = multer.memoryStorage();
 // Disk storage for avatars
 const diskStorageAvatar = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./public/images/avatars"); // Adjust the path if needed
+    cb(null, "./public/images/avatars");
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
@@ -16,7 +16,7 @@ const diskStorageAvatar = multer.diskStorage({
 // Disk storage for findings attachments
 const diskStorageAttachment = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./public/files/attachments"); // Adjust the path if needed
+    cb(null, "./public/files/attachments");
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
