@@ -19,7 +19,7 @@ const userSchema = schema({
     enum: ["user", "admin"],
     default: "user",
   },
-  isVerified: { type: Boolean, default: false },
+  isVerified: { type: Boolean, default: null },
   twoFASecret: { type: String, default: null },
   twoFAEnabled: { type: Boolean, default: false },
   passwordResetToken: String,
