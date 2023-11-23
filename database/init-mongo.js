@@ -12,6 +12,7 @@ db.users.insert({
   function: "Administrator",
   bio: "Default admin user",
   role: "admin",
+  isVerified: "true",
   twoFASecret: null,
   twoFAEnabled: false,
 });
