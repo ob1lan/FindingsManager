@@ -17,15 +17,9 @@ exports.ensureAdmin = (req, res, next) => {
 };
 
 exports.ensureEmailVerified = (req, res, next) => {
-  console.log("isAuthenticated: ", req.isAuthenticated());
-  console.log("User: ", req.user);
-  console.log("Email Verified:", req.user?.isVerified);
   if (req.isAuthenticated() && req.user.isVerified) {
       return next();
     } else {
-      console.log("isAuthenticated: ", req.isAuthenticated());
-      console.log("User: ", req.user);
-      console.log("Email Verified:", req.user?.isVerified);
       return res.status(403).json({ message: "An error occured, please retry in a few moments"});
     }
 };

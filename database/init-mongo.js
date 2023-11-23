@@ -16,3 +16,12 @@ db.users.insert({
   twoFASecret: null,
   twoFAEnabled: false,
 });
+
+db.users.update(
+  { username: "admin" },
+  {
+    $set: {
+      isVerified: true,
+    },
+  }
+);
