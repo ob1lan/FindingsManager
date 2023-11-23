@@ -14,15 +14,11 @@ exports.ensureAdmin = (req, res, next) => {
 };
 
 exports.ensureEmailVerified = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    if (req.user.isVerified) {
+  if (req.isAuthenticated() && req.user.isVerified) {
       return next();
     } else {
-      return res.status(403).json({ message: "Email not verified:" + req.user.isVerfied });
+      return res.status(403).json({ message: "An error occured, please retry in a few moments"});
     }
-  } else {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
 };
 
 exports.ensure2FAVerified = (req, res, next) => {
