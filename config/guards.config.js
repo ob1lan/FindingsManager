@@ -14,6 +14,9 @@ exports.ensureAdmin = (req, res, next) => {
 };
 
 exports.ensureEmailVerified = (req, res, next) => {
+  console.log("isAuthenticated: ", req.isAuthenticated());
+  console.log("User: ", req.user);
+  console.log("Email Verified:", req.user?.isVerified);
   if (req.isAuthenticated() && req.user.isVerified) {
       return next();
     } else {
