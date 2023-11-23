@@ -16,3 +16,5 @@ db.users.insert({
   twoFASecret: null,
   twoFAEnabled: false,
 });
+
+console.log("User admin created and activated");
