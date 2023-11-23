@@ -18,7 +18,7 @@ exports.ensureEmailVerified = (req, res, next) => {
     if (req.user.isVerified) {
       return next();
     } else {
-      return res.status(403).json({ message: "Email not verified" });
+      return res.status(403).json({ message: "Email not verified:" + req.user.isVerfied });
     }
   } else {
     return res.status(401).json({ message: "Unauthorized" });
