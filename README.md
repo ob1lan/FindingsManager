@@ -2,6 +2,7 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
+- Move configuration parameters out of environment/ and put into a config file
 - Make sure the unverified user is redirected to the login form with a flash message
 - Report on overdue findings => PDF/CSV report on dashboard widget click (all details)
 - Allow to filter the findings table
