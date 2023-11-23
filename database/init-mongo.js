@@ -3,8 +3,8 @@ db = db.getSiblingDB("findings");
 db.users.insert({
   username: "admin",
   local: {
-    email: "admin@example.com",
-    password: "$2b$12$J48JuCJdhFoKW98O/8KsauXGMYhPsB7xmLBwAtTWLhvjiIAynr0G.", // Replace with the copied hashed value
+    email: "admin@domain.tld",
+    password: "$2b$12$J48JuCJdhFoKW98O/8KsauXGMYhPsB7xmLBwAtTWLhvjiIAynr0G.",
   },
   avatar: "/images/default-profile.svg",
   firstname: "Admin",
@@ -16,5 +16,3 @@ db.users.insert({
   twoFASecret: null,
   twoFAEnabled: false,
 });
-
-console.log("User admin created and activated");
