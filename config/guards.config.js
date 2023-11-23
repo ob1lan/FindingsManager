@@ -1,4 +1,7 @@
 exports.ensureAuthenticated = (req, res, next) => {
+  console.log("isAuthenticated: ", req.isAuthenticated());
+  console.log("User: ", req.user);
+  console.log("Email Verified:", req.user?.isVerified);
   if (req.isAuthenticated()) {
     next();
   } else {
