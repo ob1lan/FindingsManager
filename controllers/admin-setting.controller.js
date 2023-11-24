@@ -1,17 +1,19 @@
 // const nodemailer = require("nodemailer");
-const smtpSettingsQuery = require("../queries/settings.queries");
+const settingsQuery = require("../queries/settings.queries");
 const sendEmail = require('../utils/emailSender');
 
 
 exports.viewSettings = async (req, res, next) => {
   try {
-    const smtpSettings = (await smtpSettingsQuery.getSMTPSettings()) || {};
+    const smtpSettings = (await settingsQuery.getSMTPSettings()) || {};
+    const SLASettings = (await settingsQuery.getSLASettings()) || {};
     res.render("admin/settings", {
       isAuthenticated: req.isAuthenticated(),
       is2FAVerified: req.session.is2FAVerified,
       currentUser: req.user,
       user: req.user,
       smtpSettings: smtpSettings,
+      SLASettings: SLASettings,
     });
   } catch (error) {
     next(error);
@@ -20,14 +22,23 @@ exports.viewSettings = async (req, res, next) => {
 
 exports.saveSettings = async (req, res, next) => {
   try {
-    const settings = {
+    const SMTPsettings = {
       smtpHost: req.body.smtpHost,
       smtpPort: req.body.smtpPort,
       smtpUsername: req.body.smtpUsername,
       smtpPassword: req.body.smtpPassword,
     };
 
-    await smtpSettingsQuery.saveSMTPSettings(settings);
+    const SLAsettings = {
+      info: req.body.slaInfo,
+      low: req.body.slaLow,
+      medium: req.body.slaMedium,
+      high: req.body.slaHigh,
+      critical: req.body.slaCritical,
+    };
+
+    await settingsQuery.saveSMTPSettings(SMTPsettings);
+    await settingsQuery.saveSLASettings(SLAsettings);
 
     res.redirect("/admin/settings");
   } catch (error) {
@@ -40,7 +51,7 @@ exports.sendTestEmail = async (req, res, next) => {
     const { testEmail } = req.body;
 
     // Fetch the SMTP settings using the getSMTPSettings function
-    const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
+    const smtpSettings = await settingsQuery.getSMTPSettings();
 
     // Prepare the email options
     const mailOptions = {

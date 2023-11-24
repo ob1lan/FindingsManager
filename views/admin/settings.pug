@@ -1,28 +1,46 @@
 extends ../layout.pug
 
 block content
-    h1 Admin - SMTP Settings
-    form(method="post" action="/admin/settings")
-        .mb-3
-            label(for="smtpHost" class="form-label") SMTP Host
-            input#smtpHost.form-control(type="text" name="smtpHost" value=smtpSettings.smtpHost)
-        .mb-3
-            label(for="smtpPort" class="form-label") SMTP Port
-            input#smtpPort.form-control(type="number" name="smtpPort" value=smtpSettings.smtpPort)
-        .mb-3
-            label(for="smtpUsername" class="form-label") SMTP Username
-            input#smtpUsername.form-control(type="text" name="smtpUsername" value=smtpSettings.smtpUsername)
-        .mb-3
-            label(for="smtpPassword" class="form-label") SMTP Password
-            input#smtpPassword.form-control(type="password" name="smtpPassword" value=smtpSettings.smtpPassword)
-        .mb-3
-            button.btn.btn-primary(type="submit") Save Settings
-        .mb-3
-            label(for="testEmail" class="form-label") Test Email Address
-            input#testEmail.form-control(type="email" name="testEmail" placeholder="Enter an email address to send a test email")
-        .mb-3
-            button.btn.btn-secondary(type="submit" formaction="/admin/test-email") Send Test Email
-    if success_msg.length > 0
-        .alert.alert-success #{success_msg[0]}
-    if error_msg.length > 0
-        .alert.alert-danger #{error_msg[0]}
+    .row
+        .col-4
+            form(method="post" action="/admin/settings")
+                h1 Admin - SMTP Settings
+                .mb-3
+                    label(for="smtpHost" class="form-label") SMTP Host
+                    input#smtpHost.form-control(type="text" name="smtpHost" value=smtpSettings.smtpHost)
+                .mb-3
+                    label(for="smtpPort" class="form-label") SMTP Port
+                    input#smtpPort.form-control(type="number" name="smtpPort" value=smtpSettings.smtpPort)
+                .mb-3
+                    label(for="smtpUsername" class="form-label") SMTP Username
+                    input#smtpUsername.form-control(type="text" name="smtpUsername" value=smtpSettings.smtpUsername)
+                .mb-3
+                    label(for="smtpPassword" class="form-label") SMTP Password
+                    input#smtpPassword.form-control(type="password" name="smtpPassword" value=smtpSettings.smtpPassword)
+                h1 Admin - SLA Settings
+                .mb-3
+                    label(for="slaInfo" class="form-label") Informational Findings SLA (days)
+                    input#smtpPassword.form-control(type="number" name="slaInfo" value=SLASettings.info)
+                .mb-3
+                    label(for="slaLow" class="form-label") Low Findings SLA (days)
+                    input#smtpPassword.form-control(type="number" name="slaLow" value=SLASettings.low)
+                .mb-3
+                    label(for="slaMedium" class="form-label") Medium Findings SLA (days)
+                    input#smtpPassword.form-control(type="number" name="slaMedium" value=SLASettings.medium)
+                .mb-3
+                    label(for="slaHigh" class="form-label") High Findings SLA (days)
+                    input#smtpPassword.form-control(type="number" name="slaHigh" value=SLASettings.high)
+                .mb-3
+                    label(for="slaCritical" class="form-label") Critical Findings SLA (days)
+                    input#smtpPassword.form-control(type="number" name="slaCritical" value=SLASettings.critical)
+                .mb-3
+                    button.btn.btn-primary(type="submit") Save Settings
+                .mb-3
+                    label(for="testEmail" class="form-label") Test Email Address
+                    input#testEmail.form-control(type="email" name="testEmail" placeholder="Enter an email address to send a test email")
+                .mb-3
+                    button.btn.btn-secondary(type="submit" formaction="/admin/test-email") Send Test Email
+            if success_msg.length > 0
+                .alert.alert-success #{success_msg[0]}
+            if error_msg.length > 0
+                .alert.alert-danger #{error_msg[0]}
