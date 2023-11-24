@@ -77,3 +77,22 @@ mixin editFindingModal(finding)
                     .modal-footer
                         button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
                         button.btn.btn-primary(type="submit") Save Changes
+                script.
+                    // SLA values passed from the server
+                    var slaValues = !{JSON.stringify(slaSettings)};
+
+                    // Function to calculate due date
+                    function calculateDueDate() {
+                        var severity = document.getElementById('severity').value;
+                        var daysToAdd = slaValues[severity.toLowerCase()];
+                        var dueDate = new Date();
+                        dueDate.setDate(dueDate.getDate() + daysToAdd);
+
+                        document.getElementById('dueDate').value = dueDate.toISOString().split('T')[0];
+                    }
+
+                    // Event listener for severity change
+                    document.getElementById('severity').addEventListener('change', calculateDueDate);
+
+                    // Initial calculation
+                    calculateDueDate();

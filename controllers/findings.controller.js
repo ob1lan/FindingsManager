@@ -13,6 +13,7 @@ const {
 } = require("../queries/findings.queries");
 
 const { getProjects } = require("../queries/projects.queries");
+const { getSLASettings } = require("../queries/settings.queries");
 
 exports.findings = async (req, res, next) => {
   try {
@@ -37,6 +38,7 @@ exports.findings = async (req, res, next) => {
     res.render("findings/findings", {
       findings: formattedFindings,
       projects,
+      slaSettings: await getSLASettings(),
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
       user: req.user,
