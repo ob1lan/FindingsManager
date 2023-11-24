@@ -16,7 +16,6 @@ router.use("/auth", auth);
 router.use(
   "/findings",
   ensureAuthenticated,
-  ensureEmailVerified,
   ensure2FAVerified,
   findings
 );
@@ -24,7 +23,6 @@ router.use(
 router.use(
   "/dashboard",
   ensureAuthenticated,
-  ensureEmailVerified,
   ensure2FAVerified,
   dashboard
 );
@@ -33,7 +31,6 @@ router.use(
   "/me",
   ensureAuthenticated,
   ensure2FAVerified,
-  ensureEmailVerified,
   me
 );
 
@@ -42,7 +39,6 @@ router.use(
   ensureAuthenticated,
   ensureAdmin,
   ensure2FAVerified,
-  ensureEmailVerified,
   admin
 );
 

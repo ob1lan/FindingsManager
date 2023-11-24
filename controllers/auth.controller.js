@@ -39,6 +39,15 @@ exports.signin = (req, res, next) => {
         return next(error);
       }
     } else {
+      // Check if the user's email is verified
+      if (!user.isVerified) {
+        return res.render("auth/auth-form", {
+          errors: ["Your email is not verified. Please check your inbox."],
+          isAuthenticated: req.isAuthenticated(),
+          is2FAVerified: req.session.is2FAVerified,
+          currentUser: req.user,
+        });
+      }
       req.login(user, async (err) => {
         if (err) {
           return next(err);
