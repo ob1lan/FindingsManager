@@ -7,7 +7,7 @@ const {
   findUserPerEmail,
   findUserByResetToken,
 } = require("../queries/users.queries");
-let config = JSON.parse(fs.readFileSync("config/config.json", "utf8"));
+const envConfig = require(`../environment/${process.env.NODE_ENV}`);
 
 exports.forgotPasswordForm = (req, res) => {
   res.render("auth/forgot-password-form");
@@ -26,9 +26,9 @@ exports.sendResetLink = async (req, res) => {
   const https = req.connection.encrypted;
   let resetURL;
   if (!https) {
-    resetURL = `http://${config.server_hostname}:${config.http_port}/auth/reset-password/${token}`;
+    resetURL = `http://${envConfig.server_hostname}:${envConfig.http_port}/auth/reset-password/${token}`;
   } else {
-    resetURL = `https://${config.server_hostname}:${config.https_port}/auth/reset-password/${token}`;
+    resetURL = `https://${envConfig.server_hostname}:${envConfig.https_port}/auth/reset-password/${token}`;
   }
 
   console.log("smtpSettings: ", smtpSettings);

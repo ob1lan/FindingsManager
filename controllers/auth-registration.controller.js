@@ -4,7 +4,7 @@ const crypto = require("crypto");
 const smtpSettingsQuery = require("../queries/settings.queries");
 const sendEmail = require("../utils/emailSender");
 const fs = require("fs");
-let config = JSON.parse(fs.readFileSync("config/config.json", "utf8"));
+const envConfig = require(`../environment/${process.env.NODE_ENV}`);
 
 exports.signup = async (req, res, next) => {
   const body = req.body;
@@ -20,9 +20,9 @@ exports.signup = async (req, res, next) => {
     const https = req.connection.encrypted;
     let link;
     if (!https) {
-      link = `http://${config.server_hostname}:${config.http_port}/auth/verify-email?token=${token}`;
+      link = `http://${envConfig.server_hostname}:${envConfig.portHttp}/auth/verify-email?token=${token}`;
     } else {
-      link = `https://${config.server_hostname}:${config.https_port}/auth/verify-email?token=${token}`;
+      link = `https://${envConfig.server_hostname}:${envConfig.portHttps}/auth/verify-email?token=${token}`;
     }
 
     const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
