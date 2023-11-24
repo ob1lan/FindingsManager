@@ -2,15 +2,14 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
+- Add a feature to securely attach files to findings (pictures, PDF, etc.) + limit +remove them as needed+test
 - Report on overdue findings => PDF/CSV report on dashboard widget click (all details)
 - Allow to filter the findings table
-- Settings: policies in setting to calculate due date by computing the creation date (reflect on the pre-save query)
 - Refactor OTP and forgot password to match the login card style
 - Add a feature to mention the fixed date (if any) in the finding details, based on the status (Remediated) or manually
 - From the above, get a trend graph of findings fixed on time vs overdue + how long it took to fix
 - Ensure Dashboard page responsiveness
 - Add a feature/action to share/send a finding to another user (summary in email), button on the finding details modal
-- Add a feature to securely attach files to findings (pictures, PDF, etc.) + limit +remove them as needed
 - Add a feature to toggle from pie chart to another chart type by clicking the card
 - Add a 'show more' button under the Last logins list on the profile page (display a table with all logins events)
 - Ensure the Admin - SMTP Setttings page is showing the same as the others Admin menu pages

@@ -36,6 +36,7 @@
     "papaparse": "^5.4.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "pdfkit": "^0.14.0",
     "pug": "^3.0.2",
     "qrcode": "^1.5.3",
     "speakeasy": "^2.0.0"

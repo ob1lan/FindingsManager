@@ -21,7 +21,7 @@ block content
                 div(class="card-body")
                     h1 #{numberOfOpenFindings}
         div(class="card-container")
-            div(class="card text-bg-danger")
+            div(class="card text-bg-danger" onclick="generateOverdueFindingsReport()")
                 div(class="card-header")|Overdue Findings
                 div(class="card-body")
                     h1 #{numberOfFindingsOverdue}
@@ -43,3 +43,7 @@ block content
     div(class="row charts-row flex-nowrap")
         div(class="chart-container")
             +createdDateChart(chart5)
+    script.
+        function generateOverdueFindingsReport() {
+            window.location.href = '/dashboard/generate-overdue-report';
+        }
