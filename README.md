@@ -3,7 +3,6 @@
 Currently in DRAFT
 # TO DO
 - Finish the Overdue findings report (dashboard widget), and do the same for the other statuses
-- Fix the edit finding modal so it pre-fill existing values (dropdowns, etc...)
 - Fix the resize screen issues (responsiveness not mastered yet) 
 - Add a feature to securely attach files to findings (pictures, PDF, etc.) + limit +remove them as needed+test
 - Add more features to the finding table (actions on selected findings, etc.)
