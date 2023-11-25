@@ -34,12 +34,14 @@ block content
             form.needs-validation(method="post" action="/auth/signup" autocomplete='off')
               .mb-3
                 label.mb-2.text-muted(for='username') Username
-                input#username.form-control(type='text' name='username' required)
+                input#username.form-control(type='text' name='username' maxlength="8" required)
                 .invalid-feedback
                   | Username is required
+                span(id="usernameError" style="color: red;")
+
               .mb-3
                 label.mb-2.text-muted(for='email') E-Mail Address
-                input#email.form-control(type='email' name='email' required)
+                input#email.form-control(type='email' name='email' maxlength="254" required)
                 .invalid-feedback
                   | E-Mail Address is required
               .mb-3
@@ -64,3 +66,4 @@ block content
         if error_msg.length > 0
           .alert.alert-danger #{error_msg[0]}
   script(src="/javascripts/toggleForms.js")
+  script(src="/javascripts/validateUsername.js")

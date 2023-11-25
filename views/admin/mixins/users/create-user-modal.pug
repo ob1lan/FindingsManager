@@ -9,19 +9,19 @@ mixin createUserModal
           .modal-body
             .mb-3
               label(for="newUsername") Username
-              input#newUsername.form-control(type="text" name="username" placeholder="Enter username" required)
+              input#newUsername.form-control(type="text" name="username" placeholder="Enter username" maxlength="8" required)
             .mb-3
               label(for="newEmail") Email
-              input#newEmail.form-control(type="email" name="email" placeholder="Enter email" required)
+              input#newEmail.form-control(type="email" name="email" placeholder="Enter email" maxlength="254" required)
             .mb-3
               label(for="newPassword") Password
               input#newPassword.form-control(type="password" name="password" placeholder="Enter password" required)
             .mb-3
               label(for="newFirstname") Firstname
-              input#newFirstname.form-control(type="text" name="firstname" placeholder="Enter first name")
+              input#newFirstname.form-control(type="text" name="firstname" maxlength="50" placeholder="Enter first name")
             .mb-3
               label(for="newLastname") Lastname
-              input#newLastname.form-control(type="text" name="lastname" placeholder="Enter last name")
+              input#newLastname.form-control(type="text" name="lastname" maxlength="50" placeholder="Enter last name")
             .mb-3
               label(for="newFunction") Function
               input#newFunction.form-control(type="text" name="function" placeholder="Enter function")

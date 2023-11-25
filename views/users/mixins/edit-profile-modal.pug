@@ -10,10 +10,10 @@ mixin edit-profile-modal
                     div.modal-body
                         div.mb-3
                             label.form-label(for="firstname") First Name
-                            input.form-control(type="text" id="firstname" name="firstname" value=user.firstname)
+                            input.form-control(type="text" id="firstname" name="firstname" maxlength="50" value=user.firstname)
                         div.mb-3
                             label.form-label(for="lastname") Last Name
-                            input.form-control(type="text" id="lastname" name="lastname" value=user.lastname)
+                            input.form-control(type="text" id="lastname" name="lastname" maxlength="50" value=user.lastname)
                         div.mb-3
                             label.form-label(for="function") Function
                             input.form-control(type="text" id="function" name="function" value=user.function)

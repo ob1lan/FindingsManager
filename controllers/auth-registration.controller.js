@@ -8,6 +8,10 @@ const envConfig = require(`../environment/${process.env.NODE_ENV}`);
 
 exports.signup = async (req, res, next) => {
   const body = req.body;
+  if (body.username.length > 8) {
+    req.flash("error_msg", "Username must have maximum 8 characters.");
+    res.redirect("/auth/signin");
+  }
   try {
     const user = await createUser(body);
     const token = crypto.randomBytes(32).toString("hex");

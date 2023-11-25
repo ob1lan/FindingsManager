@@ -25,6 +25,9 @@ exports.viewUsers = async (req, res, next) => {
 exports.createUser = async (req, res, next) => {
   try {
     const userData = req.body;
+    if (userData.username.length > 8) {
+      res.redirect("/admin/users");
+    }
     await createUser(userData);
     res.redirect("/admin/users");
   } catch (error) {
@@ -45,7 +48,6 @@ exports.updateUser = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
   try {
-    // Here, you'll delete the user using its ID
     await deleteUser(req.params.id);
     res.redirect("/admin/users");
   } catch (error) {

@@ -3,15 +3,15 @@ const schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 
 const userSchema = schema({
-  username: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: true, maxlength: 8 },
   local: {
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true, maxlength: 254 },
     password: { type: String, required: true },
   },
   avatar: { type: String, default: "/images/default-profile.svg" },
-  firstname: { type: String, default: "" },
-  lastname: { type: String, default: "" },
-  function: { type: String, default: "" },
+  firstname: { type: String, default: "", maxlength: 50 },
+  lastname: { type: String, default: "", maxlength: 50 },
+  function: { type: String, default: "", maxlength: 50 },
   phone: { type: String, default: "" },
   bio: { type: String, default: "" },
   role: {
