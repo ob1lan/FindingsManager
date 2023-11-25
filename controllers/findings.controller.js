@@ -14,11 +14,13 @@ const {
 
 const { getProjects } = require("../queries/projects.queries");
 const { getSLASettings } = require("../queries/settings.queries");
+const { getAllUsers } = require("../queries/users.queries");
 
 exports.findings = async (req, res, next) => {
   try {
     const findings = await getFindings();
     const projects = await getProjects();
+    const users = await getAllUsers();
 
     // Format the dueDate for each finding
     const formattedFindings = findings.map((finding) => {
@@ -38,6 +40,7 @@ exports.findings = async (req, res, next) => {
     res.render("findings/findings", {
       findings: formattedFindings,
       projects,
+      users,
       slaSettings: await getSLASettings(),
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,

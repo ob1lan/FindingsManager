@@ -14,10 +14,15 @@ mixin newFindingModal(finding)
                                     input#reference.form-control(type="text" name="reference" placeholder="e.g. Ticket-ID" required)
                                 .form-group
                                     label(for="assignee") <b>Assignee</b>
-                                    input#assignee.form-control(type="text" name="assignee" placeholder="e.g. John Doe")
+                                    select#assignee.form-control(name="assignee")
+                                        each user in users
+                                            option(value=user.username)= `${user.username} (${user.firstname} ${user.lastname})`
                                 .form-group
                                     label(for="origin") <b>Origin</b>
-                                    input#origin.form-control(type="text" name="origin" placeholder="e.g. WAPT, NVA, BBP" required)
+                                    select#origin.form-control(name="origin")
+                                        option(value="WAPT") WAPT (Web Application Penetration Test)
+                                        option(value="NVA") NVA (Network Vulnerability Assessment)
+                                        option(value="BBP") BBP (Bug Bounty Program)
                                 .form-group
                                     label(for="title") <b>Title</b>
                                     input#title.form-control(type="text" name="title" placeholder="e.g. SXSS in the blog component" required)

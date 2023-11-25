@@ -54,7 +54,9 @@ mixin editFindingModal(finding)
 
                         .mb-3
                             label(for="assignee") <b>Assignee</b>
-                            input#assignee.form-control(type="text" name="assignee" value= finding.assignee)
+                            select#assignee.form-control(name="assignee")
+                                        each user in users
+                                            option(value=user.username selected=(finding.assignee == user.username))=`${user.username} (${user.firstname} ${user.lastname})`
                         .mb-3
                             label(for="origin") <b>Origin</b>
                             input#origin.form-control(type="text" name="origin" value= finding.origin)
