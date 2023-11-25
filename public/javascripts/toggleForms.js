@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const registerForm = document.getElementById("register-form");
   const toggleForm = document.getElementById("toggle-form");
   const toggleText = document.getElementById("toggle-text");
-  const toggleStaticText = document.getElementById("toggle-static-text"); // Add this line
+  const toggleStaticText = document.getElementById("toggle-static-text");
 
   if (loginForm && registerForm && toggleForm) {
     toggleForm.addEventListener("click", function (e) {
