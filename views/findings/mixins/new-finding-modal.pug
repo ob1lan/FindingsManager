@@ -63,7 +63,7 @@ mixin newFindingModal(finding)
                                         option(value="Declined") Declined
                                 .form-group
                                     label(for="severity") <b>Severity</b>
-                                    select#severity.form-control(name="severity")
+                                    select.severity-dropdown.form-control(name="severity")
                                         option(value="Critical") Critical
                                         option(value="High") High
                                         option(value="Medium") Medium
@@ -77,7 +77,7 @@ mixin newFindingModal(finding)
                                     input#cvss.form-control(type="text" name="cvss" placeholder="CVSS 3.0 Base Score")
                                 .form-group 
                                     label(for="dueDate") <b>Due Date</b>
-                                    input#dueDate.form-control(type="date" name="dueDate")
+                                    input.due-date-input.form-control(type="date" name="dueDate")
                                 .form-group
                                     label(for="attachment") <b>Attachment</b>
                                     input#attachment.form-control(type="file" name="attachment")

@@ -38,7 +38,7 @@ mixin editFindingModal(finding)
                             textarea#description.form-control(name="description" rows="5" required)= finding.description
                         .mb-3
                             label(for="severity") <b>Severity</b>
-                            select#severity.form-control(name="severity")
+                            select.severity-dropdown.form-control(name="severity")
                                 option(value="Critical" selected=(finding.severity === 'Critical')) Critical
                                 option(value="High" selected=(finding.severity === 'High')) High
                                 option(value="Medium" selected=(finding.severity === 'Medium')) Medium
@@ -72,7 +72,7 @@ mixin editFindingModal(finding)
                         .mb-3
                             label(for="dueDate") <b>Due Date</b>
                             - var formattedDueDate = finding.dueDate ? new Date(finding.dueDate).toISOString().split('T')[0] : ''
-                            input#dueDate.form-control(type="date" name="dueDate" value= formattedDueDate)
+                            input.due-date-input.form-control(type="date" name="dueDate" value= formattedDueDate)
                         .mb-3
                             label(for="attachment") <b>Attachment</b>
                             input#attachment.form-control(type="file" name="attachment")
