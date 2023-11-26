@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () { 
   const findings = document.querySelectorAll(".paginatable-assigned-finding");
   let currentPage = 1;
   const findingsPerPage = 5;

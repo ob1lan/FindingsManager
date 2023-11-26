@@ -30,7 +30,6 @@ Currently in DRAFT
     - add the user's created projects 5 by 5 (pagination sliding effect)
     - add new fields (phone, location, prefered language) + handle their TZ 
     - Notification preferences (checkboxes)
-    - Audit data (last login + UA + location + IP) + modal to see more
 - set the max size for inputs (project name, finding name, etc.)
 - set the max size for uploads (CSV and pictures)
 - implement protections for NoSQL injections (cf security findings)
@@ -39,7 +38,6 @@ Currently in DRAFT
 - Export feature: refactor to use a modal with ability to chose filters (project, status, etc.)
 - Refactor findings table to only use datatable buttons (custom action to open modals) + double click to open finding details
 - refactor datatable without jQuery (use npm to instal packages)
-- delete old avatar on avatar change
 - error in modal in case something goes wrong during password change (using Flash)
 - dashboard horizontal bar chart: projects findings by status
 - clean unused code and simplify/harmonize the code and make it consistent
