@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const {
   createUser,
   findUserPerUsername,
@@ -92,6 +94,26 @@ exports.uploadImage = [
   async (req, res, next) => {
     try {
       const user = req.user;
+      const defaultAvatarPath = "/images/default-profile.svg";
+
+      // Check if current avatar is not the default avatar
+      if (user.avatar && user.avatar !== defaultAvatarPath) {
+        // Construct the full path to the current avatar file
+        const currentAvatarFullPath = path.join(
+          __dirname,
+          "..",
+          "public",
+          user.avatar
+        );
+
+        // Delete the current avatar file
+        fs.unlink(currentAvatarFullPath, (err) => {
+          if (err) {
+            console.error("Error deleting old avatar:", err);
+          }
+        });
+      }
+
       user.avatar = `/images/avatars/${req.file.filename}`;
       await user.save();
       res.redirect("/me/profile");
