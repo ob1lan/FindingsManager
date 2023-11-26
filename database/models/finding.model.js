@@ -31,6 +31,7 @@ const findingSchema = schema(
     project: { type: String, default: "None" },
     dueDate: { type: Date },
     fixedDate: { type: Date },
+    timeToFix: { type: Number },
     attachment: { type: String, default: "" },
   },
   {

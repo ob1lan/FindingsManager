@@ -18,6 +18,12 @@ mixin detailsModal(finding)
                     p <b>Reported By:</b> #{finding.reportedBy}
                     p <b>CVE:</b> #{finding.cve}
                     p <b>CVSS:</b> #{finding.cvss}
+                    p <b>Created:</b> #{finding.createdAt.toDateString()}
+                    p <b>Updated:</b> #{finding.updatedAt.toDateString()}
+                    p <b>Due Date:</b> #{finding.dueDate}
+                    if finding.fixedDate
+                        p <b>Fixed Date:</b> #{finding.fixedDate.toDateString()}
+                        p <b>Time to Fix:</b> #{finding.timeToFix} days
                     if finding.attachment
                         p <b>Attachment:</b>
                             a(href=`${finding.attachment}`) Download

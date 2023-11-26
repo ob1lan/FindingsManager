@@ -95,6 +95,33 @@ exports.findingEdit = async (req, res, next) => {
     }
   } else if (req.method === "POST") {
     try {
+      const updateData = req.body;
+      const finding = await findFindingPerId(req.params.id);
+      console.log("ORIGINAL:", finding);
+      console.log("CREATED_DATE:", finding.createdAt);
+
+      // Check if the status is being updated to Remediated, Accepted, or Declined
+      if (["Remediated", "Accepted", "Declined"].includes(updateData.status)) {
+        // Set the fixedDate to the current date
+        updateData.fixedDate = new Date();
+        console.log("Fixed Date:", updateData.fixedDate);
+
+        if (finding.createdAt && updateData.fixedDate) {
+          const timeToFix =
+            (updateData.fixedDate - finding.createdAt) /
+            (1000 * 60 * 60 * 24);
+          if (!isNaN(timeToFix)) {
+            updateData.timeToFix = timeToFix.toFixed(0);
+          } else {
+            console.error("Invalid date calculation for timeToFix");
+          }
+        }
+      }
+      else if (updateData.status === "In Remediation") {
+        // Set the fixedDate to null
+        updateData.fixedDate = null;
+        updateData.timeToFix = null;
+      }
       await updateFinding(req.params.id, req.body);
       res.redirect("/findings");
     } catch (error) {
