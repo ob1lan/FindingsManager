@@ -2,7 +2,7 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
-- Fix the 'FormatedDueDate' on the Findings controller and use a more robust/consistent approach
+- Implement the DueDate autocompelte on the finding edit modal
 - Integrate and use CWE and CWE IDs if possible
 - Work on the Admin settings visual (cards as for the profile page)
 - Finish the Overdue findings report (dashboard widget), and do the same for the other statuses

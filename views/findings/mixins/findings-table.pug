@@ -57,7 +57,7 @@ mixin findingsTable(findings)
                         td= finding.reportedBy
                         td= finding.cve
                         td= finding.cvss
-                        td(class=overDueClass)= finding.formattedDueDate
+                        td(class=overDueClass)= `${finding.dueDate.toDateString()}`
                         td= finding.isOverdue
                         td
                             //- View button

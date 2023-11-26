@@ -6,6 +6,10 @@ include mixins/delete-confirmation-modal
 include mixins/import-export-features
 
 block content
+    script. 
+        window.slaValues = !{JSON.stringify(slaSettings)};
+    script(src="/javascripts/calculateDueDate.js")
+    
     h1 Findings
 
     +import-export-features
@@ -18,7 +22,7 @@ block content
 
     each finding in findings
         +editFindingModal(finding)
-
+    
     script.
         $(document).ready(function() {
             $('table').DataTable({

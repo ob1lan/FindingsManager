@@ -22,23 +22,8 @@ exports.findings = async (req, res, next) => {
     const projects = await getProjects();
     const users = await getAllUsers();
 
-    // Format the dueDate for each finding
-    const formattedFindings = findings.map((finding) => {
-      const options = {
-        weekday: "short",
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      };
-      finding.formattedDueDate = finding.dueDate
-        ? finding.dueDate.toLocaleDateString(undefined, options)
-        : "";
-      finding.isOverdue = finding.dueDate && finding.dueDate < new Date();
-      return finding;
-    });
-
     res.render("findings/findings", {
-      findings: formattedFindings,
+      findings,
       projects,
       users,
       slaSettings: await getSLASettings(),
