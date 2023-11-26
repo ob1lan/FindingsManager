@@ -2,6 +2,8 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
+- Integrate and use CWE and CWE IDs if possible
+- Work on the Admin settings visual (cards as for the profile page)
 - Finish the Overdue findings report (dashboard widget), and do the same for the other statuses
 - Fix the resize screen issues (responsiveness not mastered yet) 
 - Add a feature to securely attach files to findings (pictures, PDF, etc.) + limit +remove them as needed+test
