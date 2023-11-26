@@ -3,7 +3,7 @@ const {
   findUserPerUsername,
   findUserPerId,
   updateUserDetails,
-  findLastFiveLogsByEmail,
+  findLast50LogsByEmail,
 } = require("../queries/users.queries");
 
 const {
@@ -23,7 +23,7 @@ exports.userProfile = async (req, res, next) => {
     const user = await findUserPerUsername(username);
     const createdFindings = await getFindingsCreatedByUsername(user.username);
     const assignedFindings = await getFindingsAssignedToUsername(user.username);
-    const logs = (await findLastFiveLogsByEmail(req.user.local.email)) || [];
+    const logs = (await findLast50LogsByEmail(req.user.local.email)) || [];
     logs.forEach((log) => {
       const date = new Date(log.timestamp);
       const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -134,11 +134,27 @@ exports.verify2FA = async (req, res, next) => {
     token: otp,
   });
   if (verified) {
+    const log = new authLog({
+      attemptedEmail: req.user.local.email,
+      attemptedAction: "2FAenabled",
+      userAgent: req.headers["user-agent"],
+      clientIP: req.ip,
+      status: "success",
+    });
+    log.save();
     user.twoFASecret = secret;
     user.twoFAEnabled = true;
     await user.save();
     res.json({ success: true });
   } else {
+    const log = new authLog({
+      attemptedEmail: req.user.local.email,
+      attemptedAction: "2FAenabled",
+      userAgent: req.headers["user-agent"],
+      clientIP: req.ip,
+      status: "failed",
+    });
+    log.save();
     res.json({ success: false });
   }
 };
@@ -148,8 +164,24 @@ exports.disable2FA = async (req, res, next) => {
     req.user.twoFASecret = null;
     req.user.twoFAEnabled = false;
     await req.user.save();
+    const log = new authLog({
+      attemptedEmail: req.user.local.email,
+      attemptedAction: "2FAdisabled",
+      userAgent: req.headers["user-agent"],
+      clientIP: req.ip,
+      status: "success",
+    });
+    log.save();
     res.redirect("/me/profile");
   } catch (e) {
+    const log = new authLog({
+      attemptedEmail: req.user.local.email,
+      attemptedAction: "2FAdisabled",
+      userAgent: req.headers["user-agent"],
+      clientIP: req.ip,
+      status: "failed",
+    });
+    log.save();
     next(e);
   }
 };

@@ -117,9 +117,29 @@ exports.verifyOtp = (req, res, next) => {
   });
 
   if (verified) {
-    req.session.is2FAVerified = true;
+    try {
+      const log = new authLog({
+        attemptedEmail: req.user.local.email,
+        attemptedAction: "2FAlogin",
+        userAgent: req.headers["user-agent"],
+        clientIP: req.ip,
+        status: "success",
+      });
+      log.save();
+      req.session.is2FAVerified = true;
+    } catch (error) {
+      return next(error);
+    }
     res.redirect("/findings");
   } else {
+    const log = new authLog({
+      attemptedEmail: req.user.local.email,
+      attemptedAction: "2FAlogin",
+      userAgent: req.headers["user-agent"],
+      clientIP: req.ip,
+      status: "failed",
+    });
+    log.save();
     res.render("auth/otp-form", {
       errors: ["Invalid OTP. Try again."],
       isAuthenticated: req.isAuthenticated(),

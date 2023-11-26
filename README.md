@@ -2,6 +2,7 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
+- Fix logging of auth activities and flash message on user profile after password change, 2FA toggle, etc.
 - Integrate and use CWE and CWE IDs if possible
 - Work on the Admin settings visual (cards as for the profile page)
 - Finish the Overdue findings report (dashboard widget), and do the same for the other statuses

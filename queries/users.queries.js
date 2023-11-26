@@ -59,10 +59,11 @@ exports.deleteUser = async (id) => {
   }
 };
 
-exports.findLastFiveLogsByEmail = (email) => {
-  return authLog.find({ attemptedEmail: email })
+exports.findLast50LogsByEmail = (email) => {
+  return authLog
+    .find({ attemptedEmail: email })
     .sort({ timestamp: -1 })
-    .limit(5)
+    .limit(50)
     .exec();
 };
 

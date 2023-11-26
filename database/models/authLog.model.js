@@ -7,7 +7,7 @@ const loginLogSchema = new mongoose.Schema({
   },
   attemptedAction: {
     type: String,
-    enum: ["login", "logout", "password-change", "password-reset"],
+    enum: ["login", "logout", "password-change", "password-reset", "2FAenabled", "2FAdisabled", "2FAlogin"],
     required: false,
   },
   userAgent: {
@@ -20,7 +20,7 @@ const loginLogSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["success", "failed"],
+    enum: ["success", "failed", "requested"],
     required: true,
   },
   timestamp: {

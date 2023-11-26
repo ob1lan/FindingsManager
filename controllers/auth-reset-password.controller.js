@@ -8,6 +8,7 @@ const {
   findUserByResetToken,
 } = require("../queries/users.queries");
 const envConfig = require(`../environment/${process.env.NODE_ENV}`);
+const authLog = require("../database/models/authLog.model");
 
 exports.forgotPasswordForm = (req, res) => {
   res.render("auth/forgot-password-form");
@@ -31,7 +32,6 @@ exports.sendResetLink = async (req, res) => {
     resetURL = `https://${envConfig.server_hostname}:${envConfig.https_port}/auth/reset-password/${token}`;
   }
 
-  console.log("smtpSettings: ", smtpSettings);
   const mailOptions = {
     from: smtpSettings.smtpUsername || "default@example.com",
     to: email,
@@ -41,6 +41,14 @@ exports.sendResetLink = async (req, res) => {
 
   const resetSent = await sendEmail(smtpSettings, mailOptions);
   if (resetSent) {
+    const log = new authLog({
+      attemptedEmail: req.body.email,
+      attemptedAction: "password-reset",
+      userAgent: req.headers["user-agent"],
+      clientIP: req.ip,
+      status: "requested",
+    });
+    await log.save();
     req.flash("success_msg", "Check your email for the reset link!");
   } else {
     req.flash("error_msg", "Failed to send email.");
@@ -56,12 +64,28 @@ exports.resetPassword = async (req, res) => {
   const user = await findUserByResetToken(req.params.token);
   const body = req.body;
   if (body.newPassword !== body.confirmPassword) {
-    return res.status(400).send("Passwords do not match");
+    const log = new authLog({
+      attemptedEmail: req.body.email,
+      attemptedAction: "password-change",
+      userAgent: req.headers["user-agent"],
+      clientIP: req.ip,
+      status: "failed",
+    });
+    await log.save();
+    req.flash("error_msg", "Passwords do not match!");
   } else {
     password = body.newPassword;
   }
 
   if (!user || !(user.passwordResetExpires > Date.now())) {
+    const log = new authLog({
+      attemptedEmail: req.body.email,
+      attemptedAction: "password-change",
+      userAgent: req.headers["user-agent"],
+      clientIP: req.ip,
+      status: "failed",
+    });
+    await log.save();
     return res.redirect("/auth/forgot-password");
   }
 
@@ -70,8 +94,24 @@ exports.resetPassword = async (req, res) => {
   user.passwordResetExpires = undefined;
   const updatedUser = await user.save();
   if (updatedUser) {
+    const log = new authLog({
+      attemptedEmail: req.body.email,
+      attemptedAction: "password-change",
+      userAgent: req.headers["user-agent"],
+      clientIP: req.ip,
+      status: "success",
+    });
+    await log.save();
     req.flash("success_msg", "Password reset!");
   } else {
+    const log = new authLog({
+      attemptedEmail: req.body.email,
+      attemptedAction: "password-change",
+      userAgent: req.headers["user-agent"],
+      clientIP: req.ip,
+      status: "failed",
+    });
+    await log.save();
     req.flash("error_msg", "Failed to reset password.");
   }
 

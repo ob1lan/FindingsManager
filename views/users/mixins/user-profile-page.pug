@@ -80,10 +80,23 @@ mixin user-profile-page
                             h2= "Last logins"
                             if logs && logs.length
                                 ul
-                                    each log in logs
+                                    each log, index in logs.slice(0, 5)
                                         li= log.attemptedAction + ' (' + log.status + ') at ' + log.formattedTimestamp + ' from IP ' + log.clientIP
                             else
                                 p No logs available.
+                            button.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#logModal') More
+                            div.modal.fade#logModal(tabindex='-1', aria-labelledby='logModalLabel', aria-hidden='true')
+                                div.modal-dialog
+                                    div.modal-content
+                                        div.modal-header
+                                            h5.modal-title#logModalLabel Logs Details
+                                            button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+                                        div.modal-body
+                                            ul
+                                                each log in logs
+                                                    li= log.attemptedAction + ' (' + log.status + ') at ' + log.formattedTimestamp + ' from IP ' + log.clientIP
+                                        div.modal-footer
+                                            button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Close
             .col-md-5
                 .row.justify-content-center.border-card
                     .user-created-findings
