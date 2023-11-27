@@ -25,7 +25,7 @@ mixin detailsModal(finding)
                         p <b>Fixed Date:</b> #{finding.fixedDate.toDateString()}
                         p <b>Time to Fix:</b> #{finding.timeToFix} days
                     if finding.attachment
-                        p <b>Attachment:</b>
-                            a(href=`${finding.attachment}`) Download
+                        p <b>Attachment: </b>
+                            a(href=`${finding.attachment}`) Download attachment
                 .modal-footer
                     button(type="button" class="btn btn-secondary" data-bs-dismiss="modal") Close

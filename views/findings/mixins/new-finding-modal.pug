@@ -9,25 +9,25 @@ mixin newFindingModal(finding)
                     .modal-body
                         .row
                             .col-md-6
-                                .form-group
+                                .mb-3
                                     label(for="reference") <b>Reference</b>
                                     input#reference.form-control(type="text" name="reference" placeholder="e.g. Ticket-ID" required)
-                                .form-group
+                                .mb-3
                                     label(for="assignee") <b>Assignee</b>
                                     select#assignee.form-control(name="assignee")
                                         each user in users
                                             option(value=user.username)= `${user.username} (${user.firstname} ${user.lastname})`
-                                .form-group
+                                .mb-3
                                     label(for="origin") <b>Origin</b>
                                     select#origin.form-control(name="origin")
                                         option(value="WAPT") WAPT (Web Application Penetration Test)
                                         option(value="NVA") NVA (Network Vulnerability Assessment)
                                         option(value="BBP") BBP (Bug Bounty Program)
-                                .form-group
+                                .mb-3
                                     label(for="title") <b>Title</b>
                                     input#title.form-control(type="text" name="title" placeholder="e.g. SXSS in the blog component" required)
-                                .form-group
-                                    .form-group
+                                .mb-3
+                                    .mb-3
                                     label(for="type") <b>Type</b>
                                     select#type.form-control(name="type")
                                         option(value="Configuration Issues") Configuration Issues
@@ -42,26 +42,26 @@ mixin newFindingModal(finding)
                                         option(value="Server Vulnerabilities") Server Vulnerabilities
                                         option(value="Third-party Component Vulnerabilities") Third-party Component Vulnerabilities
                                         option(value="Business Logic Flaws") Business Logic Flaws
-                                .form-group
+                                .mb-3
                                     label(for="description") <b>Description</b>
                                     textarea#description.form-control(name="description" placeholder="e.g. There is a Stored XSS in the blog application" required)
-                                .form-group
+                                .mb-3
                                     label(for="reportedBy") <b>Reported By</b>
                                     input#reportedBy.form-control(type="text" name="reportedBy" placeholder="e.g. John Smith")
                             .col-md-6
-                                .form-group
+                                .mb-3
                                     label(for="project") <b>Project</b>
                                     select#project.form-control(name="project")
                                         each project in projects
                                             option(value=project.reference)= project.reference
-                                .form-group
+                                .mb-3
                                     label(for="status") <b>Status</b>
                                     select#status.form-control(name="status")
                                         option(value="In Remediation") In Remediation
                                         option(value="Remediated") Remediated
                                         option(value="Accepted") Accepted
                                         option(value="Declined") Declined
-                                .form-group
+                                .mb-3
                                     label(for="severity") <b>Severity</b>
                                     select.severity-dropdown.form-control(name="severity")
                                         option(value="Critical") Critical
@@ -69,16 +69,16 @@ mixin newFindingModal(finding)
                                         option(value="Medium") Medium
                                         option(value="Low") Low
                                         option(value="Info") Info
-                                .form-group
+                                .mb-3
                                     label(for="cve") <b>CVE</b>
                                     input#cve.form-control(type="text" name="cve" placeholder="CVE-2023-1234")
-                                .form-group
+                                .mb-3
                                     label(for="cvss") <b>CVSS</b>
                                     input#cvss.form-control(type="text" name="cvss" placeholder="CVSS 3.0 Base Score")
-                                .form-group 
+                                .mb-3 
                                     label(for="dueDate") <b>Due Date</b>
                                     input.due-date-input.form-control(type="date" name="dueDate")
-                                .form-group
+                                .mb-3
                                     label(for="attachment") <b>Attachment</b>
                                     input#attachment.form-control(type="file" name="attachment")
                     .modal-footer

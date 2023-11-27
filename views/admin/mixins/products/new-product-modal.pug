@@ -7,19 +7,19 @@ mixin newProductModal(product)
                         h5#newProductModal.modal-title New Product
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                     .modal-body
-                            .form-group
+                            .mb-3
                                 label(for="reference") Reference
                                 input#reference.form-control(type="text" name="reference" required)
-                            .form-group
+                            .mb-3
                                 label(for="title") Title
                                 input#title.form-control(type="text" name="title" required)
-                            .form-group
+                            .mb-3
                                 label(for="status") Status
                                 select#status.form-control(name="status" required)
                                     option(value="Live") Live
                                     option(value="Retired") Retired
                                     option(value="Under Development") Under Development
-                            .form-group
+                            .mb-3
                                 label(for="description") Description
                                 textarea#description.form-control(name="description" required)
                     .modal-footer
