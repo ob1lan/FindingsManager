@@ -26,9 +26,10 @@ mixin newFindingModal(finding, products)
                                 .mb-3
                                     label(for="product") <b>Product</b>
                                     select#product.form-control(name="product")
+                                        option(value="None") None (General Finding or triage)
                                         if products && products.length
                                             each product in products
-                                                option(value=product._id)= product.title
+                                                option(value=product.reference) #{product.reference} (#{product.name})
                                         else
                                             option No products available
                                 .mb-3

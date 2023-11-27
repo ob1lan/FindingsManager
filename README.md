@@ -2,7 +2,7 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
-- Link the product model to the findings + report capabilities + projects
+- Ability to see how many findings per products per projects (in table + in dashboard)
 - Add the same feature as the Findings table to other tables (right-click, double-click, etc.)
 - Add an 'Active engagements' dashboard widget (ongoing projects)
 - Dashboard: last 7 days charts/cards (new findings, fixed findings, etc.)

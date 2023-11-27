@@ -19,7 +19,7 @@ exports.getFindings = async () => {
 
 exports.createFinding = async (finding) => {
   try {
-    const newFinding = new Finding({ ...finding, product: productId });
+    const newFinding = new Finding({ ...finding });
     return newFinding.save();
   } catch (e) {
     throw e;
@@ -32,7 +32,7 @@ exports.findFindingPerId = (id) => {
 
 exports.updateFinding = async (id, updatedData) => {
   try {
-    return await Finding.findByIdAndUpdate(id, {...updatedData, product: productId}, {
+    return await Finding.findByIdAndUpdate(id, {...updatedData}, {
       new: true,
     }).exec();
   } catch (e) {

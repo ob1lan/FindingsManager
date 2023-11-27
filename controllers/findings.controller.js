@@ -28,6 +28,7 @@ exports.findings = async (req, res, next) => {
     const users = await getAllUsers();
     const products = await getProducts();
     console.log("Products:", products);
+    console.log("Projects:", projects);
 
     res.render("findings/findings", {
       findings,
@@ -48,6 +49,7 @@ exports.findings = async (req, res, next) => {
 exports.findingCreate = async (req, res, next) => {
   try {
     const body = req.body;
+    console.log("Finding Create:", body);
     const assignee = await findUserPerUsername(body.assignee);
     let attachmentPath = "";
     if (req.file) {
@@ -58,7 +60,6 @@ exports.findingCreate = async (req, res, next) => {
       ...body,
       createdBy: req.user.username,
       attachment: attachmentPath,
-      product: body.productId,
     });
 
     const smtpSettings = await smtpSettingsQuery.getSMTPSettings();

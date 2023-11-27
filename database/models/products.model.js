@@ -3,7 +3,7 @@ const schema = mongoose.Schema;
 
 const productSchema = schema({
   reference: { type: String, required: true, unique: true },
-  title: { type: String, required: true },
+  name: { type: String, required: true },
   status: {
     type: String,
     required: true,

@@ -24,7 +24,7 @@ $(document).ready(function () {
     ],
     columnDefs: [
       { targets: -1, orderable: false },
-      { targets: [3, 9, 10, 12], visible: false },
+      { targets: [4, 10, 11, 13], visible: false },
     ],
     colReorder: true,
   });

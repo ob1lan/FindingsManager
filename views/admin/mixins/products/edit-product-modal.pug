@@ -11,8 +11,8 @@ mixin editProductModal(product)
                             label(for="reference") Reference
                             input#reference.form-control(type="text" name="reference" value= product.reference required)
                         .mb-3
-                            label(for="title") Title
-                            input#title.form-control(type="text" name="title" value= product.title required)
+                            label(for="Name") Name
+                            input#Name.form-control(type="text" name="Name" value= product.name required)
                         .mb-3
                             label(for="description") Description
                             textarea#description.form-control(name="description" rows="5" required)= product.description

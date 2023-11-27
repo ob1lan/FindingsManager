@@ -7,6 +7,7 @@ mixin findingsTable(findings)
                 tr
                     th Reference
                     th Project
+                    th Product
                     th Title
                     th Type
                     th Severity
@@ -47,6 +48,7 @@ mixin findingsTable(findings)
                     tr(data-finding-id=`${finding._id}`)
                         td= finding.reference
                         td= finding.project
+                        td= finding.product
                         td= finding.title
                         td= finding.type
                         td(class=severityClass)= finding.severity
