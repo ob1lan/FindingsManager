@@ -98,8 +98,6 @@ exports.findingEdit = async (req, res, next) => {
     try {
       const updateData = req.body;
       const finding = await findFindingPerId(req.params.id);
-      console.log("ORIGINAL:", finding);
-      console.log("CREATED_DATE:", finding.createdAt);
 
       // Check if the status is being updated to Remediated, Accepted, or Declined
       if (["Remediated", "Accepted", "Declined"].includes(updateData.status)) {
@@ -124,6 +122,16 @@ exports.findingEdit = async (req, res, next) => {
         updateData.timeToFix = null;
       }
       await updateFinding(req.params.id, req.body);
+      const assignee = await findUserPerUsername(updateData.assignee);
+      const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
+      const mailOptions = {
+        from: smtpSettings.smtpUsername || "noreply@findingsmanager.com",
+        to: assignee.local.email,
+        subject: "Updated finding assigned to you",
+        text: `Hello ${assignee.username},\n\nYou have been assigned an updated finding with reference ${updateData.reference}.\n\nTitle: ${updateData.title}\n\nPlease login to the Findings Manager to view more details.\n`,
+      };
+
+      const emailSent = await sendEmail(smtpSettings, mailOptions);
       res.redirect("/findings");
     } catch (error) {
       next(error);

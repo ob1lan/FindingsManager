@@ -5,7 +5,7 @@ Currently in DRAFT
 - Implement a Product model (name, version, team, etc.) and link it to the findings + report capabilities
 - Add an 'Active engagements' dashboard widget (ongoing projects)
 - Dashboard: last 7 days charts/cards (new findings, fixed findings, etc.)
-- Email to finding's assignee when a finding is assigned to him/her
+- Email to finding's assignee when a finding is assigned to him/her (on finding edit)
 - Email to finding's assignee & creator when a finding changes status
 - Fix logging of auth activities and flash message on user profile after password change, 2FA toggle, etc.
 - Integrate and use CWE and CWE IDs if possible
