@@ -22,7 +22,7 @@ $(document).ready(function () {
   var searchTerm = getUrlVars()["search"];
 
   var table = $("table").DataTable({
-    select: true,
+    select: false,
     stateSave: true,
     responsive: true,
     dom: 'Bf<"clear">rtipl',
