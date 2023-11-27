@@ -56,16 +56,14 @@ thead {
   text-transform: capitalize;
 }
 
-
 .charts-row {
   display: flex;
-  justify-content: space-between; /* distributes the space evenly between the charts */
+  justify-content: space-between;
   width: 100%;
 }
 
 .chart-container {
   flex: 0;
-  height: 400px; /* or whatever height you prefer */
 }
 
 canvas {
