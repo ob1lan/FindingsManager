@@ -1,0 +1,26 @@
+extends ../layout.pug
+include mixins/products/products-table
+include mixins/products/new-product-modal
+include mixins/products/product-details-modal
+include mixins/products/edit-product-modal
+include mixins/products/delete-confirmation-modal
+
+block content
+    h1 Admin - Products
+
+    button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#newProductModal") New Product
+
+    +newProductModal(product)
+
+    +productsTable(products)
+    +deleteConfirmationModal
+
+    //- modals for each product
+    each product in products
+        +productDetailsModal(product)
+        +editProductModal(product)
+
+    script.
+        $(document).ready(function() {
+            $('table').DataTable();
+        });

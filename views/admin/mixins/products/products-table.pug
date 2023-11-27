@@ -1,0 +1,29 @@
+mixin productsTable(products)
+    if products.length
+        table(id="productsTable" class="display").table.table-bordered
+            thead
+                tr
+                    th Reference
+                    th Status
+                    th Title 
+                    th Description
+                    th Actions
+            tbody
+                    each product in products
+                        tr
+                            td= product.reference
+                            td= product.status
+                            td= product.title
+                            td= product.description
+                            td
+                                //- Details button (opens a modal)
+                                button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${product._id}`) 
+                                    i.fas.fa-search
+                                //- Edit button (link to an another modal)
+                                button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editProductModal-${product._id}`)
+                                    i.fas.fa-pencil-alt
+                                //- Delete button (opens a modal)    
+                                button.btn.btn-danger.btn-sm(data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-product-id=`${product._id}`)
+                                    i.fas.fa-trash-alt
+    else
+        p No product available.

@@ -2,7 +2,8 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
-- Implement a Product model (name, version, team, etc.) and link it to the findings + report capabilities
+- Link the product model to the findings + report capabilities + projects
+- Add the same feature as the Findings table to other tables (right-click, double-click, etc.)
 - Add an 'Active engagements' dashboard widget (ongoing projects)
 - Dashboard: last 7 days charts/cards (new findings, fixed findings, etc.)
 - Email to finding's assignee & creator when a finding changes status
@@ -20,7 +21,6 @@ Currently in DRAFT
 - Add a feature/action to share/send a finding to another user (summary in email), button on the finding details modal
 - Add a feature to toggle from pie chart to another chart type by clicking the card
 - Add a 'show more' button under the Last logins list on the profile page (display a table with all logins events)
-- Ensure the Admin - SMTP Setttings page is showing the same as the others Admin menu pages
 - Consider refactoring and use JWT to authenticate users (instead of sessions)
 - Use email templates and harmonize the email content (use the same template for all emails) and helpers
 - Allow admins to change logo and other settings (maybe)

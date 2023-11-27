@@ -1,0 +1,14 @@
+mixin productDetailsModal(product)
+    .modal.fade(id="detailsModal-" + product._id, tabindex="-1", aria-labelledby="detailsModalLabel-" + product._id, aria-hidden="true").modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5.modal-title Details for #{product.reference}
+                    button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                .modal-body
+                    p <b>Reference:</b> #{product.reference}
+                    p <b>Status:</b> #{product.status}
+                    p <b>Title:</b> #{product.title}
+                    p <b>Description:</b> #{product.description}
+                .modal-footer
+                    button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close

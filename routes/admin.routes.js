@@ -16,11 +16,17 @@ const {
 } = require("../controllers/admin-projects.controller");
 
 const {
+  viewProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} = require("../controllers/admin-products.controller");
+
+const {
   viewSettings,
   saveSettings,
   sendTestEmail,
 } = require("../controllers/admin-setting.controller");
-
 
 router.get("/", ensureAdmin, (req, res, next) => {
   res.redirect("/admin/users");
@@ -34,6 +40,11 @@ router.get("/projects", ensureAuthenticated, ensureAdmin, viewProjects);
 router.post("/projects/create", ensureAdmin, createProject);
 router.post("/projects/:id/edit", ensureAdmin, updateProject);
 router.get("/projects/:id/delete", ensureAdmin, deleteProject);
+
+router.get("/products", ensureAuthenticated, ensureAdmin, viewProducts);
+router.post("/products/create", ensureAdmin, createProduct);
+router.post("/products/:id/edit", ensureAdmin, updateProduct);
+router.get("/products/:id/delete", ensureAdmin, deleteProduct);
 
 router.get("/settings", ensureAuthenticated, ensureAdmin, viewSettings);
 router.post("/settings", ensureAuthenticated, ensureAdmin, saveSettings);

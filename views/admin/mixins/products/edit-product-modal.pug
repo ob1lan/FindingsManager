@@ -1,0 +1,21 @@
+mixin editProductModal(product)
+    .modal.fade(id=`editProductModal-${product._id}`, tabindex="-1", aria-labelledby=`editProductModalLabel-${product._id}`, aria-hidden="true")
+        .modal-dialog
+            .modal-content
+                form(action=`/admin/products/${product._id}/edit` method="post")
+                    .modal-header
+                        h5.modal-title Edit Product #{product.reference}
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body
+                        .mb-3
+                            label(for="reference") Reference
+                            input#reference.form-control(type="text" name="reference" value= product.reference required)
+                        .mb-3
+                            label(for="title") Title
+                            input#title.form-control(type="text" name="title" value= product.title required)
+                        .mb-3
+                            label(for="description") Description
+                            textarea#description.form-control(name="description" rows="5" required)= product.description
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
+                        button.btn.btn-primary(type="submit") Save Changes

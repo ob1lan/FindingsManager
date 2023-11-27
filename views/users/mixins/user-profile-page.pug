@@ -25,17 +25,21 @@ mixin user-profile-page
                         .col-sm-4
                             button.btn.btn-outline-primary(data-bs-toggle="modal" data-bs-target="#updateDetailsModal")
                                 span(data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Update Profile")
-                                img(src="https://www.svgrepo.com/show/497963/edit.svg" alt="Edit" width="20" height="20")
+                                a(href="#" data-bs-toggle="tooltip" data-bs-title="Edit Profile")
+                                    img(src="https://www.svgrepo.com/show/497963/edit.svg" alt="Edit" width="20" height="20")
                         .col-sm-4
                             button.btn.btn-outline-primary(data-bs-toggle="modal" data-bs-target="#updatePasswordModal")
-                                img(src="https://www.svgrepo.com/show/526623/password-minimalistic-input.svg" alt="Password" width="20" height="20")
+                                a(href="#" data-bs-toggle="tooltip" data-bs-title="Change Password")
+                                    img(src="https://www.svgrepo.com/show/526623/password-minimalistic-input.svg" alt="Password" width="20" height="20")
                         .col-sm-4
                             if user.twoFAEnabled
                                 button.btn.btn-outline-danger(data-bs-toggle="modal" data-bs-target="#disable2FAModal")
-                                    img(src="https://www.svgrepo.com/show/493779/key.svg" alt="2FA" width="20" height="20")
+                                    a(href="#" data-bs-toggle="tooltip" data-bs-title="Disable 2FA")
+                                        img(src="https://www.svgrepo.com/show/493779/key.svg" alt="2FA" width="20" height="20")
                             else 
                                 button.btn.btn-outline-success(data-bs-toggle="modal" data-bs-target="#setup2FAModal")
-                                    img(src="https://www.svgrepo.com/show/493779/key.svg" alt="2FA" width="20" height="20")
+                                    a(href="#" data-bs-toggle="tooltip" data-bs-title="Enable 2FA")
+                                        img(src="https://www.svgrepo.com/show/493779/key.svg" alt="2FA" width="20" height="20")                            
             .col-md-4
                 .border-card
                     .card-body
@@ -89,7 +93,7 @@ mixin user-profile-page
                                 div.modal-dialog.modal-dialog-scrollable
                                     div.modal-content
                                         div.modal-header
-                                            h5.modal-title#logModalLabel Logs Details
+                                            h5.modal-title#logModalLabel Logs Details (last 50 events)
                                             button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
                                         div.modal-body
                                             ul

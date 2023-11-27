@@ -1,0 +1,27 @@
+mixin newProductModal(product)
+    .modal.fade(id="newProductModal" tabindex="-1" aria-labelledby="newProductModalLabel" aria-hidden="true")
+        .modal-dialog.modal-lg
+            .modal-content
+                form(action="/admin/products/create" method="post")
+                    .modal-header
+                        h5#newProductModal.modal-title New Product
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body
+                            .form-group
+                                label(for="reference") Reference
+                                input#reference.form-control(type="text" name="reference" required)
+                            .form-group
+                                label(for="title") Title
+                                input#title.form-control(type="text" name="title" required)
+                            .form-group
+                                label(for="status") Status
+                                select#status.form-control(name="status" required)
+                                    option(value="Live") Live
+                                    option(value="Retired") Retired
+                                    option(value="Under Development") Under Development
+                            .form-group
+                                label(for="description") Description
+                                textarea#description.form-control(name="description" required)
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
+                        button.btn.btn-primary(type="submit") Create Project
