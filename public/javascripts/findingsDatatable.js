@@ -1,4 +1,10 @@
 $(document).ready(function () {
+  function sanitizeInput(input) {
+    var div = document.createElement("div");
+    div.textContent = input;
+    return div.innerHTML;
+  }
+
   function getUrlVars() {
     var vars = [],
       hash;
@@ -8,10 +14,11 @@ $(document).ready(function () {
     for (var i = 0; i < hashes.length; i++) {
       hash = hashes[i].split("=");
       vars.push(hash[0]);
-      vars[hash[0]] = hash[1];
+      vars[hash[0]] = sanitizeInput(decodeURIComponent(hash[1]));
     }
     return vars;
   }
+
   var searchTerm = getUrlVars()["search"];
 
   var table = $("table").DataTable({
