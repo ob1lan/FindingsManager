@@ -2,6 +2,11 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
+- Implement a Product model (name, version, team, etc.) and link it to the findings + report capabilities
+- Add an 'Active engagements' dashboard widget (ongoing projects)
+- Dashboard: last 7 days charts/cards (new findings, fixed findings, etc.)
+- Email to finding's assignee when a finding is assigned to him/her
+- Email to finding's assignee & creator when a finding changes status
 - Fix logging of auth activities and flash message on user profile after password change, 2FA toggle, etc.
 - Integrate and use CWE and CWE IDs if possible
 - Work on the Admin settings visual (cards as for the profile page)
@@ -28,7 +33,7 @@ Currently in DRAFT
 - SAML auth support
 - User profile:
     - add the user's created projects 5 by 5 (pagination sliding effect)
-    - add new fields (phone, location, prefered language) + handle their TZ 
+    - add new fields (location, prefered language) + handle their TZ 
     - Notification preferences (checkboxes)
 - set the max size for inputs (project name, finding name, etc.)
 - set the max size for uploads (CSV and pictures)

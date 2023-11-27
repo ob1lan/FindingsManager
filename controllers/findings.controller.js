@@ -12,9 +12,13 @@ const {
   getOverdueFindings,
 } = require("../queries/findings.queries");
 
+const { findUserPerUsername } = require("../queries/users.queries");
+
 const { getProjects } = require("../queries/projects.queries");
 const { getSLASettings } = require("../queries/settings.queries");
 const { getAllUsers } = require("../queries/users.queries");
+const smtpSettingsQuery = require("../queries/settings.queries");
+const sendEmail = require("../utils/emailSender");
 
 exports.findings = async (req, res, next) => {
   try {
@@ -40,6 +44,7 @@ exports.findings = async (req, res, next) => {
 exports.findingCreate = async (req, res, next) => {
   try {
     const body = req.body;
+    const assignee = await findUserPerUsername(body.assignee);
     let attachmentPath = "";
     if (req.file) {
       absolutePath = req.file.path;
@@ -50,6 +55,17 @@ exports.findingCreate = async (req, res, next) => {
       createdBy: req.user.username,
       attachment: attachmentPath,
     });
+
+    const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
+    const mailOptions = {
+      from: smtpSettings.smtpUsername || "noreply@findingsmanager.com",
+      to: assignee.local.email,
+      subject: "New finding assigned to you",
+      text: `Hello ${assignee.username},\n\nYou have been assigned a new finding with reference ${body.reference}.\n\nTitle: ${body.title}\n\nPlease login to the Findings Manager to view more details.\n`,
+    };
+
+    const emailSent = await sendEmail(smtpSettings, mailOptions);
+
     res.redirect("/findings");
   } catch (e) {
     const errors = Object.keys(e.errors).map((key) => e.errors[key].message);

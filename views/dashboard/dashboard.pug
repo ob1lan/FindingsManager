@@ -9,6 +9,7 @@ block content
     h1 Dashboard
     script(src="https://cdn.jsdelivr.net/npm/chart.js")
     script(src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js")
+    script(src="/javascripts/dashboardCardsMouseOver.js")
     div(class="row cards-row flex-nowrap")
         div(class="card-container")
             div(class="card text-bg-primary")
@@ -21,10 +22,11 @@ block content
                 div(class="card-body")
                     h1 #{numberOfOpenFindings}
         div(class="card-container")
-            div(class="card text-bg-danger" onclick="generateOverdueFindingsReport()")
+            div(class="card text-bg-danger")
                 div(class="card-header")|Overdue Findings
-                div(class="card-body")
-                    h1 #{numberOfFindingsOverdue}
+                div(id="overdueCardBody" class="card-body")
+                    h1(class="overdue-number") #{numberOfFindingsOverdue}
+                    i(class="fa fa-download overdue-icon fa-2xl" style="display: none;")
         div(class="card-container")
             div(class="card text-bg-success")
                 div(class="card-header")|Closed Findings

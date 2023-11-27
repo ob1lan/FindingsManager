@@ -99,3 +99,16 @@ table.dataTable {
 .hidden {
   display: none;
 }
+
+#overdueCardBody {
+    position: relative;
+    /* Other styles */
+}
+
+.overdue-icon {
+    position: absolute;
+    top: 50%; /* Adjust as needed */
+    left: 50%; /* Adjust as needed */
+    transform: translate(-50%, -50%);
+    /* Other styles as needed */
+}
