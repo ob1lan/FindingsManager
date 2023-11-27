@@ -1,5 +1,5 @@
 const Finding = require("../database/models/finding.model");
-const moment = require('moment');
+const moment = require("moment");
 
 exports.getFindings = async () => {
   const findings = await Finding.find({}).lean().exec();
@@ -7,7 +7,7 @@ exports.getFindings = async () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Set time to midnight for comparison
 
-  findings.forEach(finding => {
+  findings.forEach((finding) => {
     const dueDate = new Date(finding.dueDate);
     dueDate.setHours(0, 0, 0, 0); // Set time to midnight for comparison
 
@@ -19,7 +19,7 @@ exports.getFindings = async () => {
 
 exports.createFinding = async (finding) => {
   try {
-    const newFinding = new Finding(finding);
+    const newFinding = new Finding({ ...finding, product: productId });
     return newFinding.save();
   } catch (e) {
     throw e;
@@ -32,7 +32,7 @@ exports.findFindingPerId = (id) => {
 
 exports.updateFinding = async (id, updatedData) => {
   try {
-    return await Finding.findByIdAndUpdate(id, updatedData, {
+    return await Finding.findByIdAndUpdate(id, {...updatedData, product: productId}, {
       new: true,
     }).exec();
   } catch (e) {
@@ -124,25 +124,25 @@ exports.getFindingsCountByDate = async (createdAt) => {
 };
 
 exports.getFindingsCountByDate = async (days) => {
-  const startDate = moment().subtract(days, 'days').toDate();
+  const startDate = moment().subtract(days, "days").toDate();
   const endDate = new Date();
 
   // MongoDB aggregation to group findings by date and count them
   return await Finding.aggregate([
     {
       $match: {
-        createdAt: { $gte: startDate, $lte: endDate }
-      }
+        createdAt: { $gte: startDate, $lte: endDate },
+      },
     },
     {
       $group: {
         _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
-        count: { $sum: 1 }
-      }
+        count: { $sum: 1 },
+      },
     },
     {
-      $sort: { "_id": 1 }
-    }
+      $sort: { _id: 1 },
+    },
   ]);
 };
 
@@ -159,4 +159,8 @@ exports.getOverdueFindings = async () => {
     console.error("Error fetching overdue findings:", error);
     throw error; // Or handle the error as per your application's error handling policy
   }
-}
+};
+
+exports.getFindingsByProduct = (productId) => {
+  return Finding.find({ product: productId }).exec();
+};

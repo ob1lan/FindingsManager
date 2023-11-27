@@ -17,6 +17,7 @@ const { findUserPerUsername } = require("../queries/users.queries");
 const { getProjects } = require("../queries/projects.queries");
 const { getSLASettings } = require("../queries/settings.queries");
 const { getAllUsers } = require("../queries/users.queries");
+const { getProducts } = require("../queries/products.queries");
 const smtpSettingsQuery = require("../queries/settings.queries");
 const sendEmail = require("../utils/emailSender");
 
@@ -25,9 +26,12 @@ exports.findings = async (req, res, next) => {
     const findings = await getFindings();
     const projects = await getProjects();
     const users = await getAllUsers();
+    const products = await getProducts();
+    console.log("Products:", products);
 
     res.render("findings/findings", {
       findings,
+      products,
       projects,
       users,
       slaSettings: await getSLASettings(),
@@ -48,12 +52,13 @@ exports.findingCreate = async (req, res, next) => {
     let attachmentPath = "";
     if (req.file) {
       absolutePath = req.file.path;
-      attachmentPath = absolutePath.replace("public", '');
+      attachmentPath = absolutePath.replace("public", "");
     }
     await createFinding({
       ...body,
       createdBy: req.user.username,
       attachment: attachmentPath,
+      product: body.productId,
     });
 
     const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
@@ -107,16 +112,14 @@ exports.findingEdit = async (req, res, next) => {
 
         if (finding.createdAt && updateData.fixedDate) {
           const timeToFix =
-            (updateData.fixedDate - finding.createdAt) /
-            (1000 * 60 * 60 * 24);
+            (updateData.fixedDate - finding.createdAt) / (1000 * 60 * 60 * 24);
           if (!isNaN(timeToFix)) {
             updateData.timeToFix = timeToFix.toFixed(0);
           } else {
             console.error("Invalid date calculation for timeToFix");
           }
         }
-      }
-      else if (updateData.status === "In Remediation") {
+      } else if (updateData.status === "In Remediation") {
         updateData.fixedDate = null;
         updateData.timeToFix = null;
       }

@@ -33,6 +33,7 @@ const findingSchema = schema(
     fixedDate: { type: Date },
     timeToFix: { type: Number },
     attachment: { type: String, default: "" },
+    product: { type: String, default: "" },
   },
   {
     timestamps: true, // This will automatically add `createdAt` and `updatedAt` fields
