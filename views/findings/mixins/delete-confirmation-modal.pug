@@ -1,21 +1,14 @@
-mixin deleteFindingConfirmationModal
-    #deleteFindingConfirmationModal.modal.fade(tabindex="-1" aria-labelledby="deleteFindingModalLabel" aria-hidden="true")
+mixin deleteFindingConfirmationModal(finding)
+    .modal.fade(id=`deleteFindingConfirmationModal-${finding._id}`, tabindex="-1", aria-labelledby=`deleteFindingConfirmationModal-${finding._id}`, aria-hidden="true")
         .modal-dialog
             .modal-content
-                .modal-header
-                    h5#deleteFindingModalLabel.modal-title Confirm Deletion
-                    button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
-                .modal-body
-                    p Are you sure you want to delete this finding?
-                .modal-footer
-                    button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
-                    form#deleteFindingForm(method="post" action="#" style="display: inline;")
-                        button.btn.btn-danger(type="submit") Delete
-    script.
-        const deleteFindingModal = document.getElementById('deleteFindingConfirmationModal');
-        deleteFindingModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            const findingId = button.getAttribute('data-finding-id');
-            const deleteForm = document.getElementById('deleteFindingForm');
-            deleteForm.action = `/findings/${findingId}/delete`;
-        });
+                form(action=`/findings/${finding._id}/delete` method="post")
+                    .modal-header
+                        h5#deleteFindingModalLabel.modal-title Confirm Deletion
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body
+                        p Are you sure you want to delete the <b>#{finding.reference}</b> finding? 
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
+                        form#deleteFindingForm(method="post" action="#" style="display: inline;")
+                            button.btn.btn-danger(type="submit") Delete

@@ -112,3 +112,20 @@ table.dataTable {
     transform: translate(-50%, -50%);
     /* Other styles as needed */
 }
+
+#customContextMenu {
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ddd;
+  list-style-type: none;
+  padding: 5px 0;
+  display: none; /* Initially hidden */
+}
+#customContextMenu li {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+#customContextMenu li:hover {
+  background-color: #f0f0f0;
+}
