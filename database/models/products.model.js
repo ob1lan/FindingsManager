@@ -12,6 +12,7 @@ const productSchema = schema({
   },
   description: { type: String, default: "" },
   contacts: { type: [String], default: [] },
+  findings: { type: [String], default: [] },
 });
 
 const Product = mongoose.model("product", productSchema);
