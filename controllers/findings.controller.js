@@ -117,7 +117,6 @@ exports.findingEdit = async (req, res, next) => {
         }
       }
       else if (updateData.status === "In Remediation") {
-        // Set the fixedDate to null
         updateData.fixedDate = null;
         updateData.timeToFix = null;
       }
