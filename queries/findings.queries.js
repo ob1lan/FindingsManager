@@ -1,8 +1,20 @@
 const Finding = require("../database/models/finding.model");
 const moment = require('moment');
 
-exports.getFindings = () => {
-  return Finding.find({}).exec();
+exports.getFindings = async () => {
+  const findings = await Finding.find({}).lean().exec();
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Set time to midnight for comparison
+
+  findings.forEach(finding => {
+    const dueDate = new Date(finding.dueDate);
+    dueDate.setHours(0, 0, 0, 0); // Set time to midnight for comparison
+
+    finding.isOverdue = dueDate <= today;
+  });
+
+  return findings;
 };
 
 exports.createFinding = async (finding) => {
