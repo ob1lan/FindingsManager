@@ -26,8 +26,12 @@ exports.createFinding = async (finding) => {
   }
 };
 
-exports.findFindingPerId = (id) => {
-  return Finding.findById(id).exec();
+exports.findFindingPerId = async (id) => {
+  try {
+    return await Finding.findById(id).exec();
+  } catch (e) {
+    throw e;
+  }  
 };
 
 exports.updateFinding = async (id, updatedData) => {
