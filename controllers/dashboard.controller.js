@@ -8,7 +8,6 @@ const {
   getOverdueFindings,
 } = require("../queries/findings.queries");
 
-const PDFDocument = require("pdfkit");
 const puppeteer = require("puppeteer");
 const path = require("path");
 
@@ -73,7 +72,7 @@ function sortStatusData(data) {
 
 exports.generateOverdueFindingsReport = async (req, res) => {
   try {
-    const overdueFindings = await getOverdueFindings(); // Replace with your actual method to get findings
+    const overdueFindings = await getOverdueFindings();
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
