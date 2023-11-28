@@ -27,8 +27,6 @@ exports.findings = async (req, res, next) => {
     const projects = await getProjects();
     const users = await getAllUsers();
     const products = await getProducts();
-    console.log("Products:", products);
-    console.log("Projects:", projects);
 
     res.render("findings/findings", {
       findings,
@@ -49,7 +47,6 @@ exports.findings = async (req, res, next) => {
 exports.findingCreate = async (req, res, next) => {
   try {
     const body = req.body;
-    console.log("Finding Create:", body);
     const assignee = await findUserPerUsername(body.assignee);
     let attachmentPath = "";
     if (req.file) {
@@ -234,6 +231,36 @@ exports.importFindings = async (req, res, next) => {
         }
         res.redirect("/findings");
       });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.findingShare = async (req, res, next) => {
+  try {
+    const body = req.body;
+    const finding = await findFindingPerId(req.params.id);
+    const recipientsString = body.recipients;
+    const recipients = recipientsString
+      .split(",")
+      .map((email) => email.trim())
+      .filter((email) => email !== "");
+
+    const sender = req.user.username;
+
+    recipients.forEach(async (recipient) => {
+      const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
+      const mailOptions = {
+        from: smtpSettings.smtpUsername || "noreply@findingsmanager.com",
+        to: recipient,
+        subject: `${sender} shared a finding with you`,
+        text: `Hello,\n\nA finding has been shared with you:\n\n${finding.reference}\n\n${finding.title}\n\n${finding.product}\n\n${finding.severity}\n\n${finding.status}\n\n${finding.assignee}\n\n${finding.origin}\n\n${finding.reportedBy}\n\n${finding.dueDate}\n`,
+      };
+      const emailSent = await sendEmail(smtpSettings, mailOptions);
+      console.log("Email Sent:", emailSent);
+    });
+
+    res.redirect("/findings");
   } catch (error) {
     next(error);
   }

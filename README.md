@@ -2,7 +2,6 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
-- Findings table: evaluate if OK to get rid of the 'Actions' column (use right-click instead)
 - Findings table: add a feature to select multiple findings and perform actions on them (change status, etc.)
 - Findings table: add a new contextual menu to send a finding to another user (email summary)
 - Make sure the function to create a PDF report can be reused (transform as an standalone API)

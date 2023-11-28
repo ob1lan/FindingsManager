@@ -1,4 +1,3 @@
-
 mixin findingsTable(findings)
     if findings.length
       div(class="table-findings")
@@ -19,7 +18,6 @@ mixin findingsTable(findings)
                     th CVSS
                     th Due Date
                     th SLA Breached
-                    th Actions
             tbody
                 each finding in findings
                     //- Variable to store the class for the severity column
@@ -60,16 +58,5 @@ mixin findingsTable(findings)
                         td= finding.cvss
                         td(class=overDueClass)= `${finding.dueDate.toDateString()}`
                         td= finding.isOverdue
-                        td
-                            //- View button
-                            button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${finding._id}`)
-                                i.fas.fa-search
-                            //- Edit button
-                            button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editFindingModal-${finding._id}`)
-                                i.fas.fa-pencil-alt
-                            button.btn.btn-danger.btn-sm(data-bs-toggle="modal" data-bs-target=`#deleteFindingConfirmationModal-${finding._id}`)
-                                i.fas.fa-trash-alt
-                        
-                    +detailsModal(finding)
     else
         p No findings available.

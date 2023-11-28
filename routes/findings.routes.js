@@ -28,6 +28,7 @@ router.post("/new-finding", ensureAuthenticated, (req, res, next) => {
 router.get("/:id/details", ensureAuthenticated, fndCtrl.findingDetails);
 router.post("/:id/edit", ensureAuthenticated, fndCtrl.findingEdit);
 router.post("/:id/delete", ensureAuthenticated, fndCtrl.findingDelete);
+router.post("/:id/share", ensureAuthenticated, fndCtrl.findingShare);
 router.get("/export", ensureAuthenticated, fndCtrl.exportToCSV);
 router.post(
   "/import-csv",

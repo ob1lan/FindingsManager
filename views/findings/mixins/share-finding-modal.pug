@@ -1,0 +1,17 @@
+mixin shareModal(finding)
+    .modal.fade(id=`shareModal-${finding._id}`, tabindex="-1", aria-labelledby=`shareModalLabel-${finding._id}`, aria-hidden="true")
+        .modal-dialog
+            .modal-content
+                form(action=`/findings/${finding._id}/share` method="post")
+                    .modal-header
+                        h5#newFindingModalLabel.modal-title Share finding #{finding.reference}
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body                           
+                        .mb-3
+                            label(for="recipients") <b>Recipients email (coma-separated)</b>
+                            input#recipients.form-control(type="text" name="recipients" required)
+                        .mb-3
+                            input#finding._id.form-control(type="text" name="finding._id" hidden value=finding._id)
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
+                        button.btn.btn-primary(type="submit") Share Finding

@@ -10,6 +10,7 @@ const findings = require("./findings.routes");
 const dashboard = require("./dashboard.routes");
 const me = require("./me.routes");
 const admin = require("./admin.routes");
+const reporting = require("./reporting.routes");
 
 router.use("/auth", auth);
 
@@ -40,6 +41,13 @@ router.use(
   ensureAdmin,
   ensure2FAVerified,
   admin
+);
+
+router.use(
+  "/reporting",
+  ensureAuthenticated,
+  ensure2FAVerified,
+  reporting
 );
 
 router.get("/", (req, res) => {

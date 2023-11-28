@@ -5,6 +5,7 @@ include mixins/edit-finding-modal
 include mixins/import-export-features
 include mixins/delete-confirmation-modal
 include mixins/details-findings-modal
+include mixins/share-finding-modal
 
 block content
     script. 
@@ -22,15 +23,17 @@ block content
     +findingsTable(findings)
     
     each finding in findings
+        +detailsModal(finding)
         +editFindingModal(finding)
         +deleteFindingConfirmationModal(finding)
+        +shareModal(finding)
 
     ul#customContextMenu.hidden
         li View Finding
         li Edit Finding
-        li Share Finding 
-        li Mark as Remediated 
-        li Mark as Accepted 
+        li Share Finding
+        li Mark as Remediated
+        li Mark as Accepted
         li Mark as Declined
         li Report on Finding
         li Delete Finding

@@ -95,7 +95,7 @@ $(document).ready(function () {
   });
 });
 function handleMenuAction(action, findingId) {
-  if (action === "View Details") {
+  if (action === "View Finding") {
     var modalSelector = `#detailsModal-${findingId}`;
     var modalInstance = new bootstrap.Modal(
       document.querySelector(modalSelector)
@@ -113,5 +113,11 @@ function handleMenuAction(action, findingId) {
       document.querySelector(modalSelector3)
     );
     modalInstance3.show();
+  } else if (action === "Share Finding") {
+    var modalSelector4 = `#shareModal-${findingId}`;
+    var modalInstance4 = new bootstrap.Modal(
+      document.querySelector(modalSelector4)
+    );
+    modalInstance4.show();
   }
 }
