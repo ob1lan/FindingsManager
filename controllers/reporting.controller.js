@@ -14,7 +14,6 @@ exports.generateFindingsReport = async (req, res, next) => {
             <html>
                 <head>
                     <style>
-                        /* Add your CSS styles here */
                         body {
                             font-family: Arial, sans-serif;
                         }
@@ -66,37 +65,38 @@ exports.generateFindingsReport = async (req, res, next) => {
       const contentDiv = document.getElementById("content");
       const findingDiv = document.createElement("div");
       findingDiv.innerHTML = `
+                    <h2>Finding ${finding.reference} raised by ${
+        finding.project
+      }</h2>
                     <table>
                         <tr>
-                            <th>Reference</th>
-                            <th>Title</th>
+                            <th>Origin</th>
+                            <th>Product</th>
                             <th>Severity</th>
                             <th>Due Date</th>
+                            <th>Status</th>
                         </tr>
                         <tr>
-                            <td width="15%">${finding.reference}</td>
-                            <td width="50%">${finding.title}</td>
+                            <td width="10%">${finding.origin}</td>    
+                            <td width="40%">${finding.product}</td>
                             <td width="10%">${finding.severity}</td>
-                            <td width="25%">${new Date(
+                            <td width="15%">${new Date(
                               finding.dueDate
                             ).toLocaleDateString()}</td>
-                        </tr>
-                        <tr>
-                            <th width:"15%">CVSS</th>
-                            <td width="50%">${finding.cvss}</td>
-                            <th width:"10%">CVE</th>
-                            <td width="25%">${finding.cve}</td>
+                            <td width="25%">${finding.status}</td>
                         </tr>
                     </table>
                     <ul>
-                        <li><b>Type:</b> ${finding.type}</li>
-                        <li><b>Origin:</b> ${finding.origin}</li>
-                        <li><b>Reported by:</b> ${finding.reportedBy}</li>
-                        <li><b>Assignee:</b> ${finding.assignee}</li>
-                        <li><b>Description:</b> ${
-                          finding.description
-                        }</li>                        
+                              <li><b>CVSS:</b> ${finding.cvss}</li>
+                              <li><b>CVE:</b> ${finding.cve}</li>
+                              <li><b>Reported by:</b> ${finding.reportedBy}</li>
+                              <li><b>Assigned to:</b> ${finding.assignee}</li>
                     </ul>
+                    <h3>Description</h3>
+                    <p>${finding.description}</p>
+                    <p><b>Created on:</b> ${new Date(
+                      finding.createdAt
+                    ).toLocaleDateString()}</p>
                     <br />
                     <hr />
                     <br />

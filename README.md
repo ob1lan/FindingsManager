@@ -2,9 +2,13 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
+- Finish the Projects details (creation, edit, etc.)
+- Finish the Products details (creation, edit, etc.)
 - Findings table: add a feature to select multiple findings and perform actions on them (change status, etc.)
 - Review the content and formating of findings shared by email and reported in PDF via the context menu
 - Ability to see how many findings per products per projects (in table + in dashboard)
+- Ask for remediation/accepted/declined reason when changing status to any of these
+- Findings table context menu: try to make menu items conditional
 - Add the same feature as the Findings table to other tables (right-click, double-click, etc.)
 - Add an 'Active engagements' dashboard widget (ongoing projects)
 - Dashboard: last 7 days charts/cards (new findings, fixed findings, etc.)
@@ -15,7 +19,6 @@ Currently in DRAFT
 - Finish the Overdue findings report (dashboard widget), and do the same for the other statuses
 - Fix the resize screen issues (responsiveness not mastered yet)
 - Add a feature to securely attach files to findings (pictures, PDF, etc.) + limit +remove them as needed+test
-- Add more features to the finding table (actions on selected findings, etc.)
 - Refactor OTP and forgot password to match the login card style
 - Change the icons used on the profile page (password change, 2FA toggle, etc.)
 - Add a feature to set the fixed date in the finding details, based on the status (filled when Remediated) or manually
