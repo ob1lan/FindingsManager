@@ -11,8 +11,9 @@ mixin import-export-features()
                 form(action="/findings/export" method="get")
                     select(name="projectReference" class="form-control mb-2")
                         option(value="") All Projects
-                        each project in projects
-                            option(value=project.reference)= project.title
+                        if projects && projects.length > 0
+                            each project in projects
+                                option(value=project.reference)= project.title
                     button.btn.btn-primary(type="submit") Export
 
         button.btn.btn-secondary.me-2(data-bs-toggle="modal" data-bs-target="#importFindingsModal") Import Findings

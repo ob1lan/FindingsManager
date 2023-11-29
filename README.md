@@ -5,8 +5,10 @@
 Currently in DRAFT
 
 # TO DO
-
+- Dynamically validate the new finding ID doesn't already exist in the collection (and fuzz that form)
+- New page for Projects, showing a large horizontal card with details of the projects + numbers of findings, etc...
 - Review BFF recommendations on the findings controller (and continue with others)
+- Switch to HTML emails with nodemailer instead of plain text
 - Ability to see how many findings per products & per projects (in table via modal +reporting button)
 - Ask for remediation/accepted/declined reason when changing status to any of these
 - Review the content and formating of findings shared by email and reported in PDF via the context menu

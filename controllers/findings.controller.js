@@ -9,16 +9,13 @@ const {
   updateFinding,
   deleteFinding,
   getFindingsByProjectReference,
-  getOverdueFindings,
 } = require("../queries/findings.queries");
 
 const { findUserPerUsername } = require("../queries/users.queries");
-
 const { getProjects } = require("../queries/projects.queries");
 const { getSLASettings } = require("../queries/settings.queries");
 const { getAllUsers } = require("../queries/users.queries");
 const { getProducts } = require("../queries/products.queries");
-const smtpSettingsQuery = require("../queries/settings.queries");
 const sendEmail = require("../utils/emailSender");
 
 exports.findings = async (req, res, next) => {
@@ -27,7 +24,6 @@ exports.findings = async (req, res, next) => {
     const projects = await getProjects();
     const users = await getAllUsers();
     const products = await getProducts();
-
     res.render("findings/findings", {
       findings,
       products,
@@ -46,34 +42,25 @@ exports.findings = async (req, res, next) => {
 
 exports.findingCreate = async (req, res, next) => {
   try {
-    const body = req.body;
-    const assignee = await findUserPerUsername(body.assignee);
+    const assignee = await findUserPerUsername(req.body.assignee);
     let attachmentPath = "";
     if (req.file) {
       absolutePath = req.file.path;
       attachmentPath = absolutePath.replace("public", "");
     }
     await createFinding({
-      ...body,
+      ...req.body,
       createdBy: req.user.username,
       attachment: attachmentPath,
     });
 
-    const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
-    const mailOptions = {
-      from: smtpSettings.smtpUsername || "noreply@findingsmanager.com",
-      to: assignee.local.email,
-      subject: "New finding assigned to you",
-      text: `Hello ${assignee.username},\n\nYou have been assigned a new finding with reference ${body.reference}.\n\nTitle: ${body.title}\n\nPlease login to the Findings Manager to view more details.\n`,
-    };
-
-    const emailSent = await sendEmail(smtpSettings, mailOptions);
-
+    const text = `Hello ${assignee.username},\r\rYou have been assigned a new finding on ${req.body.product} with reference ${req.body.reference}.\r\rTitle: ${req.body.title}\r\rRaised by: ${req.body.project}\r\rPlease login to the Findings Manager to view more details.\n`;
+    await sendEmail(assignee.local.email, "New finding assigned to you", text);
     res.redirect("/findings");
   } catch (e) {
-    const errors = Object.keys(e.errors).map((key) => e.errors[key].message);
+    console.error(e);
     res.status(400).render("findings/findings", {
-      errors,
+      e,
       isAuthenticated: req.isAuthenticated(),
       is2FAVerified: req.session.is2FAVerified,
       currentUser: req.user,
@@ -99,39 +86,31 @@ exports.findingEdit = async (req, res, next) => {
     }
   } else if (req.method === "POST") {
     try {
-      const updateData = req.body;
       const finding = await findFindingPerId(req.params.id);
 
-      // Check if the status is being updated to Remediated, Accepted, or Declined
-      if (["Remediated", "Accepted", "Declined"].includes(updateData.status)) {
-        // Set the fixedDate to the current date
-        updateData.fixedDate = new Date();
-        console.log("Fixed Date:", updateData.fixedDate);
-
-        if (finding.createdAt && updateData.fixedDate) {
+      if (["Remediated", "Accepted", "Declined"].includes(req.body.status)) {
+        req.body.fixedDate = new Date();
+        if (finding.createdAt && req.body.fixedDate) {
           const timeToFix =
-            (updateData.fixedDate - finding.createdAt) / (1000 * 60 * 60 * 24);
+            (req.body.fixedDate - finding.createdAt) / (1000 * 60 * 60 * 24);
           if (!isNaN(timeToFix)) {
-            updateData.timeToFix = timeToFix.toFixed(0);
+            req.body.timeToFix = timeToFix.toFixed(0);
           } else {
             console.error("Invalid date calculation for timeToFix");
           }
         }
-      } else if (updateData.status === "In Remediation") {
-        updateData.fixedDate = null;
-        updateData.timeToFix = null;
+      } else if (req.body.status === "In Remediation") {
+        req.body.fixedDate = null;
+        req.body.timeToFix = null;
       }
       await updateFinding(req.params.id, req.body);
-      const assignee = await findUserPerUsername(updateData.assignee);
-      const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
-      const mailOptions = {
-        from: smtpSettings.smtpUsername || "noreply@findingsmanager.com",
-        to: assignee.local.email,
-        subject: "Updated finding assigned to you",
-        text: `Hello ${assignee.username},\n\nYou have been assigned an updated finding with reference ${updateData.reference}.\n\nTitle: ${updateData.title}\n\nPlease login to the Findings Manager to view more details.\n`,
-      };
-
-      const emailSent = await sendEmail(smtpSettings, mailOptions);
+      const assignee = await findUserPerUsername(req.body.assignee);
+      const text = `Hello ${assignee.username},\r\rYou have been assigned an updated finding on ${req.body.product} with reference ${req.body.reference}.\r\rTitle: ${req.body.title}\r\rRaised by: ${req.body.project}\r\rPlease login to the Findings Manager to view more details.\n`;
+      await sendEmail(
+        assignee.local.email,
+        "Updated finding assigned to you",
+        text
+      );
       res.redirect("/findings");
     } catch (error) {
       next(error);
@@ -160,6 +139,7 @@ exports.exportToCSV = async (req, res, next) => {
     const fields = [
       "reference",
       "project",
+      "product",
       "title",
       "type",
       "severity",
@@ -186,13 +166,11 @@ exports.exportToCSV = async (req, res, next) => {
     };
     const parser = new Parser(opts);
     const csv = parser.parse(findings);
-
     const currentTimestamp = new Date()
       .toISOString()
       .replace(/[:T]/g, "-")
       .slice(0, 19);
     const filename = `findings-${currentTimestamp}.csv`;
-
     res.header("Content-Type", "text/csv");
     res.attachment(filename);
     return res.send(csv);
@@ -205,27 +183,21 @@ exports.importFindings = async (req, res, next) => {
   try {
     const findings = [];
     const fileBuffer = req.file.buffer;
-
     const stream = new Readable({
       read() {
         this.push(fileBuffer);
         this.push(null);
       },
     });
-
     stream
       .pipe(csv())
       .on("data", (row) => {
-        // Transform each value: Remove outer double quotes if present
         for (let key in row) {
           row[key] = row[key].trim().replace(/^"(.*)"$/, "$1");
         }
-        console.log(row);
-        // Validate and transform the row as per the Finding model
         findings.push(row);
       })
       .on("end", async () => {
-        // Save findings to the database using the createFinding function
         for (const finding of findings) {
           await createFinding(finding);
         }
@@ -238,28 +210,21 @@ exports.importFindings = async (req, res, next) => {
 
 exports.findingShare = async (req, res, next) => {
   try {
-    const body = req.body;
     const finding = await findFindingPerId(req.params.id);
-    const recipientsString = body.recipients;
-    const recipients = recipientsString
+    const recipients = req.body.recipients
       .split(",")
       .map((email) => email.trim())
       .filter((email) => email !== "");
 
-    const sender = req.user.username;
-
-    recipients.forEach(async (recipient) => {
-      const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
-      const mailOptions = {
-        from: smtpSettings.smtpUsername || "noreply@findingsmanager.com",
-        to: recipient,
-        subject: `${sender} shared a finding with you`,
-        text: `Hello,\n\nA finding has been shared with you:\n\n${finding.reference} - (${finding.severity}) ${finding.title} on ${finding.product}\n\nStatus: ${finding.status}\nAssignee: ${finding.assignee}\nOrigin: ${finding.origin}\nReported By: ${finding.reportedBy}\nDue Date: ${finding.dueDate}\n\nPlease login to the Findings Manager to view more details.\n`,
-      };
-      const emailSent = await sendEmail(smtpSettings, mailOptions);
-      console.log("Email Sent:", emailSent);
-    });
-
+    await Promise.all(
+      recipients.map((recipient) =>
+        sendEmail(
+          recipient,
+          `${req.user.username} shared a finding with you`,
+          `Hello,\n\nA finding has been shared with you:\n\n${finding.reference} - (${finding.severity}) ${finding.title} on ${finding.product}\n\nStatus: ${finding.status}\nAssignee: ${finding.assignee}\nOrigin: ${finding.origin}\nReported By: ${finding.reportedBy}\nDue Date: ${finding.dueDate}\n\nPlease login to the Findings Manager to view more details.\n`
+        )
+      )
+    );
     res.redirect("/findings");
   } catch (error) {
     next(error);
