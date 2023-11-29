@@ -3,7 +3,13 @@ const schema = mongoose.Schema;
 
 const findingSchema = schema(
   {
-    reference: { type: String, required: true, unique: true },
+    reference: {
+      type: String,
+      required: true,
+      unique: true,
+      minlength: 1,
+      maxlength: 12,
+    },
     status: {
       type: String,
       enum: ["In Remediation", "Remediated", "Accepted", "Declined"],
@@ -15,9 +21,9 @@ const findingSchema = schema(
       enum: ["WAPT", "BBP", "NVA"],
       default: "WAPT",
     },
-    title: { type: String, required: true, default: "" },
+    title: { type: String, required: true, minlength: 3, maxlength: 50 },
     type: { type: String, default: "" },
-    description: { type: String, required: true, default: "" },
+    description: { type: String, required: true, minlength: 5, maxlength: 2000 },
     severity: {
       type: String,
       required: true,
