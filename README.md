@@ -1,8 +1,13 @@
 [![njsscan sarif](https://github.com/ob1lan/FindingsManager/actions/workflows/njsscan.yml/badge.svg)](https://github.com/ob1lan/FindingsManager/actions/workflows/njsscan.yml) [![CodeQL](https://github.com/ob1lan/FindingsManager/actions/workflows/codeql.yml/badge.svg)](https://github.com/ob1lan/FindingsManager/actions/workflows/codeql.yml)
+
 # FindingsManager
+
 Currently in DRAFT
+
 # TO DO
-- Ability to see how many findings per products & per projects (in table via modal graph)
+
+- Review BFF recommendations on the findings controller (and continue with others)
+- Ability to see how many findings per products & per projects (in table via modal +reporting button)
 - Ask for remediation/accepted/declined reason when changing status to any of these
 - Review the content and formating of findings shared by email and reported in PDF via the context menu
 - Finish the context menu actions
@@ -35,9 +40,9 @@ Currently in DRAFT
 - dropdowns : use svg icons or colored circles (cf bootstrap examples)
 - SAML auth support
 - User profile:
-    - add the user's created projects 5 by 5 (pagination sliding effect)
-    - add new fields (location, prefered language) + handle their TZ 
-    - Notification preferences (checkboxes)
+  - add the user's created projects 5 by 5 (pagination sliding effect)
+  - add new fields (location, prefered language) + handle their TZ
+  - Notification preferences (checkboxes)
 - set the max size for inputs (project name, finding name, etc.)
 - set the max size for uploads (CSV and pictures)
 - implement protections for NoSQL injections (cf security findings)
@@ -52,4 +57,5 @@ Currently in DRAFT
 - variables CSS for color themes (consistent)
 
 # Default credentials
+
 - admin@example.com:MySup3rStr0ngP@$$w0rd
