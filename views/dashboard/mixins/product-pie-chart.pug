@@ -1,0 +1,30 @@
+mixin productPieChart(chart6)
+    canvas#chart6
+        script.
+            const dataProduct = {
+                labels: !{JSON.stringify(findingsByProduct.map(item => item._id))}, // Project references
+                datasets: [{
+                label: 'Findings:',
+                data: !{JSON.stringify(findingsByProduct.map(item => item.count))}, // Counts
+                backgroundColor: ['blue', 'cyan', 'green', 'yellow', 'magenta', /*... add more colors if you have more projects */],
+                borderColor: ['blue', 'cyan', 'green', 'yellow', 'magenta', /*... add more border colors if you have more projects */],
+                borderWidth: 1
+                }]
+            };
+            const ctxProduct = document.getElementById('chart6').getContext('2d');
+            const myPieChart6 = new Chart(ctxProduct, {
+                type: 'pie',
+                data: dataProduct,
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Findings by Product'
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                        },
+                    },
+                }
+            });

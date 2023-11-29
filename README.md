@@ -2,7 +2,7 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
-- Ability to see how many findings per products per projects (in table + in dashboard)
+- Ability to see how many findings per products & per projects (in table via modal graph)
 - Ask for remediation/accepted/declined reason when changing status to any of these
 - Review the content and formating of findings shared by email and reported in PDF via the context menu
 - Finish the context menu actions

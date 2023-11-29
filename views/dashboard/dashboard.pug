@@ -1,6 +1,7 @@
 extends ../layout.pug
 include mixins/severity-pie-chart
 include mixins/status-pie-chart
+include mixins/product-pie-chart
 include mixins/project-pie-chart
 include mixins/origin-pie-chart
 include mixins/created-date-chart
@@ -10,7 +11,7 @@ block content
     script(src="https://cdn.jsdelivr.net/npm/chart.js")
     script(src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js")
     script(src="/javascripts/dashboardCardsMouseOver.js")
-    div(class="row cards-row flex-nowrap")
+    div(class="row cards-row")
         div(class="card-container")
             div(class="card text-bg-primary")
                 div(class="card-header")|All Findings
@@ -32,17 +33,19 @@ block content
                 div(class="card-header")|Closed Findings
                 div(class="card-body")
                     h1 #{numberOfClosedFindings}
-    div(class="row charts-row flex-nowrap")
+    div(class="row charts-row")
         div(class="chart-container")
             +severityPieChart(chart1)
         div(class="chart-container")
             +statusPieChart(chart2)
         div(class="chart-container")
+            +productPieChart(chart6)
+        div(class="chart-container")
             +projectPieChart(chart3)
         div(class="chart-container")
             +originPieChart(chart4)
     hr
-    div(class="row charts-row flex-nowrap")
+    div(class="row charts-row ")
         div(class="chart-container")
             +createdDateChart(chart5)
     script.

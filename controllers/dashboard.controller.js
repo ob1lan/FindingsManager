@@ -3,6 +3,7 @@ const {
   getCountBySeverity,
   getCountByStatus,
   getCountByProject,
+  getCountByProduct,
   getCountByOrigin,
   getFindingsCountByDate,
   getOverdueFindings,
@@ -18,6 +19,7 @@ exports.getDashboard = async (req, res, next) => {
     const sortedStatusData = sortStatusData(statusCounts);
     const sortedData = sortSeverityData(severityCounts);
     const findingsByProject = await getCountByProject();
+    const findingsByProduct = await getCountByProduct();
     const findingsByOrigin = await getCountByOrigin();
     const findingsByDate7 = await getFindingsCountByDate(7);
     const findingsByDate30 = await getFindingsCountByDate(30);
@@ -35,6 +37,7 @@ exports.getDashboard = async (req, res, next) => {
       sortedData,
       sortedStatusData,
       findingsByProject,
+      findingsByProduct,
       findingsByOrigin,
       findingsByDate7,
       findingsByDate30,

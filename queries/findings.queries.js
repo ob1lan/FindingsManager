@@ -102,6 +102,17 @@ exports.getCountByProject = () => {
   ]).exec();
 };
 
+exports.getCountByProduct = () => {
+  return Finding.aggregate([
+    {
+      $group: {
+        _id: "$product",
+        count: { $sum: 1 },
+      },
+    },
+  ]).exec();
+};
+
 exports.getCountByOrigin = () => {
   return Finding.aggregate([
     {
