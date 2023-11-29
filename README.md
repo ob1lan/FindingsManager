@@ -2,8 +2,6 @@
 # FindingsManager
 Currently in DRAFT
 # TO DO
-- Finish the Projects details (creation, edit, etc.)
-- Finish the Products details (creation, edit, etc.)
 - Ability to see how many findings per products per projects (in table + in dashboard)
 - Ask for remediation/accepted/declined reason when changing status to any of these
 - Review the content and formating of findings shared by email and reported in PDF via the context menu

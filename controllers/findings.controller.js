@@ -254,7 +254,7 @@ exports.findingShare = async (req, res, next) => {
         from: smtpSettings.smtpUsername || "noreply@findingsmanager.com",
         to: recipient,
         subject: `${sender} shared a finding with you`,
-        text: `Hello,\n\nA finding has been shared with you:\n\n${finding.reference}\n\n${finding.title}\n\n${finding.product}\n\n${finding.severity}\n\n${finding.status}\n\n${finding.assignee}\n\n${finding.origin}\n\n${finding.reportedBy}\n\n${finding.dueDate}\n`,
+        text: `Hello,\n\nA finding has been shared with you:\n\n${finding.reference} - (${finding.severity}) ${finding.title} on ${finding.product}\n\nStatus: ${finding.status}\nAssignee: ${finding.assignee}\nOrigin: ${finding.origin}\nReported By: ${finding.reportedBy}\nDue Date: ${finding.dueDate}\n\nPlease login to the Findings Manager to view more details.\n`,
       };
       const emailSent = await sendEmail(smtpSettings, mailOptions);
       console.log("Email Sent:", emailSent);
