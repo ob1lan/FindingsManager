@@ -4,14 +4,15 @@ Currently in DRAFT
 # TO DO
 - Finish the Projects details (creation, edit, etc.)
 - Finish the Products details (creation, edit, etc.)
-- Findings table: add a feature to select multiple findings and perform actions on them (change status, etc.)
-- Review the content and formating of findings shared by email and reported in PDF via the context menu
 - Ability to see how many findings per products per projects (in table + in dashboard)
 - Ask for remediation/accepted/declined reason when changing status to any of these
+- Review the content and formating of findings shared by email and reported in PDF via the context menu
+- Finish the context menu actions
+- Findings table: add a feature to select multiple findings and perform actions on them (change status, etc.)
 - Findings table context menu: try to make menu items conditional
 - Add the same feature as the Findings table to other tables (right-click, double-click, etc.)
 - Add an 'Active engagements' dashboard widget (ongoing projects)
-- Dashboard: last 7 days charts/cards (new findings, fixed findings, etc.)
+- Dashboard: last 7 days charts/cards (new findings, fixed findings, etc. like in Jira)
 - Email to finding's assignee & creator when a finding changes status
 - Fix logging of auth activities and flash message on user profile after password change, 2FA toggle, etc.
 - Integrate and use CWE and CWE IDs if possible

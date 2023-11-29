@@ -8,22 +8,22 @@ mixin editProjectModal(project)
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                     .modal-body
                         .mb-3
-                            label(for="reference") Reference
+                            label(for="reference") <b>Reference</b>
                             input#reference.form-control(type="text" name="reference" value= project.reference required)
                         .mb-3
-                            label(for="title") Title
+                            label(for="title") <b>Title</b>
                             input#title.form-control(type="text" name="title" value= project.title required)
                         .mb-3
-                            label(for="type") Project Type
+                            label(for="type") <b>Project Type</b>
                             select#type.form-control(name="type")
                                 option(value="WAPT" selected=(project.type === 'WAPT')) Web Application Penetration Test (WAPT)
                                 option(value="NVA" selected=(project.type === 'NVA')) Network Vulnerability Assessment (NVA)
                                 option(value="BBP" selected=(project.type === 'BBP')) Bug Bounty Program (BBP)
                         .mb-3
-                            label(for="description") Description
+                            label(for="description") <b>Description</b>
                             textarea#description.form-control(name="description" rows="5" required)= project.description
                         .mb-3
-                            label(for="status") Status
+                            label(for="status") <b>Status</b>
                             select#status.form-control(name="status")
                                 option(value="Open" selected=(project.status === 'Closed')) Open
                                 option(value="Closed" selected=(project.status === 'Closed')) Closed
@@ -33,20 +33,25 @@ mixin editProjectModal(project)
                                 option(value="On hold" selected=(project.status === 'On hold')) On hold
                                 option(value="In progress" selected=(project.status === 'In progress')) In progress
                         .mb-3
-                            label(for="assessor") Assessor
+                            label(for="assessor") <b>Assessor</b>
                             input#assessor.form-control(type="text" name="assessor" value= project.conductedBy)
                         .mb-3
-                            label(for="environment") Environment
-                            input#environment.form-control(type="text" name="environment" value= project.environment)
+                            label(for="environment") <b>Environment</b>
+                            select#environment.form-control(name="environment" required)
+                                option(value="Live" selected=(project.environment === 'Live')) Live
+                                option(value="Preprod" selected=(project.environment === 'Preprod')) Preprod
+                                option(value="Staging" selected=(project.environment === 'Staging')) Staging
+                                option(value="UAT" selected=(project.environment === 'UAT')) UAT
+                                option(value="Dev" selected=(project.environment === 'Dev')) Dev
                         .mb-3
-                            label(for="scope") Scope
-                            input#scope.form-control(type="text" name="scope" value= project.scope)
+                            label(for="scope") <b>Scope</b>
+                            textarea#scope.form-control(name="scope" rows="3" required)= project.scope
                         .mb-3
-                            label(for="startDate") Start Date
+                            label(for="startDate") <b>Start Date</b>
                             - var formattedStartDate = project.startDate ? new Date(project.startDate).toISOString().split('T')[0] : ''
                             input#startDate.form-control(type="date" name="startDate" value= formattedStartDate)
                         .mb-3
-                            label(for="endDate") End Date
+                            label(for="endDate") <b>End Date</b>
                             - var formattedEndDate = project.endDate ? new Date(project.endDate).toISOString().split('T')[0] : ''
                             input#endDate.form-control(type="date" name="endDate" value= formattedEndDate)
                     .modal-footer

@@ -8,19 +8,28 @@ mixin newProjectModal(project)
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                     .modal-body
                         .mb-3
-                            label(for="reference") Reference
-                            input#reference.form-control(type="text" name="reference" required)
+                            label(for="reference") <b>Reference</b>
+                            input#reference.form-control(type="text" name="reference" placeholder="i.e. WAPT2023-MyApp-EU" required)
                         .mb-3
-                            label(for="title") Title
-                            input#title.form-control(type="text" name="title" required)
+                            label(for="title") <b>Title</b>
+                            input#title.form-control(type="text" name="title" placeholder="i.e. Web App Pentest for MyApp Europe" required)
                         .mb-3
-                            label(for="type") Type
+                            label(for="type") <b>Type</b>
                             select#type.form-control(name="type" required)
                                 option(value="WAPT") Web Application Penetration Test (WAPT)
+                                option(value="MAPT") Mobile Application Penetration Test (MAPT)
                                 option(value="NVA") Network Vulnerability Assessment (NVA)
                                 option(value="BBP") Bug Bounty Program (BBP)
                         .mb-3
-                            label(for="status") Status
+                            label(for="environment") <b>Environment</b>
+                            select#environment.form-control(name="environment" required)
+                                option(value="Live") Live
+                                option(value="Preprod") Preprod
+                                option(value="Staging") Staging
+                                option(value="UAT") UAT
+                                option(value="Dev") Dev
+                        .mb-3
+                            label(for="status") <b>Status</b>
                             select#status.form-control(name="status" required)
                                 option(value="Open") Open
                                 option(value="Closed") Closed
@@ -30,11 +39,20 @@ mixin newProjectModal(project)
                                 option(value="In Progress") In Progress
                                 option(value="Completed") Completed
                         .mb-3
-                            label(for="description") Description
-                            textarea#description.form-control(name="description" required)
+                            label(for="description") <b>Description</b>
+                            textarea#description.form-control(name="description" rows="5" placeholder="i.e. Annual WAPT for the platform" required)
                         .mb-3
-                            label(for="conductedBy") Assessor
-                            input#conductedBy.form-control(type="text" name="conductedBy")
+                            label(for="scope") <b>Scope</b>
+                            textarea#scope.form-control(name="scope" rows="3" placeholder="i.e. domain.com" required)
+                        .mb-3
+                            label(for="conductedBy") <b>Assessor</b>
+                            input#conductedBy.form-control(type="text" name="conductedBy" placeholder="i.e. Security Company Ltd" required)
+                        .mb-3
+                            label(for="startDate") <b>Start Date</b>
+                            input#startDate.form-control(type="date" name="startDate")
+                        .mb-3
+                            label(for="endDate") <b>End Date</b>
+                            input#endDate.form-control(type="date" name="endDate")
                     .modal-footer
                         button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
                         button.btn.btn-primary(type="submit") Create Project

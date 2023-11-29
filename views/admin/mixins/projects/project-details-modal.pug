@@ -7,8 +7,8 @@ mixin projectDetailsModal(project)
                     button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                 .modal-body
                     p <b>Reference:</b> #{project.reference}
-                    p <b>Status:</b> #{project.status}
                     p <b>Title:</b> #{project.title}
+                    p <b>Status:</b> #{project.status}
                     p <b>Description:</b> #{project.description}
                     p <b>Environment:</b> #{project.environment}
                     p <b>Scope:</b> #{project.scope}
@@ -16,6 +16,6 @@ mixin projectDetailsModal(project)
                     p <b>Start Date:</b> #{project.startDate}
                     p <b>End Date:</b> #{project.endDate}
                     p <b>Creator:</b> #{project.createdBy}
-                    p <b>Creation Date:</b> #{project.createdAt}
+                    p <b>Creation Date:</b> #{project.createdAt.toDateString()}
                 .modal-footer
                     button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close

@@ -29,8 +29,6 @@ mixin projectsTable(projects)
                                 button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editProjectModal-${project._id}`)
                                     i.fas.fa-pencil-alt
                                 //- Delete button (link to a delete route)
-                                //- a.btn.btn-danger.btn-sm(href=`/admin/projects/${project._id}/delete`) 
-                                //-     i.fas.fa-trash-alt
                                 button.btn.btn-danger.btn-sm(data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-project-id=`${project._id}`)
                                     i.fas.fa-trash-alt
     else
