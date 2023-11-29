@@ -9,6 +9,8 @@ const {
   getOverdueFindings,
 } = require("../queries/findings.queries");
 
+const { getProjects } = require("../queries/projects.queries");
+
 const puppeteer = require("puppeteer");
 const path = require("path");
 
@@ -24,6 +26,7 @@ exports.getDashboard = async (req, res, next) => {
     const findingsByDate7 = await getFindingsCountByDate(7);
     const findingsByDate30 = await getFindingsCountByDate(30);
     const allFindings = await getFindings();
+    const allProjects = await getProjects();
     const numberOfFindings = allFindings.length;
     const numberOfOpenFindings = allFindings.filter(
       (finding) => finding.status === "In Remediation"
@@ -32,6 +35,10 @@ exports.getDashboard = async (req, res, next) => {
       (finding) => finding.status != "In Remediation"
     ).length;
     const numberOfFindingsOverdue = (await getOverdueFindings()).length;
+    const activeProjects = allProjects.filter(
+      (project) => project.status === "In Progress"
+    );
+    const numberOfActiveProjects = activeProjects.length;
 
     res.render("dashboard/dashboard", {
       sortedData,
@@ -45,6 +52,7 @@ exports.getDashboard = async (req, res, next) => {
       numberOfOpenFindings,
       numberOfClosedFindings,
       numberOfFindingsOverdue,
+      numberOfActiveProjects,
       isAuthenticated: req.isAuthenticated(),
       is2FAVerified: req.session.is2FAVerified,
       currentUser: req.user,

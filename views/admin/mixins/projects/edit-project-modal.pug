@@ -30,8 +30,8 @@ mixin editProjectModal(project)
                                 option(value="Planned" selected=(project.status === 'Planned')) Planned
                                 option(value="Completed" selected=(project.status === 'Completed')) Completed
                                 option(value="Cancelled" selected=(project.status === 'Cancelled')) Cancelled
-                                option(value="On hold" selected=(project.status === 'On hold')) On hold
-                                option(value="In progress" selected=(project.status === 'In progress')) In progress
+                                option(value="On Hold" selected=(project.status === 'On Hold')) On Hold
+                                option(value="In Progress" selected=(project.status === 'In Progress')) In Progress
                         .mb-3
                             label(for="assessor") <b>Assessor</b>
                             input#assessor.form-control(type="text" name="assessor" value= project.conductedBy)

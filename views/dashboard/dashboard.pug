@@ -33,6 +33,11 @@ block content
                 div(class="card-header")|Closed Findings
                 div(class="card-body")
                     h1 #{numberOfClosedFindings}
+        div(class="card-container")
+            div(class="card text-bg-info")
+                div(class="card-header")|Active Projects
+                div(class="card-body")
+                    h1 #{numberOfActiveProjects}
     div(class="row charts-row")
         div(class="chart-container")
             +severityPieChart(chart1)
