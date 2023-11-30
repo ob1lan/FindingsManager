@@ -16,10 +16,16 @@ block content
                             ul.list-group.list-group-flush
                                 li.list-group-item <b>Description:</b> #{project.description}
                                 li.list-group-item <b>Assessor:</b> #{project.conductedBy}
-                                li.list-group-item <b>Scope:</b> #{project.scope}
+                                li.list-group-item <b>Scope:</b> #{project.scope ? project.scope : 'TBD'}
                                 li.list-group-item <b>Environment:</b> #{project.environment}
-                                li.list-group-item <b>Start Date:</b> #{project.startDate}
-                                li.list-group-item <b>End Date:</b> #{project.endDate}
+                                if (project.startDate)
+                                    li.list-group-item <b>Start Date:</b> #{project.startDate.toLocaleDateString()}
+                                else
+                                    li.list-group-item <b>Start Date:</b> TBD
+                                if (project.endDate)
+                                    li.list-group-item <b>End Date:</b> #{project.endDate.toLocaleDateString()}
+                                else
+                                    li.list-group-item <b>End Date:</b> TBD
                         .col-md-1
                             .project-card-container
                                 .card.text-bg-primary
@@ -65,26 +71,4 @@ block content
     script.
         const findings = !{JSON.stringify(findings)};
         const projects = !{JSON.stringify(projects)};
-
-        projects.forEach(project => {
-            const projectFindings = findings.filter(finding => finding.project === project.reference && finding.status === 'In Remediation');
-            document.getElementById(`findingsCount-${project._id}`).innerText = projectFindings.length;
-
-            const criticalFindings = findings.filter(finding => finding.project === project.reference && finding.severity === 'Critical');
-            document.getElementById(`criticalFindingsCount-${project._id}`).innerText = criticalFindings.length;
-
-            const highFindings = findings.filter(finding => finding.project === project.reference && finding.severity === 'High');
-            document.getElementById(`highFindingsCount-${project._id}`).innerText = highFindings.length;
-
-            const mediumFindings = findings.filter(finding => finding.project === project.reference && finding.severity === 'Medium');
-            document.getElementById(`mediumFindingsCount-${project._id}`).innerText = mediumFindings.length;
-
-            const lowFindings = findings.filter(finding => finding.project === project.reference && finding.severity === 'Low');
-            document.getElementById(`lowFindingsCount-${project._id}`).innerText = lowFindings.length;
-
-            const infoFindings = findings.filter(finding => finding.project === project.reference && finding.severity === 'Info');
-            document.getElementById(`infoFindingsCount-${project._id}`).innerText = infoFindings.length;
-
-            const closedFindings = findings.filter(finding => finding.project === project.reference && finding.status !== 'In Remediation');
-            document.getElementById(`closedFindingsCount-${project._id}`).innerText = closedFindings.length;
-        });
+    script(src='/javascripts/projectsCards.js')
