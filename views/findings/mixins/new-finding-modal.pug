@@ -11,7 +11,9 @@ mixin newFindingModal(finding, products)
                             .col-md-6
                                 .mb-3
                                     label(for="reference") <b>Reference</b>
-                                    input#reference.form-control(type="text" name="reference" placeholder="e.g. Ticket-ID" required)
+                                    input#reference.form-control(type="text" name="reference" placeholder="e.g. Ticket-ID" required onchange="validateFindingReference()")
+                                    span#referenceError.error-message(style='color: red; display: none;')
+
                                 .mb-3
                                     label(for="assignee") <b>Assignee</b>
                                     select#assignee.form-control(name="assignee")
@@ -94,4 +96,4 @@ mixin newFindingModal(finding, products)
                                     input#attachment.form-control(type="file" name="attachment")
                     .modal-footer
                         button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
-                        button.btn.btn-primary(type="submit") Create Finding
+                        button.btn.btn-primary(id="submitBtn" type="submit") Create Finding

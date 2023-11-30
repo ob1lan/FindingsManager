@@ -10,8 +10,10 @@ include mixins/share-finding-modal
 block content
     script. 
         window.slaValues = !{JSON.stringify(slaSettings)};
+        window.findings = !{JSON.stringify(findings)};
     script(src="/javascripts/calculateDueDate.js")
     script(src="/javascripts/findingsDatatable.js")
+    script(src="/javascripts/validateFindingRef.js")
     
     h1 Findings
 
