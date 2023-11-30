@@ -9,7 +9,7 @@ mixin editFindingModal(finding)
                     .modal-body
                         .mb-3
                             label(for="reference") <b>Reference</b>
-                            input#reference.form-control(type="text" name="reference" value= finding.reference required)
+                            input#reference.form-control(minlength="1" maxlength="12" type="text" name="reference" value= finding.reference required)
                         .mb-3
                             label(for="project") <b>Project</b>
                             select#project.form-control(name="project")
@@ -23,7 +23,7 @@ mixin editFindingModal(finding)
                                     option(value=product.reference selected=(finding.product === product.reference))= `${product.reference} (${product.name})`
                         .mb-3
                             label(for="title") <b>Title</b>
-                            input#title.form-control(type="text" name="title" value= finding.title required)
+                            input#title.form-control(minlength="3" maxlength="50" type="text" name="title" value= finding.title required)
                         .mb-3
                             label(for="type") <b>Finding Type</b>
                             select#type.form-control(name="type")
@@ -41,7 +41,7 @@ mixin editFindingModal(finding)
                                 option(value="Business Logic Flaws" selected=(finding.type === 'Business Logic Flaws')) Business Logic Flaws
                         .mb-3
                             label(for="description") <b>Description</b>
-                            textarea#description.form-control(name="description" rows="5" required)= finding.description
+                            textarea#description.form-control(minlength="5" maxlength="2000" name="description" rows="5" required)= finding.description
                         .mb-3
                             label(for="severity") <b>Severity</b>
                             select.severity-dropdown.form-control(name="severity")

@@ -11,6 +11,7 @@ const dashboard = require("./dashboard.routes");
 const me = require("./me.routes");
 const admin = require("./admin.routes");
 const reporting = require("./reporting.routes");
+const projects = require("./projects.routes");
 
 router.use("/auth", auth);
 
@@ -44,11 +45,13 @@ router.use(
 );
 
 router.use(
-  "/reporting",
+  "/projects",
   ensureAuthenticated,
   ensure2FAVerified,
-  reporting
+  projects
 );
+
+router.use("/reporting", ensureAuthenticated, ensure2FAVerified, reporting);
 
 router.get("/", (req, res) => {
   res.redirect("/findings");

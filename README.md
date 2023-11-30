@@ -5,8 +5,6 @@
 Currently in DRAFT
 
 # TO DO
-
-- Dynamically validate the new finding ID doesn't already exist in the collection (and fuzz that form)
 - New page for Projects, showing a large horizontal card with details of the projects + numbers of findings, etc...
 - Review BFF recommendations on the findings controller (and continue with others)
   - Expand on the Data Type Consistency point, particularly focusing on the use of references in MongoDB schemas with Mongoose

@@ -11,7 +11,7 @@ mixin newFindingModal(finding, products)
                             .col-md-6
                                 .mb-3
                                     label(for="reference") <b>Reference</b>
-                                    input#reference.form-control(type="text" name="reference" placeholder="e.g. Ticket-ID" required onchange="validateFindingReference()")
+                                    input#reference.form-control(minlength="1" maxlength="12" type="text" name="reference" placeholder="e.g. Ticket-ID" required onchange="validateFindingReference()")
                                     span#referenceError.error-message(style='color: red; display: none;')
 
                                 .mb-3
@@ -37,7 +37,7 @@ mixin newFindingModal(finding, products)
                                             option No products available
                                 .mb-3
                                     label(for="title") <b>Title</b>
-                                    input#title.form-control(type="text" name="title" placeholder="e.g. SXSS in the blog component" required)
+                                    input#title.form-control(minlength="3" maxlength="50" type="text" name="title" placeholder="e.g. SXSS in the blog component" required)
                                 .mb-3
                                     .mb-3
                                     label(for="type") <b>Type</b>
@@ -56,7 +56,7 @@ mixin newFindingModal(finding, products)
                                         option(value="Business Logic Flaws") Business Logic Flaws
                                 .mb-3
                                     label(for="description") <b>Description</b>
-                                    textarea#description.form-control(name="description" placeholder="e.g. There is a Stored XSS in the blog application" required)
+                                    textarea#description.form-control(minlength="5" maxlength="2000" name="description" placeholder="e.g. There is a Stored XSS in the blog application" required)
                                 .mb-3
                                     label(for="reportedBy") <b>Reported By</b>
                                     input#reportedBy.form-control(type="text" name="reportedBy" placeholder="e.g. John Smith")
