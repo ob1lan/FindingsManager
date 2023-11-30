@@ -5,7 +5,7 @@
 Currently in DRAFT
 
 # TO DO
-- New page for Projects, showing a large horizontal card with details of the projects + numbers of findings, etc...
+- Add  reporting and export feature to the Project cards (export to CSV, PDF, etc.)
 - Review BFF recommendations on the findings controller (and continue with others)
   - Expand on the Data Type Consistency point, particularly focusing on the use of references in MongoDB schemas with Mongoose
 - Switch to HTML emails with nodemailer instead of plain text

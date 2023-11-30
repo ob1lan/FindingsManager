@@ -1,38 +1,90 @@
 extends ../layout.pug
 
 block content
-    h1 Projects
+    h1 Projects (Work in Progress)
 
     each project in projects
         .card.mb-3
-            .card-header
+            .card-header(data-bs-toggle="collapse" data-bs-target=`#collapse-${project._id}` style='cursor:pointer;')
                 h5.card-title #{project.title} - #{project.status}
                 p.card-text
                     small.text-muted Created on #{project.createdAt.toLocaleDateString()} by #{project.createdBy} - Last updated on #{project.updatedAt.toLocaleDateString()}
-            .card-body
-                .row
-                    .col-md-3
-                        ul.list-group.list-group-flush
-                            li.list-group-item <b>Description:</b> #{project.description}
-                            li.list-group-item <b>Assessor:</b> #{project.conductedBy}
-                            li.list-group-item <b>Scope:</b> #{project.scope}
-                            li.list-group-item <b>Environment:</b> #{project.environment}
-                            li.list-group-item <b>Start Date:</b> #{project.startDate}
-                            li.list-group-item <b>End Date:</b> #{project.endDate}
-                    .col-md-1
-                        .card.h-100
-                            .card-body
-                                h5.card-title Findings
-                                p.card-text #{project.findingsCount}
-                    .col-md-3
-                        // Bar graph for severity
-                        .card.h-100
-                            .card-body
-                                h5.card-title Findings by Severity
-                                // Placeholder for severity bar graph
-                        // Bar graph for status
-                    .col-md-3
-                        .card.h-100
-                            .card-body
-                                h5.card-title Findings by Status
-                                // Placeholder for status bar graph
+            .collapse(id=`collapse-${project._id}`)
+                .card-body
+                    .row
+                        .col-md-3
+                            ul.list-group.list-group-flush
+                                li.list-group-item <b>Description:</b> #{project.description}
+                                li.list-group-item <b>Assessor:</b> #{project.conductedBy}
+                                li.list-group-item <b>Scope:</b> #{project.scope}
+                                li.list-group-item <b>Environment:</b> #{project.environment}
+                                li.list-group-item <b>Start Date:</b> #{project.startDate}
+                                li.list-group-item <b>End Date:</b> #{project.endDate}
+                        .col-md-1
+                            .project-card-container
+                                .card.text-bg-primary
+                                    .card-header Open Findings
+                                    .card-body
+                                        h1(id=`findingsCount-${project._id}`)
+                        .col-md-1
+                            .project-card-container
+                                .card.bg-darkred
+                                    .card-header Critical
+                                    .card-body
+                                        h1(id=`criticalFindingsCount-${project._id}`)
+                        .col-md-1
+                            .project-card-container
+                                .card.text-bg-danger
+                                    .card-header High
+                                    .card-body
+                                        h1(id=`highFindingsCount-${project._id}`)
+                        .col-md-1
+                            .project-card-container
+                                .card.text-bg-warning
+                                    .card-header Medium
+                                    .card-body
+                                        h1(id=`mediumFindingsCount-${project._id}`)
+                        .col-md-1
+                            .project-card-container
+                                .card.text-bg-success
+                                    .card-header Low
+                                    .card-body
+                                        h1(id=`lowFindingsCount-${project._id}`)
+                        .col-md-1
+                            .project-card-container
+                                .card.text-bg-info
+                                    .card-header Info
+                                    .card-body
+                                        h1(id=`infoFindingsCount-${project._id}`)
+                        .col-md-1
+                            .project-card-container
+                                .card.text-bg-secondary
+                                    .card-header Closed
+                                    .card-body
+                                        h1(id=`closedFindingsCount-${project._id}`)
+    script.
+        const findings = !{JSON.stringify(findings)};
+        const projects = !{JSON.stringify(projects)};
+
+        projects.forEach(project => {
+            const projectFindings = findings.filter(finding => finding.project === project.reference && finding.status === 'In Remediation');
+            document.getElementById(`findingsCount-${project._id}`).innerText = projectFindings.length;
+
+            const criticalFindings = findings.filter(finding => finding.project === project.reference && finding.severity === 'Critical');
+            document.getElementById(`criticalFindingsCount-${project._id}`).innerText = criticalFindings.length;
+
+            const highFindings = findings.filter(finding => finding.project === project.reference && finding.severity === 'High');
+            document.getElementById(`highFindingsCount-${project._id}`).innerText = highFindings.length;
+
+            const mediumFindings = findings.filter(finding => finding.project === project.reference && finding.severity === 'Medium');
+            document.getElementById(`mediumFindingsCount-${project._id}`).innerText = mediumFindings.length;
+
+            const lowFindings = findings.filter(finding => finding.project === project.reference && finding.severity === 'Low');
+            document.getElementById(`lowFindingsCount-${project._id}`).innerText = lowFindings.length;
+
+            const infoFindings = findings.filter(finding => finding.project === project.reference && finding.severity === 'Info');
+            document.getElementById(`infoFindingsCount-${project._id}`).innerText = infoFindings.length;
+
+            const closedFindings = findings.filter(finding => finding.project === project.reference && finding.status !== 'In Remediation');
+            document.getElementById(`closedFindingsCount-${project._id}`).innerText = closedFindings.length;
+        });
