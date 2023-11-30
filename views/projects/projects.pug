@@ -1,6 +1,38 @@
 extends ../layout.pug
 
 block content
-    script. 
-        window.slaValues = !{JSON.stringify(projects)};
     h1 Projects
+
+    each project in projects
+        .card.mb-3
+            .card-header
+                h5.card-title #{project.title} - #{project.status}
+                p.card-text
+                    small.text-muted Created on #{project.createdAt.toLocaleDateString()} by #{project.createdBy} - Last updated on #{project.updatedAt.toLocaleDateString()}
+            .card-body
+                .row
+                    .col-md-3
+                        ul.list-group.list-group-flush
+                            li.list-group-item <b>Description:</b> #{project.description}
+                            li.list-group-item <b>Assessor:</b> #{project.conductedBy}
+                            li.list-group-item <b>Scope:</b> #{project.scope}
+                            li.list-group-item <b>Environment:</b> #{project.environment}
+                            li.list-group-item <b>Start Date:</b> #{project.startDate}
+                            li.list-group-item <b>End Date:</b> #{project.endDate}
+                    .col-md-1
+                        .card.h-100
+                            .card-body
+                                h5.card-title Findings
+                                p.card-text #{project.findingsCount}
+                    .col-md-3
+                        // Bar graph for severity
+                        .card.h-100
+                            .card-body
+                                h5.card-title Findings by Severity
+                                // Placeholder for severity bar graph
+                        // Bar graph for status
+                    .col-md-3
+                        .card.h-100
+                            .card-body
+                                h5.card-title Findings by Status
+                                // Placeholder for status bar graph
