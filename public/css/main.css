@@ -71,6 +71,14 @@ thead {
   text-transform: capitalize;
 }
 
+.product-card-container {
+  flex: 0;
+  min-width: 100px;
+  height: auto;
+  text-align: center;
+  text-transform: capitalize;
+}
+
 .charts-row {
   display: flex;
   justify-content: space-between;

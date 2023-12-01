@@ -12,6 +12,7 @@ const me = require("./me.routes");
 const admin = require("./admin.routes");
 const reporting = require("./reporting.routes");
 const projects = require("./projects.routes");
+const products = require("./products.routes");
 
 router.use("/auth", auth);
 
@@ -45,11 +46,13 @@ router.use(
 );
 
 router.use(
-  "/projects",
+  "/products",
   ensureAuthenticated,
   ensure2FAVerified,
-  projects
+  products
 );
+
+router.use("/projects", ensureAuthenticated, ensure2FAVerified, projects);
 
 router.use("/reporting", ensureAuthenticated, ensure2FAVerified, reporting);
 

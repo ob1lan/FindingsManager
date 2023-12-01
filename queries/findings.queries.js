@@ -91,6 +91,10 @@ exports.getFindingsByProjectReference = (projectReference) => {
   return Finding.find({ project: projectReference }).exec();
 };
 
+exports.getFindingsByProductReference = (productReference) => {
+  return Finding.find({ product: productReference }).exec();
+};
+
 exports.getCountByProject = () => {
   return Finding.aggregate([
     {

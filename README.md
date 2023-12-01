@@ -10,7 +10,6 @@ Currently in DRAFT
   - Expand on the Data Type Consistency point, particularly focusing on the use of references in MongoDB schemas with Mongoose
     - From this, rework the different controllers to use the same data types (e.g. use ObjectId instead of string for project ID)
 - Switch to HTML emails with nodemailer instead of plain text
-- Ability to see how many findings per products & per projects (in table via modal +reporting button)
 - Ask for remediation/accepted/declined reason when changing status to any of these
 - Review the content and formating of findings shared by email and reported in PDF via the context menu
 - Finish the context menu actions
@@ -58,7 +57,8 @@ Currently in DRAFT
 - dashboard horizontal bar chart: projects findings by status
 - clean unused code and simplify/harmonize the code and make it consistent
 - variables CSS for color themes (consistent)
-
+- Investigate the use of an AI product to read a PDF report and create findings automatically
+  - https://www.ocr4all.org/
 # Default credentials
 
 - admin@example.com:MySup3rStr0ngP@$$w0rd
