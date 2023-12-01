@@ -8,6 +8,7 @@ Currently in DRAFT
 - Add  reporting and export feature to the Project cards (export to CSV, PDF, etc.)
 - Review BFF recommendations on the findings controller (and continue with others)
   - Expand on the Data Type Consistency point, particularly focusing on the use of references in MongoDB schemas with Mongoose
+    - From this, rework the different controllers to use the same data types (e.g. use ObjectId instead of string for project ID)
 - Switch to HTML emails with nodemailer instead of plain text
 - Ability to see how many findings per products & per projects (in table via modal +reporting button)
 - Ask for remediation/accepted/declined reason when changing status to any of these

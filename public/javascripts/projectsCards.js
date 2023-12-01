@@ -50,3 +50,39 @@ projects.forEach((project) => {
   document.getElementById(`closedFindingsCount-${project._id}`).innerText =
     closedFindings.length;
 });
+
+function handleCSVClick(projectId) {
+  // Your JavaScript code here
+  console.log("CSV link clicked for project:", projectId);
+  // Add your logic to handle the click event
+}
+
+function handlePDFClick(projectRef) {
+  // Your JavaScript code here
+  console.log("PDF link clicked for project:", projectRef);
+  // Add your logic to handle the click event
+  fetch("/reporting/multiple-findings", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `projectRef=${projectRef}`,
+  })
+    .then((response) => response.blob())
+    .then((blob) => {
+      // Create a new blob object using the 'application/pdf' mime type
+      const file = new Blob([blob], { type: "application/pdf" });
+      // Build a URL from the file
+      const fileURL = URL.createObjectURL(file);
+      // Create a temporary anchor element
+      const tempLink = document.createElement("a");
+      tempLink.href = fileURL;
+      tempLink.download = "findings_report.pdf"; // You can name the file here
+      document.body.appendChild(tempLink); // Append to the body
+      tempLink.click(); // Programmatically click the link to trigger the download
+      document.body.removeChild(tempLink); // Remove the link when done
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}

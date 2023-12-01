@@ -179,3 +179,7 @@ exports.getOverdueFindings = async () => {
 exports.getFindingsByProduct = (productId) => {
   return Finding.find({ product: productId }).exec();
 };
+
+exports.getFindingsByProjectId = (projectId) => {
+  return Finding.find({ project: projectId }).exec();
+};
