@@ -154,6 +154,7 @@ table.dataTable {
   display: none; /* Initially hidden */
 }
 #customContextMenu li {
+  padding: 5px 10px;
   cursor: pointer;
 }
 #customContextMenu li:hover {
