@@ -27,6 +27,7 @@ exports.saveSettings = async (req, res, next) => {
       smtpPort: req.body.smtpPort,
       smtpUsername: req.body.smtpUsername,
       smtpPassword: req.body.smtpPassword,
+      smtpSecure: req.body.smtpSecure === "on",
     };
 
     const SLAsettings = {

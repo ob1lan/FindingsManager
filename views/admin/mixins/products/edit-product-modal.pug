@@ -4,7 +4,7 @@ mixin editProductModal(product)
             .modal-content
                 form(action=`/admin/products/${product._id}/edit` method="post")
                     .modal-header
-                        h5.modal-title Edit Product #{product.reference}
+                        h5.modal-title Edit #{product.reference}
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                     .modal-body
                         .mb-3

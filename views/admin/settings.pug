@@ -17,6 +17,9 @@ block content
                 .mb-3
                     label(for="smtpPassword" class="form-label") SMTP Password
                     input#smtpPassword.form-control(type="password" name="smtpPassword" value=smtpSettings.smtpPassword)
+                .mb-3.form-check
+                    input#smtpSecure.form-check-input(type="checkbox" name="smtpSecure" checked=smtpSettings.smtpSecure)
+                    label(for="smtpSecure" class="form-check-label") SMTP Secure
                 h1 Admin - SLA Settings
                 .mb-3
                     label(for="slaInfo" class="form-label") Informational Findings SLA (days)
