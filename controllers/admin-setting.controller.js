@@ -42,6 +42,7 @@ exports.saveSettings = async (req, res, next) => {
 
     res.redirect("/admin/settings");
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };

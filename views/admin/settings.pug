@@ -7,10 +7,10 @@ block content
                 h1 Admin - SMTP Settings
                 .mb-3
                     label(for="smtpHost" class="form-label") SMTP Host
-                    input#smtpHost.form-control(type="text" name="smtpHost" value=smtpSettings.smtpHost)
+                    input#smtpHost.form-control(type="text" name="smtpHost" value=smtpSettings.smtpHost ? smtpSettings.smtpHost : '127.0.0.1'  )
                 .mb-3
                     label(for="smtpPort" class="form-label") SMTP Port
-                    input#smtpPort.form-control(type="number" name="smtpPort" value=smtpSettings.smtpPort)
+                    input#smtpPort.form-control(type="number" name="smtpPort" value=smtpSettings.smtpPort ? smtpSettings.smtpPort : '1025'  )
                 .mb-3
                     label(for="smtpUsername" class="form-label") SMTP Username
                     input#smtpUsername.form-control(type="text" name="smtpUsername" value=smtpSettings.smtpUsername)
@@ -20,19 +20,19 @@ block content
                 h1 Admin - SLA Settings
                 .mb-3
                     label(for="slaInfo" class="form-label") Informational Findings SLA (days)
-                    input#smtpPassword.form-control(type="number" name="slaInfo" value=SLASettings.info)
+                    input#smtpPassword.form-control(type="number" name="slaInfo" value=SLASettings.info ? SLASettings.info : '365')
                 .mb-3
                     label(for="slaLow" class="form-label") Low Findings SLA (days)
-                    input#smtpPassword.form-control(type="number" name="slaLow" value=SLASettings.low)
+                    input#smtpPassword.form-control(type="number" name="slaLow" value=SLASettings.low ? SLASettings.low : '270')
                 .mb-3
                     label(for="slaMedium" class="form-label") Medium Findings SLA (days)
-                    input#smtpPassword.form-control(type="number" name="slaMedium" value=SLASettings.medium)
+                    input#smtpPassword.form-control(type="number" name="slaMedium" value=SLASettings.medium ? SLASettings.medium : '90')
                 .mb-3
                     label(for="slaHigh" class="form-label") High Findings SLA (days)
-                    input#smtpPassword.form-control(type="number" name="slaHigh" value=SLASettings.high)
+                    input#smtpPassword.form-control(type="number" name="slaHigh" value=SLASettings.high ? SLASettings.high : '14')
                 .mb-3
                     label(for="slaCritical" class="form-label") Critical Findings SLA (days)
-                    input#smtpPassword.form-control(type="number" name="slaCritical" value=SLASettings.critical)
+                    input#smtpPassword.form-control(type="number" name="slaCritical" value=SLASettings.critical ? SLASettings.critical : '3')
                 .mb-3
                     button.btn.btn-primary(type="submit") Save Settings
                 .mb-3

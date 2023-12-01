@@ -2,66 +2,68 @@ extends ../layout.pug
 
 block content
     h1 Products
-
-    each product in products
-        .card.mb-3
-            .card-header(data-bs-toggle="collapse" data-bs-target=`#collapse-${product._id}` style='cursor:pointer;')
-                h5.card-title [#{product.reference}] - #{product.name} - <i>#{product.status}</i>
-                p.card-text
-                    if product.createdAt
-                        small.text-muted Created on #{product.createdAt.toLocaleDateString()} by #{product.createdBy} - Last updated on #{product.updatedAt.toLocaleDateString()}
-            .collapse(id=`collapse-${product._id}`)
-                .card-body
-                    .row
-                        .col-md-3
-                            .row
-                                ul.list-group.list-group-flush
-                                    li.list-group-item <b>Description:</b> #{product.description}
-                                    li.list-group-item <b>Status:</b> #{product.status}
-                                    li.list-group-item <b>Contacts:</b> #{product.contacts.lenght < 1 ? product.contacts : 'TBD'}
-                            .inline-row
-                                //- a(id=`CSV-${project._id}` href="#" onclick=`handleCSVClick('${project.reference}')`)
-                                    i(class="fa-solid fa-file-csv fa-2xl")
-                                a(id=`PDF-${product._id}` href="#" onclick=`handlePDFClick('${product.reference}')`)
-                                    i(class="fa-solid fa-file-pdf fa-2xl")
-                        .col-md-9
-                            .cards-row
-                                .product-card-container
-                                    .card.text-bg-primary
-                                        .card-header Open Findings
-                                        .card-body
-                                            h1(id=`findingsCount-${product._id}`)               
-                                .product-card-container
-                                    .card.bg-darkred
-                                        .card-header Critical
-                                        .card-body
-                                            h1(id=`criticalFindingsCount-${product._id}`)                       
-                                .product-card-container
-                                    .card.text-bg-danger
-                                        .card-header High
-                                        .card-body
-                                            h1(id=`highFindingsCount-${product._id}`)              
-                                .product-card-container
-                                    .card.text-bg-warning
-                                        .card-header Medium
-                                        .card-body
-                                            h1(id=`mediumFindingsCount-${product._id}`)                            
-                                .product-card-container
-                                    .card.text-bg-success
-                                        .card-header Low
-                                        .card-body
-                                            h1(id=`lowFindingsCount-${product._id}`)                           
-                                .product-card-container
-                                    .card.text-bg-info
-                                        .card-header Info
-                                        .card-body
-                                            h1(id=`infoFindingsCount-${product._id}`)                            
-                                .product-card-container
-                                    .card.text-bg-secondary
-                                        .card-header Closed
-                                        .card-body
-                                            h1(id=`closedFindingsCount-${product._id}`)                            
-    script.
-        const findings = !{JSON.stringify(findings)};
-        const products = !{JSON.stringify(products)};
-    script(src='/javascripts/productsCards.js')
+    if products.length
+        each product in products
+            .card.mb-3
+                .card-header(data-bs-toggle="collapse" data-bs-target=`#collapse-${product._id}` style='cursor:pointer;')
+                    h5.card-title [#{product.reference}] - #{product.name} - <i>#{product.status}</i>
+                    p.card-text
+                        if product.createdAt
+                            small.text-muted Created on #{product.createdAt.toLocaleDateString()} by #{product.createdBy} - Last updated on #{product.updatedAt.toLocaleDateString()}
+                .collapse(id=`collapse-${product._id}`)
+                    .card-body
+                        .row
+                            .col-md-3
+                                .row
+                                    ul.list-group.list-group-flush
+                                        li.list-group-item <b>Description:</b> #{product.description}
+                                        li.list-group-item <b>Status:</b> #{product.status}
+                                        li.list-group-item <b>Contacts:</b> #{product.contacts.lenght < 1 ? product.contacts : 'TBD'}
+                                .inline-row
+                                    //- a(id=`CSV-${project._id}` href="#" onclick=`handleCSVClick('${project.reference}')`)
+                                        i(class="fa-solid fa-file-csv fa-2xl")
+                                    a(id=`PDF-${product._id}` href="#" onclick=`handlePDFClick('${product.reference}')`)
+                                        i(class="fa-solid fa-file-pdf fa-2xl")
+                            .col-md-9
+                                .cards-row
+                                    .product-card-container
+                                        .card.text-bg-primary
+                                            .card-header Open Findings
+                                            .card-body
+                                                h1(id=`findingsCount-${product._id}`)               
+                                    .product-card-container
+                                        .card.bg-darkred
+                                            .card-header Critical
+                                            .card-body
+                                                h1(id=`criticalFindingsCount-${product._id}`)                       
+                                    .product-card-container
+                                        .card.text-bg-danger
+                                            .card-header High
+                                            .card-body
+                                                h1(id=`highFindingsCount-${product._id}`)              
+                                    .product-card-container
+                                        .card.text-bg-warning
+                                            .card-header Medium
+                                            .card-body
+                                                h1(id=`mediumFindingsCount-${product._id}`)                            
+                                    .product-card-container
+                                        .card.text-bg-success
+                                            .card-header Low
+                                            .card-body
+                                                h1(id=`lowFindingsCount-${product._id}`)                           
+                                    .product-card-container
+                                        .card.text-bg-info
+                                            .card-header Info
+                                            .card-body
+                                                h1(id=`infoFindingsCount-${product._id}`)                            
+                                    .product-card-container
+                                        .card.text-bg-secondary
+                                            .card-header Closed
+                                            .card-body
+                                                h1(id=`closedFindingsCount-${product._id}`)                            
+        script.
+            const findings = !{JSON.stringify(findings)};
+            const products = !{JSON.stringify(products)};
+        script(src='/javascripts/productsCards.js')
+    else
+        p No products available, ask your administrator to create one.

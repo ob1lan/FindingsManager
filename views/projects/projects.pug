@@ -3,73 +3,76 @@ extends ../layout.pug
 block content
     h1 Projects
 
-    each project in projects
-        .card.mb-3
-            .card-header(data-bs-toggle="collapse" data-bs-target=`#collapse-${project._id}` style='cursor:pointer;')
-                h5.card-title [#{project.reference}] - #{project.title} - <i>#{project.status}</i> on #{project.environment}
-                p.card-text
-                    small.text-muted Created on #{project.createdAt.toLocaleDateString()} by #{project.createdBy} - Last updated on #{project.updatedAt.toLocaleDateString()}
-            .collapse(id=`collapse-${project._id}`)
-                .card-body
-                    .row
-                        .col-md-3
-                            .row
-                                ul.list-group.list-group-flush
-                                    li.list-group-item <b>Description:</b> #{project.description}
-                                    li.list-group-item <b>Assessor:</b> #{project.conductedBy}
-                                    li.list-group-item <b>Scope:</b> #{project.scope ? project.scope : 'TBD'}
-                                    li.list-group-item <b>Start Date: </b>
-                                        if (project.startDate)
-                                            | #{project.startDate.toLocaleDateString()} - 
-                                        else
-                                            | TBD - 
-                                        if (project.endDate)
-                                            | <b>End Date:</b> #{project.endDate.toLocaleDateString()}
-                                        else 
-                                            | <b>End Date:</b> TBD
-                            .inline-row
-                                //- a(id=`CSV-${project._id}` href="#" onclick=`handleCSVClick('${project.reference}')`)
-                                    i(class="fa-solid fa-file-csv fa-2xl")
-                                a(id=`PDF-${project._id}` href="#" onclick=`handlePDFClick('${project.reference}')`)
-                                    i(class="fa-solid fa-file-pdf fa-2xl")
-                        .col-md-9
-                            .cards-row
-                                .project-card-container
-                                    .card.text-bg-primary
-                                        .card-header Open Findings
-                                        .card-body
-                                            h1(id=`findingsCount-${project._id}`)                           
-                                .project-card-container
-                                    .card.bg-darkred
-                                        .card-header Critical
-                                        .card-body
-                                            h1(id=`criticalFindingsCount-${project._id}`)                           
-                                .project-card-container
-                                    .card.text-bg-danger
-                                        .card-header High
-                                        .card-body
-                                            h1(id=`highFindingsCount-${project._id}`)                           
-                                .project-card-container
-                                    .card.text-bg-warning
-                                        .card-header Medium
-                                        .card-body
-                                            h1(id=`mediumFindingsCount-${project._id}`)                            
-                                .project-card-container
-                                    .card.text-bg-success
-                                        .card-header Low
-                                        .card-body
-                                            h1(id=`lowFindingsCount-${project._id}`)                           
-                                .project-card-container
-                                    .card.text-bg-info
-                                        .card-header Info
-                                        .card-body
-                                            h1(id=`infoFindingsCount-${project._id}`)                            
-                                .project-card-container
-                                    .card.text-bg-secondary
-                                        .card-header Closed
-                                        .card-body
-                                            h1(id=`closedFindingsCount-${project._id}`)                            
-    script.
-        const findings = !{JSON.stringify(findings)};
-        const projects = !{JSON.stringify(projects)};
-    script(src='/javascripts/projectsCards.js')
+    if projects.length
+        each project in projects
+            .card.mb-3
+                .card-header(data-bs-toggle="collapse" data-bs-target=`#collapse-${project._id}` style='cursor:pointer;')
+                    h5.card-title [#{project.reference}] - #{project.title} - <i>#{project.status}</i> on #{project.environment}
+                    p.card-text
+                        small.text-muted Created on #{project.createdAt.toLocaleDateString()} by #{project.createdBy} - Last updated on #{project.updatedAt.toLocaleDateString()}
+                .collapse(id=`collapse-${project._id}`)
+                    .card-body
+                        .row
+                            .col-md-3
+                                .row
+                                    ul.list-group.list-group-flush
+                                        li.list-group-item <b>Description:</b> #{project.description}
+                                        li.list-group-item <b>Assessor:</b> #{project.conductedBy}
+                                        li.list-group-item <b>Scope:</b> #{project.scope ? project.scope : 'TBD'}
+                                        li.list-group-item <b>Start Date: </b>
+                                            if (project.startDate)
+                                                | #{project.startDate.toLocaleDateString()} - 
+                                            else
+                                                | TBD - 
+                                            if (project.endDate)
+                                                | <b>End Date:</b> #{project.endDate.toLocaleDateString()}
+                                            else 
+                                                | <b>End Date:</b> TBD
+                                .inline-row
+                                    //- a(id=`CSV-${project._id}` href="#" onclick=`handleCSVClick('${project.reference}')`)
+                                        i(class="fa-solid fa-file-csv fa-2xl")
+                                    a(id=`PDF-${project._id}` href="#" onclick=`handlePDFClick('${project.reference}')`)
+                                        i(class="fa-solid fa-file-pdf fa-2xl")
+                            .col-md-9
+                                .cards-row
+                                    .project-card-container
+                                        .card.text-bg-primary
+                                            .card-header Open Findings
+                                            .card-body
+                                                h1(id=`findingsCount-${project._id}`)                           
+                                    .project-card-container
+                                        .card.bg-darkred
+                                            .card-header Critical
+                                            .card-body
+                                                h1(id=`criticalFindingsCount-${project._id}`)                           
+                                    .project-card-container
+                                        .card.text-bg-danger
+                                            .card-header High
+                                            .card-body
+                                                h1(id=`highFindingsCount-${project._id}`)                           
+                                    .project-card-container
+                                        .card.text-bg-warning
+                                            .card-header Medium
+                                            .card-body
+                                                h1(id=`mediumFindingsCount-${project._id}`)                            
+                                    .project-card-container
+                                        .card.text-bg-success
+                                            .card-header Low
+                                            .card-body
+                                                h1(id=`lowFindingsCount-${project._id}`)                           
+                                    .project-card-container
+                                        .card.text-bg-info
+                                            .card-header Info
+                                            .card-body
+                                                h1(id=`infoFindingsCount-${project._id}`)                            
+                                    .project-card-container
+                                        .card.text-bg-secondary
+                                            .card-header Closed
+                                            .card-body
+                                                h1(id=`closedFindingsCount-${project._id}`)                            
+        script.
+            const findings = !{JSON.stringify(findings)};
+            const projects = !{JSON.stringify(projects)};
+        script(src='/javascripts/projectsCards.js')
+    else
+        p No projects found, ask your administrator to create one.
