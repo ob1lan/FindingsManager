@@ -95,6 +95,138 @@ $(document).ready(function () {
   });
 });
 function handleMenuAction(action, findingId) {
+  if (action === "  Mark as Remediated") {
+    // Retrieve the current finding data
+    fetch(`/findings/${findingId}/details`)
+      .then((response) => response.json())
+      .then((findingData) => {
+        // Update the status of the finding
+        findingData.status = "Remediated";
+
+        // Send the updated finding data in a POST request
+        fetch(`/findings/${findingId}/edit`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams(findingData).toString(),
+        })
+          .then((response) => {
+            if (response.ok) {
+              // Refresh the DataTable or show a success message
+              location.reload(); // Simple page reload to reflect changes
+            } else {
+              // Handle error
+              console.error("Error updating the finding status");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error retrieving finding data:", error);
+      });
+  }
+  if (action === " Mark as Accepted") {
+    // Retrieve the current finding data
+    fetch(`/findings/${findingId}/details`)
+      .then((response) => response.json())
+      .then((findingData) => {
+        // Update the status of the finding
+        findingData.status = "Accepted";
+
+        // Send the updated finding data in a POST request
+        fetch(`/findings/${findingId}/edit`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams(findingData).toString(),
+        })
+          .then((response) => {
+            if (response.ok) {
+              // Refresh the DataTable or show a success message
+              location.reload(); // Simple page reload to reflect changes
+            } else {
+              // Handle error
+              console.error("Error updating the finding status");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error retrieving finding data:", error);
+      });
+  }
+  if (action === " Mark as Declined") {
+    // Retrieve the current finding data
+    fetch(`/findings/${findingId}/details`)
+      .then((response) => response.json())
+      .then((findingData) => {
+        // Update the status of the finding
+        findingData.status = "Declined";
+
+        // Send the updated finding data in a POST request
+        fetch(`/findings/${findingId}/edit`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams(findingData).toString(),
+        })
+          .then((response) => {
+            if (response.ok) {
+              // Refresh the DataTable or show a success message
+              location.reload(); // Simple page reload to reflect changes
+            } else {
+              // Handle error
+              console.error("Error updating the finding status");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error retrieving finding data:", error);
+      });
+  }
+  if (action === "  Mark as In Remediation") {
+    // Retrieve the current finding data
+    fetch(`/findings/${findingId}/details`)
+      .then((response) => response.json())
+      .then((findingData) => {
+        // Update the status of the finding
+        findingData.status = "In Remediation";
+
+        // Send the updated finding data in a POST request
+        fetch(`/findings/${findingId}/edit`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams(findingData).toString(),
+        })
+          .then((response) => {
+            if (response.ok) {
+              // Refresh the DataTable or show a success message
+              location.reload(); // Simple page reload to reflect changes
+            } else {
+              // Handle error
+              console.error("Error updating the finding status");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error retrieving finding data:", error);
+      });
+  }
   if (action === " View Finding") {
     var modalSelector = `#detailsModal-${findingId}`;
     var modalInstance = new bootstrap.Modal(

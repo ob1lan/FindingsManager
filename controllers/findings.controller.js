@@ -87,6 +87,9 @@ exports.findingEdit = async (req, res, next) => {
   } else if (req.method === "POST") {
     try {
       const finding = await findFindingPerId(req.params.id);
+      await updateFinding(req.params.id, {
+        status: req.body.status,
+      });
 
       if (["Remediated", "Accepted", "Declined"].includes(req.body.status)) {
         req.body.fixedDate = new Date();
