@@ -23,19 +23,19 @@ block content
                 h1 Admin - SLA Settings
                 .mb-3
                     label(for="slaInfo" class="form-label") Informational Findings SLA (days)
-                    input#smtpPassword.form-control(type="number" name="slaInfo" value=SLASettings.info ? SLASettings.info : '365')
+                    input#slaInfo.form-control(type="number" name="slaInfo" value=SLASettings.info ? SLASettings.info : '365')
                 .mb-3
                     label(for="slaLow" class="form-label") Low Findings SLA (days)
-                    input#smtpPassword.form-control(type="number" name="slaLow" value=SLASettings.low ? SLASettings.low : '270')
+                    input#slaLow.form-control(type="number" name="slaLow" value=SLASettings.low ? SLASettings.low : '270')
                 .mb-3
                     label(for="slaMedium" class="form-label") Medium Findings SLA (days)
-                    input#smtpPassword.form-control(type="number" name="slaMedium" value=SLASettings.medium ? SLASettings.medium : '90')
+                    input#slaMedium.form-control(type="number" name="slaMedium" value=SLASettings.medium ? SLASettings.medium : '90')
                 .mb-3
                     label(for="slaHigh" class="form-label") High Findings SLA (days)
-                    input#smtpPassword.form-control(type="number" name="slaHigh" value=SLASettings.high ? SLASettings.high : '14')
+                    input#slaHigh.form-control(type="number" name="slaHigh" value=SLASettings.high ? SLASettings.high : '14')
                 .mb-3
                     label(for="slaCritical" class="form-label") Critical Findings SLA (days)
-                    input#smtpPassword.form-control(type="number" name="slaCritical" value=SLASettings.critical ? SLASettings.critical : '3')
+                    input#slaCritical.form-control(type="number" name="slaCritical" value=SLASettings.critical ? SLASettings.critical : '3')
                 .mb-3
                     button.btn.btn-primary(type="submit") Save Settings
                 .mb-3

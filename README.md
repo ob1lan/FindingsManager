@@ -6,10 +6,8 @@ Currently in DRAFT
 
 # TO DO
 
-- Handle the case when there are no SMTP settings yet
-- Handle the case when there are no projects yet
-- Handle the case when there are no products yet
-- Fix the Settings form submission (currently, it does not work)
+- Fix the calculate DueDate in the new finding form
+- Handle the absense of SMTPsettings or mail send error
 - Calculate DueDate should take the createdAt instead of today
 - Implement finding's reference link (if exists, transform the reference into a link)
 - Review BFF recommendations on the findings controller (and continue with others)
