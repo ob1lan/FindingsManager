@@ -93,7 +93,7 @@ thead {
   display: inline-block;
 }
 
-.inline-row > a,i {
+.inline-row > a > i {
   margin-top: 5px;
   padding: 5px;
 }
@@ -154,7 +154,6 @@ table.dataTable {
   display: none; /* Initially hidden */
 }
 #customContextMenu li {
-  padding: 5px 10px;
   cursor: pointer;
 }
 #customContextMenu li:hover {
