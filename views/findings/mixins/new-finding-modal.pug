@@ -33,8 +33,6 @@ mixin newFindingModal(finding, products)
                                         if products && products.length
                                             each product in products
                                                 option(value=product.reference) #{product.reference} (#{product.name})
-                                        else
-                                            option No products available
                                 .mb-3
                                     label(for="title") <b>Title</b>
                                     input#title.form-control(minlength="3" maxlength="50" type="text" name="title" placeholder="e.g. SXSS in the blog component" required)
@@ -64,6 +62,7 @@ mixin newFindingModal(finding, products)
                                 .mb-3
                                     label(for="project") <b>Project</b>
                                     select#project.form-control(name="project")
+                                        option(value="None") None (General Finding or triage)
                                         if projects && projects.length
                                             each project in projects
                                                 option(value=project.reference)= project.reference
