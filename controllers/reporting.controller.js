@@ -275,7 +275,7 @@ exports.generateMultipleFindingsReport = async (req, res) => {
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader(
       "Content-Disposition",
-      "attachment; filename=findings_report.pdf"
+      `attachment; filename=${reportTitle}_report.pdf`
     );
     res.send(pdfBuffer);
   } catch (error) {

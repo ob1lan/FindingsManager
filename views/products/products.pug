@@ -6,7 +6,7 @@ block content
     each product in products
         .card.mb-3
             .card-header(data-bs-toggle="collapse" data-bs-target=`#collapse-${product._id}` style='cursor:pointer;')
-                h5.card-title [#{product.reference}] - #{product.name} -<i>#{product.status}</i>
+                h5.card-title [#{product.reference}] - #{product.name} - <i>#{product.status}</i>
                 p.card-text
                     if product.createdAt
                         small.text-muted Created on #{product.createdAt.toLocaleDateString()} by #{product.createdBy} - Last updated on #{product.updatedAt.toLocaleDateString()}

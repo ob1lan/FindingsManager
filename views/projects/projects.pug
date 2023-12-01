@@ -6,7 +6,7 @@ block content
     each project in projects
         .card.mb-3
             .card-header(data-bs-toggle="collapse" data-bs-target=`#collapse-${project._id}` style='cursor:pointer;')
-                h5.card-title [#{project.reference}] - #{project.title} -<i>#{project.status}</i>on #{project.environment}
+                h5.card-title [#{project.reference}] - #{project.title} - <i>#{project.status}</i> on #{project.environment}
                 p.card-text
                     small.text-muted Created on #{project.createdAt.toLocaleDateString()} by #{project.createdBy} - Last updated on #{project.updatedAt.toLocaleDateString()}
             .collapse(id=`collapse-${project._id}`)

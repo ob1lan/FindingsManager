@@ -6,6 +6,7 @@ Currently in DRAFT
 
 # TO DO
 
+- Calculate DueDate should take the createdAt instead of today
 - Implement finding's reference link (if exists, transform the reference into a link)
 - Review BFF recommendations on the findings controller (and continue with others)
   - Expand on the Data Type Consistency point, particularly focusing on the use of references in MongoDB schemas with Mongoose
