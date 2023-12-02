@@ -4,8 +4,7 @@ services:
   app:
     build: .
     ports:
-      - "3000:3000"
-      - "3001:3001"
+      - "443:3001"
     depends_on:
       - db
     environment:
@@ -24,6 +23,5 @@ services:
     image: mailhog/mailhog
     ports:
       - "8025:8025"
-      - "1025:1025"
 volumes:
   mongo-data:

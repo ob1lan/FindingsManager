@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
 const smtpSettingsSchema = schema({
-  smtpHost: { type: String, required: true, default: "127.0.0.1" },
-  smtpPort: { type: Number, required: true, default: "1025" },
+  smtpHost: { type: String, default: "127.0.0.1" },
+  smtpPort: { type: Number, default: "1025" },
   smtpUsername: { type: String, required: false },
   smtpPassword: { type: String, required: false },
-  smtpSecure: { type: Boolean, required: true, default: false },
+  smtpSecure: { type: Boolean, default: false },
 });
 
 const SLASettingsSchema = schema({

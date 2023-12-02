@@ -53,9 +53,12 @@ exports.findingCreate = async (req, res, next) => {
       createdBy: req.user.username,
       attachment: attachmentPath,
     });
-
-    const text = `Hello ${assignee.username},\r\rYou have been assigned a new finding on ${req.body.product} with reference ${req.body.reference}.\r\rTitle: ${req.body.title}\r\rRaised by: ${req.body.project}\r\rPlease login to the Findings Manager to view more details.\n`;
-    await sendEmail(assignee.local.email, "New finding assigned to you", text);
+    try {
+      const text = `Hello ${assignee.username},\r\rYou have been assigned a new finding on ${req.body.product} with reference ${req.body.reference}.\r\rTitle: ${req.body.title}\r\rRaised by: ${req.body.project}\r\rPlease login to the Findings Manager to view more details.\n`;
+      await sendEmail(assignee.local.email, "New finding assigned to you", text);
+    } catch (error) {
+      console.error(error);
+    }
     res.redirect("/findings");
   } catch (e) {
     console.error(e);
@@ -90,7 +93,6 @@ exports.findingEdit = async (req, res, next) => {
       await updateFinding(req.params.id, {
         status: req.body.status,
       });
-
       if (["Remediated", "Accepted", "Declined"].includes(req.body.status)) {
         req.body.fixedDate = new Date();
         if (finding.createdAt && req.body.fixedDate) {
