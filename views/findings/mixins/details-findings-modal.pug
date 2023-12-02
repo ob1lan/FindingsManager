@@ -3,28 +3,24 @@ mixin detailsModal(finding)
         .modal-dialog
             .modal-content
                 .modal-header
-                    h5.modal-title Details for #{finding.reference}
+                    h5.modal-title Details for #{finding.reference} (#{finding.status})
                     button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                 .modal-body
                     p <b>Reference:</b> #{finding.reference}
                     p <b>Product:</b> #{finding.product}
-                    p <b>Project:</b> #{finding.project}
-                    p <b>Status:</b> #{finding.status}
-                    p <b>Assignee:</b> #{finding.assignee}
-                    p <b>Origin:</b> #{finding.origin}
                     p <b>Title:</b> #{finding.title}
                     p <b>Type:</b> #{finding.type}
-                    p <b>Description:</b> #{finding.description}
                     p <b>Severity:</b> #{finding.severity}
-                    p <b>Reported By:</b> #{finding.reportedBy}
-                    p <b>CVE:</b> #{finding.cve}
-                    p <b>CVSS:</b> #{finding.cvss}
-                    p <b>Created:</b> #{finding.createdAt.toDateString()}
+                    p <b>CVE:</b> #{finding.cve ? finding.cve : 'N/A'}
+                    p <b>CVSS:</b> #{finding.cvss ? finding.cvss : 'N/A'}
+                    p <b>Description:</b> #{finding.description}               
+                    p <b>Reported By:</b> #{finding.reportedBy} via #{finding.origin} project #{finding.project}
+                    p <b>Assigned to:</b> #{finding.assignee}
+                    p <b>Created:</b> #{finding.createdAt.toDateString()} by #{finding.createdBy}
                     p <b>Updated:</b> #{finding.updatedAt.toDateString()}
                     p <b>Due Date:</b> #{finding.dueDate.toDateString()}
                     if finding.fixedDate
-                        p <b>Fixed Date:</b> #{finding.fixedDate.toDateString()}
-                        p <b>Time to Fix:</b> #{finding.timeToFix} days
+                        p <b>Fixed Date:</b> #{finding.fixedDate.toDateString()} after #{finding.timeToFix} days of being reported
                     if finding.attachment
                         p <b>Attachment: </b>
                             a(href=`${finding.attachment}`) Download attachment

@@ -6,7 +6,7 @@ Currently in DRAFT
 
 # TO DO
 
-- Calculate DueDate should take the createdAt date instead of today in the edit formdocker
+- Calculate DueDate should take the createdAt date instead of today in the edit form
 - Implement finding's reference link (if exists, transform the reference into a link)
 - Review BFF recommendations on the findings controller (and continue with others)
   - Expand on the Data Type Consistency point, particularly focusing on the use of references in MongoDB schemas with Mongoose
@@ -14,7 +14,6 @@ Currently in DRAFT
 - Switch to HTML emails with nodemailer instead of plain text
 - Ask for remediation/accepted/declined reason when changing status to any of these
 - Review the content and formating of findings shared by email and reported in PDF via the context menu
-- Finish the context menu actions
 - Findings table: add a feature to select multiple findings and perform actions on them (change status, etc.)
 - Findings table context menu: try to make menu items conditional
 - Add the same feature as the Findings table to other tables (right-click, double-click, etc.)
@@ -52,4 +51,5 @@ Currently in DRAFT
 
 # Default credentials
 
-- admin@example.com:MySup3rStr0ngP@$$w0rd
+admin@example.com
+MySup3rStr0ngP@$$w0rd

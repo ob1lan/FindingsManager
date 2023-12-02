@@ -53,12 +53,18 @@ exports.findingCreate = async (req, res, next) => {
       createdBy: req.user.username,
       attachment: attachmentPath,
     });
+
     try {
       const text = `Hello ${assignee.username},\r\rYou have been assigned a new finding on ${req.body.product} with reference ${req.body.reference}.\r\rTitle: ${req.body.title}\r\rRaised by: ${req.body.project}\r\rPlease login to the Findings Manager to view more details.\n`;
-      await sendEmail(assignee.local.email, "New finding assigned to you", text);
+      await sendEmail(
+        assignee.local.email,
+        "New finding assigned to you",
+        text
+      );
     } catch (error) {
       console.error(error);
     }
+
     res.redirect("/findings");
   } catch (e) {
     console.error(e);
@@ -108,14 +114,21 @@ exports.findingEdit = async (req, res, next) => {
         req.body.fixedDate = null;
         req.body.timeToFix = null;
       }
+
       await updateFinding(req.params.id, req.body);
       const assignee = await findUserPerUsername(req.body.assignee);
-      const text = `Hello ${assignee.username},\r\rYou have been assigned an updated finding on ${req.body.product} with reference ${req.body.reference}.\r\rTitle: ${req.body.title}\r\rRaised by: ${req.body.project}\r\rPlease login to the Findings Manager to view more details.\n`;
-      await sendEmail(
-        assignee.local.email,
-        "Updated finding assigned to you",
-        text
-      );
+
+      try {
+        const text = `Hello ${assignee.username},\r\rYou have been assigned an updated finding on ${req.body.product} with reference ${req.body.reference}.\r\rTitle: ${req.body.title}\r\rRaised by: ${req.body.project}\r\rPlease login to the Findings Manager to view more details.\n`;
+        await sendEmail(
+          assignee.local.email,
+          "Updated finding assigned to you",
+          text
+        );
+      } catch (error) {
+        console.error(error);
+      }
+
       res.redirect("/findings");
     } catch (error) {
       next(error);
