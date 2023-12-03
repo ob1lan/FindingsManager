@@ -7,6 +7,9 @@ mixin detailsModal(finding)
                     button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                 .modal-body
                     p <b>Reference:</b> #{finding.reference}
+                    p
+                        b Internal Link: 
+                        a(href=finding.internalLink) #{finding.internalLink}
                     p <b>Product:</b> #{finding.product}
                     p <b>Title:</b> #{finding.title}
                     p <b>Type:</b> #{finding.type}

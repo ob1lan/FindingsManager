@@ -13,7 +13,9 @@ mixin newFindingModal(finding, products)
                                     label(for="reference") <b>Reference</b>
                                     input#reference.form-control(minlength="1" maxlength="12" type="text" name="reference" placeholder="e.g. Ticket-ID" required onchange="validateFindingReference()")
                                     span#referenceError.error-message(style='color: red; display: none;')
-
+                                .mb-3
+                                    label(for="internalLink") <b>Internal Link</b>
+                                    input#internalLink.form-control(minlength="12" maxlength="150" type="url" name="internalLink" placeholder="e.g. https://tickets.local/SEC-0001")
                                 .mb-3
                                     label(for="assignee") <b>Assignee</b>
                                     select#assignee.form-control(name="assignee")

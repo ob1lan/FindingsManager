@@ -9,7 +9,10 @@ mixin editFindingModal(finding)
                     .modal-body
                         .mb-3
                             label(for="reference") <b>Reference</b>
-                            input#reference.form-control(minlength="1" maxlength="12" type="text" name="reference" value= finding.reference required)
+                            input#reference.form-control(minlength="1" maxlength="12" type="text" name="reference" value=finding.reference required)
+                        .mb-3 
+                            label(for="internalLink") <b>Internal Link</b>
+                            input#internalLink.form-control(minlength="12" maxlength="150" type="url" name="internalLink" placeholder="e.g. https://tickets.local/SEC-0001" value=finding.internalLink)
                         .mb-3
                             label(for="project") <b>Project</b>
                             select#project.form-control(name="project")

@@ -10,6 +10,11 @@ const findingSchema = schema(
       minlength: 1,
       maxlength: 12,
     },
+    internalLink: {
+      type: String,
+      minlength: 12,
+      maxlength: 150,
+    },
     status: {
       type: String,
       enum: ["In Remediation", "Remediated", "Accepted", "Declined"],
