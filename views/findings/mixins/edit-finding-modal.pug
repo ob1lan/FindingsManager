@@ -14,8 +14,9 @@ mixin editFindingModal(finding)
                             label(for="internalLink") <b>Internal Link</b>
                             input#internalLink.form-control(minlength="12" maxlength="150" type="url" name="internalLink" placeholder="e.g. https://tickets.local/SEC-0001" value=finding.internalLink)
                         .mb-3
-                            label(for="project") <b>Project</b>
+                            label(for="project") <b>Project</b>                            
                             select#project.form-control(name="project")
+                                option(value="TBD") TBD (General Finding or triage)
                                 each project in projects
                                     option(value=project.reference selected=(finding.project === project.reference))= project.reference
                         .mb-3

@@ -6,8 +6,6 @@ Currently in DRAFT
 
 # TO DO
 
-- Calculate DueDate should take the createdAt date instead of today in the edit form
-- Implement finding's reference link (if exists, transform the reference into a link)
 - Review BFF recommendations on the findings controller (and continue with others)
   - Expand on the Data Type Consistency point, particularly focusing on the use of references in MongoDB schemas with Mongoose
     - From this, rework the different controllers to use the same data types (e.g. use ObjectId instead of string for project ID)

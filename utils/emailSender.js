@@ -2,27 +2,30 @@ const nodemailer = require('nodemailer');
 const smtpSettingsQuery = require("../queries/settings.queries");
 
 
-const sendEmail = async (to, subject, text) => {
+const sendEmail = async (to, subject, text, html) => {
   const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
-  if (smtpSettings.smtpHost && smtpSettings.smtpPort && smtpSettings.smtpSecure) {
+  console.log("SMTP:", smtpSettings)
+  if (smtpSettings.smtpHost && smtpSettings.smtpPort) {
     let transporter = nodemailer.createTransport({
       host: smtpSettings.smtpHost,
       port: smtpSettings.smtpPort,
       secure: smtpSettings.smtpSecure,
+      auth:
+        smtpSettings.smtpUsername && smtpSettings.smtpPassword
+          ? {
+              user: smtpSettings.smtpUsername,
+              pass: smtpSettings.smtpPassword,
+            }
+          : null,
     });
 
-    if (smtpSettings.smtpUsername && smtpSettings.smtpPassword) {
-      transporter.auth = {
-        user: smtpUsername,
-        pass: smtpPassword,
-      };
-    }
     try {
       await transporter.sendMail({
         from: smtpSettings.smtpUsername || "noreply@findingsmanager.com",
         to,
         subject,
         text,
+        html,
       });
       return true;
     } catch (error) {

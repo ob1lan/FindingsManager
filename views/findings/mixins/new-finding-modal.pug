@@ -31,7 +31,7 @@ mixin newFindingModal(finding, products)
                                 .mb-3
                                     label(for="product") <b>Product</b>
                                     select#product.form-control(name="product")
-                                        option(value="None") None (General Finding or triage)
+                                        option(value="TBD") TBD (General Finding or triage)
                                         if products && products.length
                                             each product in products
                                                 option(value=product.reference) #{product.reference} (#{product.name})
@@ -64,7 +64,7 @@ mixin newFindingModal(finding, products)
                                 .mb-3
                                     label(for="project") <b>Project</b>
                                     select#project.form-control(name="project")
-                                        option(value="None") None (General Finding or triage)
+                                        option(value="TBD") TBD (General Finding or triage)
                                         if projects && projects.length
                                             each project in projects
                                                 option(value=project.reference)= project.reference
