@@ -8,23 +8,12 @@ mixin usersTable(users)
                 th Email
                 th Function
                 th Role
-                th Actions
         tbody
             each user in users
-                tr
+                tr(data-user-id=`${user._id}`)
                     td= user.username
                     td= user.firstname
                     td= user.lastname
                     td= user.local.email
                     td= user.function
                     td= user.role
-                    td
-                        //- Details button (opens a modal)
-                        button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${user._id}`) 
-                            i.fas.fa-search
-                        //- Edit button (link to an another modal)
-                        button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editUserModal-${user._id}`)
-                            i.fas.fa-pencil-alt
-                        //- Delete button (link to a delete route)
-                        button.btn.btn-danger.btn-sm(data-bs-toggle="modal" data-bs-target=`#userdeleteConfirmationModal-${user._id}`)
-                            i.fas.fa-trash-alt

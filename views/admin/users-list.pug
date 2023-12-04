@@ -8,6 +8,7 @@ include mixins/users/user-delete-confirmation-modal
 
 block content
     h1 Admin - Users
+    script(src="/javascripts/usersDatatable.js")
 
     button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#createUserModal") Create New User
 
@@ -20,7 +21,13 @@ block content
         +editUserModal(user)
         +userdeleteConfirmationModal(user)
 
-    script.
-        $(document).ready(function() {
-            $('table').DataTable({responsive: true});
-        });
+    ul#customContextMenu.hidden
+        li
+            i(class="fa-solid fa-eye")
+            |  View User
+        li
+            i(class="fa-solid fa-edit")
+            |  Edit User
+        li
+            i(class="fa-solid fa-trash")
+            |  Delete User
