@@ -7,20 +7,27 @@ include mixins/projects/delete-confirmation-modal
 
 block content
     h1 Admin - Projects
+    script(src="/javascripts/projectsDatatable.js")
 
     button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#newProjectModal") New Project
 
     +newProjectModal(project)
 
     +projectsTable(projects)
-    +deleteConfirmationModal
 
     //- modals for each project
     each project in projects
         +projectDetailsModal(project)
         +editProjectModal(project)
-
-    script.
-        $(document).ready(function() {
-            $('table').DataTable();
-        });
+        +deleteConfirmationModal(project)
+    
+    ul#customContextMenu.hidden
+        li
+            i(class="fa-solid fa-eye")
+            |  View Project
+        li
+            i(class="fa-solid fa-edit")
+            |  Edit Project
+        li
+            i(class="fa-solid fa-trash")
+            |  Delete Project

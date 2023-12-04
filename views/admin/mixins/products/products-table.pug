@@ -7,23 +7,12 @@ mixin productsTable(products)
                     th Status
                     th Name 
                     th Description
-                    th Actions
             tbody
                     each product in products
-                        tr
+                        tr(data-product-id=`${product._id}`)
                             td= product.reference
                             td= product.status
                             td= product.name
                             td= product.description
-                            td
-                                //- Details button (opens a modal)
-                                button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${product._id}`) 
-                                    i.fas.fa-search
-                                //- Edit button (link to an another modal)
-                                button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editProductModal-${product._id}`)
-                                    i.fas.fa-pencil-alt
-                                //- Delete button (opens a modal)    
-                                button.btn.btn-danger.btn-sm(data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-product-id=`${product._id}`)
-                                    i.fas.fa-trash-alt
     else
         p No product available.

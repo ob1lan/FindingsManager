@@ -10,10 +10,9 @@ mixin projectsTable(projects)
                     th Status 
                     th Assessor 
                     th Created By
-                    th Actions
             tbody
                     each project in projects
-                        tr
+                        tr(data-project-id=`${project._id}`)
                             td= project.reference
                             td= project.type
                             td= project.title
@@ -21,15 +20,5 @@ mixin projectsTable(projects)
                             td= project.status
                             td= project.conductedBy
                             td= project.createdBy
-                            td
-                                //- Details button (opens a modal)
-                                button.btn.btn-info.btn-sm(data-bs-toggle="modal" data-bs-target=`#detailsModal-${project._id}`) 
-                                    i.fas.fa-search
-                                //- Edit button (link to an another modal)
-                                button.btn.btn-warning.btn-sm(data-bs-toggle="modal" data-bs-target=`#editProjectModal-${project._id}`)
-                                    i.fas.fa-pencil-alt
-                                //- Delete button (link to a delete route)
-                                button.btn.btn-danger.btn-sm(data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-project-id=`${project._id}`)
-                                    i.fas.fa-trash-alt
     else
         p No project available.

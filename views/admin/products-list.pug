@@ -7,20 +7,27 @@ include mixins/products/delete-confirmation-modal
 
 block content
     h1 Admin - Products
+    script(src="/javascripts/productsDatatable.js")
 
     button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#newProductModal") New Product
 
     +newProductModal(product)
 
     +productsTable(products)
-    +deleteConfirmationModal
-
+    
     //- modals for each product
     each product in products
         +productDetailsModal(product)
         +editProductModal(product)
-
-    script.
-        $(document).ready(function() {
-            $('table').DataTable();
-        });
+        +deleteConfirmationModal(product)
+    
+    ul#customContextMenu.hidden
+        li
+            i(class="fa-solid fa-eye")
+            |  View Product
+        li
+            i(class="fa-solid fa-edit")
+            |  Edit Product
+        li
+            i(class="fa-solid fa-trash")
+            |  Delete Product

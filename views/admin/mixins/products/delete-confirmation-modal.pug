@@ -1,20 +1,15 @@
-mixin deleteConfirmationModal
-    #deleteConfirmationModal.modal.fade(tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true")
+mixin deleteConfirmationModal(product)
+    .modal.fade(id=`deleteConfirmationModal-${product._id}`, tabindex="-1", aria-labelledby=`deleteConfirmationModal-${product._id}`, aria-hidden="true")
         .modal-dialog
             .modal-content
-                .modal-header
-                    h5#deleteModalLabel.modal-title Confirm Deletion
-                    button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
-                .modal-body
-                    p Are you sure you want to delete this product?
-                .modal-footer
-                    button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
-                    a#confirmDelete.btn.btn-danger(href="#" method="post") Delete
-    script.
-        const deleteModal = document.getElementById('deleteConfirmationModal');
-        deleteModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            const productId = button.getAttribute('data-product-id');
-            const deleteLink = document.getElementById('confirmDelete');
-            deleteLink.href = `/admin/products/${productId}/delete`;
-        });
+                form(action=`/admin/products/${product._id}/delete` method="post")
+                    .modal-header
+                        h5#deleteProductModalLabel.modal-title Confirm Deletion
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body
+                        p Are you sure you want to delete the <b>#{product.reference}</b> product? 
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
+                        form#deleteProductForm(method="post" action="#" style="display: inline;")
+                            button.btn.btn-danger(type="submit") Delete
+

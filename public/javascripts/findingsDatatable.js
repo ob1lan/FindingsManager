@@ -87,8 +87,9 @@ $(document).ready(function () {
       handleMenuAction(action, findingId);
       menu.hide();
     });
-  });
+  }); 
 
+  
   // Hide the menu when clicking elsewhere
   $(document).click(function () {
     $("#customContextMenu").hide();
