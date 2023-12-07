@@ -93,7 +93,7 @@ exports.uploadImage = [
   uploadAvatar.single("avatar"),
   async (req, res, next) => {
     try {
-      const user = sanitize(String(req.user));
+      const user = req.user;
       const defaultAvatarPath = "/images/default-profile.svg";
 
       // Check if current avatar is not the default avatar
@@ -107,7 +107,7 @@ exports.uploadImage = [
         );
 
         // Delete the current avatar file
-        fs.unlink(currentAvatarFullPath, (err) => {
+        fs.unlink(sanitize(String(currentAvatarFullPath)), (err) => {
           if (err) {
             console.error("Error deleting old avatar:", err);
           }
