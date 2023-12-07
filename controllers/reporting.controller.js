@@ -6,10 +6,11 @@ const {
 } = require("../queries/findings.queries");
 
 const puppeteer = require("puppeteer");
+const sanitize = require("mongo-sanitize");
 
 exports.generateFindingsReport = async (req, res, next) => {
   try {
-    const findingId = req.body.findingId;
+    const findingId = sanitize(String(req.body.findingId));
     const finding = await findFindingPerId(findingId);
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -145,11 +146,11 @@ exports.generateMultipleFindingsReport = async (req, res) => {
     let reportTitle;
 
     if (req.body.projectRef) {
-      const projectRef = req.body.projectRef;
+      const projectRef = sanitize(String(req.body.projectRef));
       reportedFindings = await getFindingsByProjectReference(projectRef);
       reportTitle = projectRef;
     } else if (req.body.productRef) {
-      const productRef = req.body.productRef;
+      const productRef = sanitize(String(req.body.productRef));
       reportedFindings = await getFindingsByProductReference(productRef);
       reportTitle = productRef;
     } else {
