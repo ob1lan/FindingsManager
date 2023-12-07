@@ -1,6 +1,7 @@
 const passport = require("passport");
 const speakeasy = require("speakeasy");
 const authLog = require("../database/models/authLog.model");
+const sanitize = require("mongo-sanitize");
 
 exports.signinForm = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -21,10 +22,10 @@ exports.signin = (req, res, next) => {
     } else if (!user) {
       try {
         const log = new authLog({
-          attemptedEmail: req.body.email,
+          attemptedEmail: sanitize(String(req.body.email)),
           attemptedAction: "login",
-          userAgent: req.headers["user-agent"],
-          clientIP: req.ip,
+          userAgent: sanitize(String(req.headers["user-agent"])),
+          clientIP: sanitize(String(req.ip)),
           status: "failed",
         });
         await log.save();
@@ -54,10 +55,10 @@ exports.signin = (req, res, next) => {
         } else {
           try {
             const log = new authLog({
-              attemptedEmail: req.body.email,
+              attemptedEmail: sanitize(String(req.body.email)),
               attemptedAction: "login",
-              userAgent: req.headers["user-agent"],
-              clientIP: req.ip,
+              userAgent: sanitize(String(req.headers["user-agent"])),
+              clientIP: sanitize(String(req.ip)),
               status: "success",
             });
             await log.save();
@@ -77,7 +78,7 @@ exports.signin = (req, res, next) => {
 };
 
 exports.signout = (req, res, next) => {
-  const email = req.user.local.email;
+  const email = sanitize(String(req.user.local.email));
   req.logout(async (err) => {
     if (err) {
       return next(err);
@@ -87,8 +88,8 @@ exports.signout = (req, res, next) => {
       const log = new authLog({
         attemptedEmail: email,
         attemptedAction: "logout",
-        userAgent: req.headers["user-agent"],
-        clientIP: req.ip,
+        userAgent: sanitize(String(req.headers["user-agent"])),
+        clientIP: sanitize(String(req.ip)),
         status: "success",
       });
       await log.save();
@@ -109,7 +110,7 @@ exports.otpForm = (req, res, next) => {
 };
 
 exports.verifyOtp = (req, res, next) => {
-  const { otp } = req.body;
+  const otp = sanitize(String(req.body.otp));
   const verified = speakeasy.totp.verify({
     secret: req.user.twoFASecret,
     encoding: "base32",
@@ -121,8 +122,8 @@ exports.verifyOtp = (req, res, next) => {
       const log = new authLog({
         attemptedEmail: req.user.local.email,
         attemptedAction: "2FAlogin",
-        userAgent: req.headers["user-agent"],
-        clientIP: req.ip,
+        userAgent: sanitize(String(req.headers["user-agent"])),
+        clientIP: sanitize(String(req.ip)),
         status: "success",
       });
       log.save();
@@ -135,8 +136,8 @@ exports.verifyOtp = (req, res, next) => {
     const log = new authLog({
       attemptedEmail: req.user.local.email,
       attemptedAction: "2FAlogin",
-      userAgent: req.headers["user-agent"],
-      clientIP: req.ip,
+      userAgent: sanitize(String(req.headers["user-agent"])),
+      clientIP: sanitize(String(req.ip)),
       status: "failed",
     });
     log.save();

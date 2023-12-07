@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const sanitize = require("mongo-sanitize");
 const {
   createUser,
   findUserPerUsername,
@@ -21,7 +22,7 @@ const { uploadAvatar } = require("../config/upload.config");
 
 exports.userProfile = async (req, res, next) => {
   try {
-    const username = req.user.username;
+    const username = sanitize(String(req.user.username));
     const user = await findUserPerUsername(username);
     const createdFindings = await getFindingsCreatedByUsername(user.username);
     const assignedFindings = await getFindingsAssignedToUsername(user.username);
@@ -93,7 +94,7 @@ exports.uploadImage = [
   uploadAvatar.single("avatar"),
   async (req, res, next) => {
     try {
-      const user = req.user;
+      const user = sanitize(String(req.user));
       const defaultAvatarPath = "/images/default-profile.svg";
 
       // Check if current avatar is not the default avatar
@@ -145,7 +146,8 @@ exports.setup2FAForm = async (req, res, next) => {
 };
 
 exports.verify2FA = async (req, res, next) => {
-  const { otp, secret } = req.body;
+  const otp = sanitize(String(req.body.otp));
+  const secret = sanitize(String(req.body.secret));
   const user = await findUserPerId(req.user._id);
   if (!user) {
     return res.json({ success: false, message: "User not found" });
@@ -157,10 +159,10 @@ exports.verify2FA = async (req, res, next) => {
   });
   if (verified) {
     const log = new authLog({
-      attemptedEmail: req.user.local.email,
+      attemptedEmail: sanitize(String(req.user.local.email)),
       attemptedAction: "2FAenabled",
-      userAgent: req.headers["user-agent"],
-      clientIP: req.ip,
+      userAgent: sanitize(String(req.headers["user-agent"])),
+      clientIP: sanitize(String(req.ip)),
       status: "success",
     });
     log.save();
@@ -170,10 +172,10 @@ exports.verify2FA = async (req, res, next) => {
     res.json({ success: true });
   } else {
     const log = new authLog({
-      attemptedEmail: req.user.local.email,
+      attemptedEmail: sanitize(String(req.user.local.email)),
       attemptedAction: "2FAenabled",
-      userAgent: req.headers["user-agent"],
-      clientIP: req.ip,
+      userAgent: sanitize(String(req.headers["user-agent"])),
+      clientIP: sanitize(String(req.ip)),
       status: "failed",
     });
     log.save();
@@ -187,20 +189,20 @@ exports.disable2FA = async (req, res, next) => {
     req.user.twoFAEnabled = false;
     await req.user.save();
     const log = new authLog({
-      attemptedEmail: req.user.local.email,
+      attemptedEmail: sanitize(String(req.user.local.email)),
       attemptedAction: "2FAdisabled",
-      userAgent: req.headers["user-agent"],
-      clientIP: req.ip,
+      userAgent: sanitize(String(req.headers["user-agent"])),
+      clientIP: sanitize(String(req.ip)),
       status: "success",
     });
     log.save();
     res.redirect("/me/profile");
   } catch (e) {
     const log = new authLog({
-      attemptedEmail: req.user.local.email,
+      attemptedEmail: sanitize(String(req.user.local.email)),
       attemptedAction: "2FAdisabled",
-      userAgent: req.headers["user-agent"],
-      clientIP: req.ip,
+      userAgent: sanitize(String(req.headers["user-agent"])),
+      clientIP: sanitize(String(req.ip)),
       status: "failed",
     });
     log.save();
@@ -210,16 +212,18 @@ exports.disable2FA = async (req, res, next) => {
 
 exports.updatePassword = async (req, res) => {
   try {
-    const { currentPassword, newPassword, confirmPassword } = req.body;
+    const currentPassword = sanitize(String(req.body.currentPassword));
+    const newPassword = sanitize(String(req.body.newPassword));
+    const confirmPassword = sanitize(String(req.body.confirmPassword));
     const user = await findUserPerId(req.user._id);
 
     // Check if current password is correct
     if (!bcrypt.compareSync(currentPassword, user.local.password)) {
       const log = new authLog({
-        attemptedEmail: user.local.email,
+        attemptedEmail: sanitize(String(user.local.email)),
         attemptedAction: "password-change",
-        userAgent: req.headers["user-agent"],
-        clientIP: req.ip,
+        userAgent: sanitize(String(req.headers["user-agent"])),
+        clientIP: sanitize(String(req.ip)),
         status: "failed",
       });
       await log.save();
@@ -238,10 +242,10 @@ exports.updatePassword = async (req, res) => {
     await user.save();
 
     const log = new authLog({
-      attemptedEmail: user.local.email,
+      attemptedEmail: sanitize(String(user.local.email)),
       attemptedAction: "password-change",
-      userAgent: req.headers["user-agent"],
-      clientIP: req.ip,
+      userAgent: sanitize(String(req.headers["user-agent"])),
+      clientIP: sanitize(String(req.ip)),
       status: "success",
     });
     await log.save();
