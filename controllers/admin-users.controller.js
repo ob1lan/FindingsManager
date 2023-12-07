@@ -1,11 +1,10 @@
 const {
   getAllUsers,
   createUser,
-  findUserPerId,
-  searchUsersPerUsername,
   updateUserDetails,
   deleteUser,
 } = require("../queries/users.queries");
+const sanitize = require("mongo-sanitize");
 
 exports.viewUsers = async (req, res, next) => {
   try {
@@ -37,7 +36,7 @@ exports.createUser = async (req, res, next) => {
 
 exports.updateUser = async (req, res, next) => {
   try {
-    const userId = req.params.id;
+    const userId = sanitize(String(req.params.id));
     const updatedData = req.body;
     await updateUserDetails(userId, updatedData);
     res.redirect("/admin/users");
@@ -48,7 +47,7 @@ exports.updateUser = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
   try {
-    await deleteUser(req.params.id);
+    await deleteUser(sanitize(String(req.params.id)));
     res.redirect("/admin/users");
   } catch (error) {
     next(error);

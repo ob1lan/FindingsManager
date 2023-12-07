@@ -3,7 +3,6 @@ const VerificationToken = require("../database/models/verificationToken.model");
 const crypto = require("crypto");
 const smtpSettingsQuery = require("../queries/settings.queries");
 const sendEmail = require("../utils/emailSender");
-const fs = require("fs");
 const envConfig = require(`../environment/${process.env.NODE_ENV}`);
 const sanitize = require("mongo-sanitize");
 

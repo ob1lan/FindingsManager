@@ -12,7 +12,6 @@ const {
 const { getProjects } = require("../queries/projects.queries");
 
 const puppeteer = require("puppeteer");
-const path = require("path");
 
 exports.getDashboard = async (req, res, next) => {
   try {
