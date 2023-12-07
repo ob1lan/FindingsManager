@@ -5,6 +5,7 @@ const smtpSettingsQuery = require("../queries/settings.queries");
 const sendEmail = require("../utils/emailSender");
 const fs = require("fs");
 const envConfig = require(`../environment/${process.env.NODE_ENV}`);
+const sanitize = require("mongo-sanitize");
 
 exports.signup = async (req, res, next) => {
   const body = req.body;
@@ -17,7 +18,7 @@ exports.signup = async (req, res, next) => {
     const token = crypto.randomBytes(32).toString("hex");
     const verificationToken = new VerificationToken({
       userId: user._id,
-      token: token,
+      token: sanitize(String(token)),
     });
     await verificationToken.save();
 
@@ -57,7 +58,7 @@ exports.signup = async (req, res, next) => {
 
 exports.verifyEmail = async (req, res) => {
   console.log("Verifying email...");
-  const token = req.query.token;
+  const token = sanitize(String(req.query.token));
   const verificationToken = await VerificationToken.findOne({ token: token });
   if (!verificationToken) {
     return res.status(400).send({ msg: "Invalid or expired token" });

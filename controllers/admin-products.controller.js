@@ -4,6 +4,7 @@ const {
   deleteProduct,
   updateProduct,
 } = require("../queries/products.queries");
+const sanitize = require("mongo-sanitize");
 
 exports.viewProducts = async (req, res, next) => {
   try {

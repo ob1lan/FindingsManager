@@ -9,13 +9,14 @@ const {
 } = require("../queries/users.queries");
 const envConfig = require(`../environment/${process.env.NODE_ENV}`);
 const authLog = require("../database/models/authLog.model");
+const sanitize = require("mongo-sanitize");
 
 exports.forgotPasswordForm = (req, res) => {
   res.render("auth/forgot-password-form");
 };
 
 exports.sendResetLink = async (req, res) => {
-  const email = req.body.email;
+  const email = sanitize(String(req.body.email));
   const user = await findUserPerEmail(email);
   const token = crypto.randomBytes(32).toString("hex");
   const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
@@ -42,10 +43,10 @@ exports.sendResetLink = async (req, res) => {
   const resetSent = await sendEmail(smtpSettings, mailOptions);
   if (resetSent) {
     const log = new authLog({
-      attemptedEmail: req.body.email,
+      attemptedEmail: sanitize(String(req.body.email)),
       attemptedAction: "password-reset",
-      userAgent: req.headers["user-agent"],
-      clientIP: req.ip,
+      userAgent: sanitize(String(req.headers["user-agent"])),
+      clientIP: sanitize(String(req.ip)),
       status: "requested",
     });
     await log.save();
@@ -65,10 +66,10 @@ exports.resetPassword = async (req, res) => {
   const body = req.body;
   if (body.newPassword !== body.confirmPassword) {
     const log = new authLog({
-      attemptedEmail: req.body.email,
+      attemptedEmail: sanitize(String(req.body.email)),
       attemptedAction: "password-change",
-      userAgent: req.headers["user-agent"],
-      clientIP: req.ip,
+      userAgent: sanitize(String(req.headers["user-agent"])),
+      clientIP: sanitize(String(req.ip)),
       status: "failed",
     });
     await log.save();
@@ -79,10 +80,10 @@ exports.resetPassword = async (req, res) => {
 
   if (!user || !(user.passwordResetExpires > Date.now())) {
     const log = new authLog({
-      attemptedEmail: req.body.email,
+      attemptedEmail: sanitize(String(req.body.email)),
       attemptedAction: "password-change",
-      userAgent: req.headers["user-agent"],
-      clientIP: req.ip,
+      userAgent: sanitize(String(req.headers["user-agent"])),
+      clientIP: sanitize(String(req.ip)),
       status: "failed",
     });
     await log.save();
@@ -95,20 +96,20 @@ exports.resetPassword = async (req, res) => {
   const updatedUser = await user.save();
   if (updatedUser) {
     const log = new authLog({
-      attemptedEmail: req.body.email,
+      attemptedEmail: sanitize(String(req.body.email)),
       attemptedAction: "password-change",
-      userAgent: req.headers["user-agent"],
-      clientIP: req.ip,
+      userAgent: sanitize(String(req.headers["user-agent"])),
+      clientIP: sanitize(String(req.ip)),
       status: "success",
     });
     await log.save();
     req.flash("success_msg", "Password reset!");
   } else {
     const log = new authLog({
-      attemptedEmail: req.body.email,
+      attemptedEmail: sanitize(String(req.body.email)),
       attemptedAction: "password-change",
-      userAgent: req.headers["user-agent"],
-      clientIP: req.ip,
+      userAgent: sanitize(String(req.headers["user-agent"])),
+      clientIP: sanitize(String(req.ip)),
       status: "failed",
     });
     await log.save();
