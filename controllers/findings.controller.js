@@ -1,6 +1,7 @@
 const { Parser } = require("json2csv");
 const csv = require("csv-parser");
 const { Readable } = require("stream");
+const sanitize = require("mongo-sanitize");
 
 const {
   createFinding,
@@ -42,7 +43,9 @@ exports.findings = async (req, res, next) => {
 
 exports.findingCreate = async (req, res, next) => {
   try {
-    const assignee = await findUserPerUsername(req.body.assignee);
+    const assignee = await findUserPerUsername(
+      sanitize(String(req.body.assignee))
+    );
     let attachmentPath = "";
     if (req.file) {
       absolutePath = req.file.path;
@@ -79,7 +82,7 @@ exports.findingCreate = async (req, res, next) => {
 
 exports.findingDetails = async (req, res, next) => {
   try {
-    const finding = await findFindingPerId(req.params.id);
+    const finding = await findFindingPerId(sanitize(String(req.params.id)));
     res.json(finding);
   } catch (error) {
     next(error);
@@ -95,11 +98,15 @@ exports.findingEdit = async (req, res, next) => {
     }
   } else if (req.method === "POST") {
     try {
-      const finding = await findFindingPerId(req.params.id);
+      const finding = await findFindingPerId(sanitize(String(req.params.id)));
       await updateFinding(req.params.id, {
         status: req.body.status,
       });
-      if (["Remediated", "Accepted", "Declined"].includes(req.body.status)) {
+      if (
+        ["Remediated", "Accepted", "Declined"].includes(
+          sanitize(String(req.body.status))
+        )
+      ) {
         req.body.fixedDate = new Date();
         if (finding.createdAt && req.body.fixedDate) {
           const timeToFix =
@@ -110,13 +117,15 @@ exports.findingEdit = async (req, res, next) => {
             console.error("Invalid date calculation for timeToFix");
           }
         }
-      } else if (req.body.status === "In Remediation") {
+      } else if (sanitize(String(req.body.status)) === "In Remediation") {
         req.body.fixedDate = null;
         req.body.timeToFix = null;
       }
 
-      await updateFinding(req.params.id, req.body);
-      const assignee = await findUserPerUsername(req.body.assignee);
+      await updateFinding(sanitize(String(req.params.id)), req.body);
+      const assignee = await findUserPerUsername(
+        sanitize(String(req.body.assignee))
+      );
 
       try {
         const text = `Hello ${assignee.username},\r\rYou have been assigned an updated finding on ${req.body.product} with reference ${req.body.reference}.\r\rTitle: ${req.body.title}\r\rRaised by: ${req.body.project}\r\rPlease login to the Findings Manager to view more details.\n`;
@@ -138,7 +147,7 @@ exports.findingEdit = async (req, res, next) => {
 
 exports.findingDelete = async (req, res, next) => {
   try {
-    await deleteFinding(req.params.id);
+    await deleteFinding(sanitize(String(req.params.id)));
     res.redirect("/findings");
   } catch (error) {
     next(error);
@@ -147,7 +156,7 @@ exports.findingDelete = async (req, res, next) => {
 
 exports.exportToCSV = async (req, res, next) => {
   try {
-    const { projectReference } = req.query;
+    const { projectReference } = sanitize(String(req.query));
     let findings;
     if (projectReference) {
       findings = await getFindingsByProjectReference(projectReference);
@@ -228,8 +237,8 @@ exports.importFindings = async (req, res, next) => {
 
 exports.findingShare = async (req, res, next) => {
   try {
-    const finding = await findFindingPerId(req.params.id);
-    const recipients = req.body.recipients
+    const finding = await findFindingPerId(sanitize(String(req.params.id)));
+    const recipients = sanitize(String(req.body.recipients))
       .split(",")
       .map((email) => email.trim())
       .filter((email) => email !== "");

@@ -1,12 +1,10 @@
-// Modify this function in projects.controller.js
-
 const { getProducts } = require("../queries/products.queries");
 const findingsQueries = require("../queries/findings.queries");
 
 exports.viewProducts = async (req, res, next) => {
   try {
     const products = await getProducts();
-    const findings = await findingsQueries.getFindings(); // Ensure this function exists and works as expected
+    const findings = await findingsQueries.getFindings();
     res.render("products/products", {
       products,
       findings,
