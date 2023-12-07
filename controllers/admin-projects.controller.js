@@ -4,6 +4,7 @@ const {
   deleteProject,
   updateProject,
 } = require("../queries/projects.queries");
+const sanitize = require("mongo-sanitize");
 
 exports.viewProjects = async (req, res, next) => {
   try {
@@ -38,7 +39,7 @@ exports.createProject = async (req, res, next) => {
 
 exports.updateProject = async (req, res, next) => {
   try {
-    const projectId = req.params.id;
+    const projectId = sanitize(String(req.params.id));
     const updatedData = req.body;
 
     await updateProject(projectId, updatedData);
@@ -50,7 +51,7 @@ exports.updateProject = async (req, res, next) => {
 
 exports.deleteProject = async (req, res, next) => {
   try {
-    await deleteProject(req.params.id);
+    await deleteProject(sanitize(String(req.params.id)));
     res.redirect("/admin/projects");
   } catch (error) {
     next(error);

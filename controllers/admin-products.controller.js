@@ -39,7 +39,7 @@ exports.createProduct = async (req, res, next) => {
 
 exports.updateProduct = async (req, res, next) => {
   try {
-    const productId = req.params.id;
+    const productId = sanitize(String(req.params.id));
     const updatedData = req.body;
 
     await updateProduct(productId, updatedData);
@@ -51,7 +51,7 @@ exports.updateProduct = async (req, res, next) => {
 
 exports.deleteProduct = async (req, res, next) => {
   try {
-    await deleteProduct(req.params.id);
+    await deleteProduct(sanitize(String(req.params.id)));
     res.redirect("/admin/products");
   } catch (error) {
     next(error);
