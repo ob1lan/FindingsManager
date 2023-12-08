@@ -7,13 +7,15 @@ const envConfig = require(`../environment/${process.env.NODE_ENV}`);
 const sanitize = require("mongo-sanitize");
 
 exports.signup = async (req, res, next) => {
-  const body = req.body;
-  if (body.username.length > 8) {
+  const username = req.body.username;
+  const email = req.body.email;
+  const password = req.body.password;
+  if (username.length > 8) {
     req.flash("error_msg", "Username must have maximum 8 characters.");
     res.redirect("/auth/signin");
   }
   try {
-    const user = await createUser(body);
+    const user = await createUser({username, email, password});
     const token = crypto.randomBytes(32).toString("hex");
     const verificationToken = new VerificationToken({
       userId: user._id,

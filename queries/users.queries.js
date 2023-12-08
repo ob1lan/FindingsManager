@@ -15,6 +15,7 @@ exports.createUser = async (user) => {
         email: user.email,
         password: hashedPassword,
       },
+      role: user.role,
     });
     return newUser.save();
   } catch (e) {
@@ -25,7 +26,6 @@ exports.createUser = async (user) => {
 exports.getAllUsers = () => {
   return User.find().exec();
 };
-
 
 exports.findUserPerEmail = (email) => {
   return User.findOne({ "local.email": email }).exec();
@@ -68,5 +68,5 @@ exports.findLast50LogsByEmail = (email) => {
 };
 
 exports.findUserByResetToken = async (token) => {
-  return await User.findOne({ "passwordResetToken": token });
+  return await User.findOne({ passwordResetToken: token });
 };
