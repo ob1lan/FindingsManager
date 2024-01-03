@@ -58,7 +58,10 @@ exports.sendResetLink = async (req, res) => {
 };
 
 exports.resetPasswordForm = (req, res) => {
-  res.render("auth/reset-password-form", { token: req.params.token });
+  res.render("auth/reset-password-form", {
+    token: req.params.token,
+    csrfToken: req.csrfToken(),
+  });
 };
 
 exports.resetPassword = async (req, res) => {

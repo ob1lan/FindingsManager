@@ -3,6 +3,7 @@ mixin newFindingModal(finding, products)
         .modal-dialog.modal-lg
             .modal-content
                 form(action="/findings/new-finding" method="post" enctype='multipart/form-data')
+                    input(type="hidden" name="_csrf" value=csrfToken)
                     .modal-header
                         h5#newFindingModalLabel.modal-title New Finding
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")

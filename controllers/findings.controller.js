@@ -35,6 +35,7 @@ exports.findings = async (req, res, next) => {
       currentUser: req.user,
       user: req.user,
       is2FAVerified: req.session.is2FAVerified,
+      csrfToken: req.csrfToken(),
     });
   } catch (error) {
     next(error);
@@ -76,6 +77,7 @@ exports.findingCreate = async (req, res, next) => {
       isAuthenticated: req.isAuthenticated(),
       is2FAVerified: req.session.is2FAVerified,
       currentUser: req.user,
+      csrfToken: req.csrfToken(),
     });
   }
 };
