@@ -73,6 +73,7 @@ block content
         script.
             const findings = !{JSON.stringify(findings)};
             const projects = !{JSON.stringify(projects)};
+            const csrfToken = "#{csrfToken}";
         script(src='/javascripts/projectsCards.js')
     else
         p No projects found, ask your administrator to create one.

@@ -65,6 +65,7 @@ function handlePDFClick(projectRef) {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
+      "CSRF-Token": csrfToken,
     },
     body: `projectRef=${projectRef}`,
   })

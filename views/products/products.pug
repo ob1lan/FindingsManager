@@ -64,6 +64,7 @@ block content
         script.
             const findings = !{JSON.stringify(findings)};
             const products = !{JSON.stringify(products)};
+            const csrfToken = "#{csrfToken}";
         script(src='/javascripts/productsCards.js')
     else
         p No products available, ask your administrator to create one.
