@@ -15,8 +15,6 @@ Currently in DRAFT
 - Review the content and formating of findings shared by email and reported in PDF via the context menu
 - Findings table: add a feature to select multiple findings and perform actions on them (change status, etc.)
 - Findings table context menu: try to make menu items conditional
-- Add the same feature as the Findings table to other tables (right-click, double-click, etc.)
-- Add an 'Active engagements' dashboard widget (ongoing projects)
 - Dashboard: last 7 days charts/cards (new findings, fixed findings, etc. like in Jira)
 - Fix logging of auth activities and flash message on user profile after password change, 2FA toggle, etc.
 - Integrate and use CWE and CWE IDs if possible
