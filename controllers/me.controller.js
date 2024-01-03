@@ -71,6 +71,7 @@ exports.userProfile = async (req, res, next) => {
         user,
         secret: secret.base32,
         dataURL,
+        csrfToken: req.csrfToken(),
       });
     } else {
       res.render("users/profile", {
@@ -82,6 +83,7 @@ exports.userProfile = async (req, res, next) => {
         is2FAVerified: req.session.is2FAVerified,
         currentUser: req.user,
         user,
+        csrfToken: req.csrfToken(),
       });
     }
   } catch (e) {
@@ -141,6 +143,7 @@ exports.setup2FAForm = async (req, res, next) => {
     isAuthenticated: req.isAuthenticated(),
     is2FAVerified: req.session.is2FAVerified,
     currentUser: req.user,
+    csrfToken: req.csrfToken(),
   });
 };
 

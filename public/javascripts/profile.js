@@ -7,11 +7,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const otpValue = document.querySelector("input[name='otp']").value;
     const secretValue = document.querySelector("input[name='secret']").value;
+    const csrfToken = document.querySelector("input[name='_csrf']").value;
 
     try {
       const response = await axios.post("/me/verify-2fa", {
         otp: otpValue,
         secret: secretValue,
+        _csrf: csrfToken,
       });
 
       if (response.data.success) {

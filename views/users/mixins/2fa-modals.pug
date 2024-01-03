@@ -3,6 +3,7 @@ mixin 2fa-modals
         div.modal-dialog
             div.modal-content
                 form(action="/me/verify-2fa" method="post")
+                    input(type="hidden" name="_csrf" value=csrfToken)
                     div.modal-header
                         h5.modal-title(id="setup2FAModalLabel") Setup Two-Factor Authentication
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
@@ -28,6 +29,7 @@ mixin 2fa-modals
                     p Are you sure you want to disable Two-Factor Authentication?
                 div.modal-footer
                     form(action="/me/disable-2fa" method="post")
+                        input(type="hidden" name="_csrf" value=csrfToken)
                         button(type="submit" class="btn btn-danger") Confirm
                     button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cancel
 

@@ -10,12 +10,10 @@ router.post("/new-finding", ensureAuthenticated, (req, res, next) => {
   uploadAttachment.single("attachment")(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       if (err.code === "LIMIT_FILE_SIZE") {
-        return res
-          .status(400)
-          .json({
-            message:
-              "File too large. Please upload a file smaller than the specified limit (5MB).",
-          });
+        return res.status(400).json({
+          message:
+            "File too large. Please upload a file smaller than the specified limit (5MB).",
+        });
       }
     } else if (err) {
       return res

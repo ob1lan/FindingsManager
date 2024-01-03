@@ -4,6 +4,7 @@ mixin edit-profile-modal
         div.modal-dialog
             div.modal-content
                 form(action="/me/update/details" method="post")
+                    input(type="hidden" name="_csrf" value=csrfToken)
                     div.modal-header
                         h5.modal-title(id="updateDetailsModalLabel") Update Details
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")

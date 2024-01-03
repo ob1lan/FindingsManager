@@ -8,6 +8,7 @@ mixin user-profile-page
             .col-md-3
                 .row.justify-content-center.border-card
                     form( id="form-container" class="d-flex p-3 flex-row justify-content-center align-items-center" action="/me/update/image" method="post" enctype="multipart/form-data" )
+                        input(type="hidden" name="_csrf" value=csrfToken)
                         .profilepic
                             input(type="file" name="avatar" class="d-none" id="input-avatar")
                             img(src=user.avatar class="img-fluid profilepic__image" id="image-profile")
