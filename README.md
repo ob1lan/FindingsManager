@@ -12,6 +12,7 @@ Currently in DRAFT
     - From this, rework the different controllers to use the same data types (e.g. use ObjectId instead of string for project ID)
 - Switch to HTML emails with nodemailer instead of plain text
 - Ask for remediation/accepted/declined reason when changing status to any of these
+- Include a pie chart in the PDF reports (maybe add a checkbox to include it or not)
 - Review the content and formating of findings shared by email and reported in PDF via the context menu
 - Findings table: add a feature to select multiple findings and perform actions on them (change status, etc.)
 - Findings table context menu: try to make menu items conditional
