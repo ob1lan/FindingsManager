@@ -3,6 +3,7 @@ extends ../layout
 block content
   main(class="form-signin text-center")
     form(data-bitwarden-watching="1" method="post" action="/auth/verify-otp")
+      input(type='hidden' name='_csrf' value=csrfToken)
       h1(class="h3 mb-3 fw-normal") Enter OTP
       div(class="form-floating")
         input(type="text" name="otp" class="form-control" id="floatingOtp" placeholder="OTP")

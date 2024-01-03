@@ -20,14 +20,6 @@ require("./config/passport.config");
 
 morganBody(app);
 
-app.use(csrf());
-app.use((err, req, res, next) => {
-  if (err.code !== "EBADCSRFTOKEN") return next(err);
-
-  res.status(403);
-  res.send("CSRF token mismatch");
-});
-
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -42,6 +34,14 @@ var limiter = RateLimit({
   max: 100, // max 100 requests per windowMs
 });
 app.use(limiter);
+
+app.use(csrf());
+app.use((err, req, res, next) => {
+  if (err.code !== "EBADCSRFTOKEN") return next(err);
+
+  res.status(403);
+  res.send("CSRF token mismatch");
+});
 
 app.use(index);
 

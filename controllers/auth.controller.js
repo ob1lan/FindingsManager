@@ -36,7 +36,6 @@ exports.signin = (req, res, next) => {
           isAuthenticated: req.isAuthenticated(),
           is2FAVerified: req.session.is2FAVerified,
           currentUser: req.user,
-          csrfToken: req.csrfToken(),
         });
       } catch (error) {
         return next(error);
@@ -49,7 +48,6 @@ exports.signin = (req, res, next) => {
           isAuthenticated: req.isAuthenticated(),
           is2FAVerified: req.session.is2FAVerified,
           currentUser: req.user,
-          csrfToken: req.csrfToken(),
         });
       }
       req.login(user, async (err) => {
@@ -109,6 +107,7 @@ exports.otpForm = (req, res, next) => {
     isAuthenticated: req.isAuthenticated(),
     is2FAVerified: req.session.is2FAVerified,
     currentUser: req.user,
+    csrfToken: req.csrfToken(),
   });
 };
 
@@ -118,6 +117,7 @@ exports.verifyOtp = (req, res, next) => {
     secret: req.user.twoFASecret,
     encoding: "base32",
     token: otp,
+    
   });
 
   if (verified) {
