@@ -10,6 +10,7 @@ block content
           #login-form
             h1.fs-4.card-title.fw-bold.mb-4 Login
             form.needs-validation(method="post" action="/auth/signin" autocomplete='off')
+              input(type='hidden' name='_csrf' value=csrfToken)
               .mb-3
                 label.mb-2.text-muted(for='email') E-Mail Address
                 input#email.form-control(type='email' name='email' value='' required)
@@ -32,6 +33,7 @@ block content
           #register-form.hidden
             h1.fs-4.card-title.fw-bold.mb-4 Register
             form.needs-validation(method="post" action="/auth/signup" autocomplete='off')
+              input(type='hidden' name='_csrf' value=csrfToken)
               .mb-3
                 label.mb-2.text-muted(for='username') Username
                 input#username.form-control(type='text' name='username' maxlength="8" required)

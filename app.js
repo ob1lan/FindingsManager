@@ -4,6 +4,7 @@ const path = require("path");
 const index = require("./routes");
 const errorHandler = require("errorhandler");
 const flash = require("connect-flash");
+const csrf = require("csurf");
 var RateLimit = require("express-rate-limit");
 var escape = require("escape-html");
 require("./database");
@@ -18,6 +19,14 @@ require("./config/session.config");
 require("./config/passport.config");
 
 morganBody(app);
+
+app.use(csrf());
+app.use((err, req, res, next) => {
+  if (err.code !== "EBADCSRFTOKEN") return next(err);
+
+  res.status(403);
+  res.send("CSRF token mismatch");
+});
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());

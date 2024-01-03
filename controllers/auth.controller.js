@@ -12,6 +12,7 @@ exports.signinForm = (req, res, next) => {
     isAuthenticated: req.isAuthenticated(),
     currentUser: req.user,
     verified: req.query.verified,
+    csrfToken: req.csrfToken(),
   });
 };
 
@@ -35,6 +36,7 @@ exports.signin = (req, res, next) => {
           isAuthenticated: req.isAuthenticated(),
           is2FAVerified: req.session.is2FAVerified,
           currentUser: req.user,
+          csrfToken: req.csrfToken(),
         });
       } catch (error) {
         return next(error);
@@ -47,6 +49,7 @@ exports.signin = (req, res, next) => {
           isAuthenticated: req.isAuthenticated(),
           is2FAVerified: req.session.is2FAVerified,
           currentUser: req.user,
+          csrfToken: req.csrfToken(),
         });
       }
       req.login(user, async (err) => {
