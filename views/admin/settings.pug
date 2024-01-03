@@ -5,6 +5,7 @@ block content
         .col-4
             form(method="post" action="/admin/settings")
                 h1 Admin - SMTP Settings
+                input(type="hidden" name="_csrf" value=csrfToken)
                 .mb-3
                     label(for="smtpHost" class="form-label") SMTP Host
                     input#smtpHost.form-control(type="text" name="smtpHost" value=smtpSettings.smtpHost ? smtpSettings.smtpHost : '127.0.0.1'  )

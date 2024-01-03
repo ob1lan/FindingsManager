@@ -3,6 +3,7 @@ mixin editUserModal(user)
         .modal-dialog
             .modal-content
                 form(method="post" action=`/admin/users/${user._id}/edit`)
+                    input(type="hidden" name="_csrf" value=csrfToken)
                     .modal-header
                         h5.modal-title(id=`editUserModalLabel-${user._id}`) Edit User
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")

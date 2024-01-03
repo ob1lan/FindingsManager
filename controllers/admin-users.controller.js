@@ -15,6 +15,7 @@ exports.viewUsers = async (req, res, next) => {
       is2FAVerified: req.session.is2FAVerified,
       currentUser: req.user,
       user: req.user,
+      csrfToken: req.csrfToken(),
     });
   } catch (error) {
     next(error);

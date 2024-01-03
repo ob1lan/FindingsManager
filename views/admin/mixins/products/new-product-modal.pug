@@ -3,6 +3,7 @@ mixin newProductModal(product)
         .modal-dialog.modal-lg
             .modal-content
                 form(action="/admin/products/create" method="post")
+                    input(type="hidden" name="_csrf" value=csrfToken)
                     .modal-header
                         h5#newProductModal.modal-title New Product
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")

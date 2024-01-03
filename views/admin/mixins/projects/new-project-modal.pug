@@ -3,6 +3,7 @@ mixin newProjectModal(project)
         .modal-dialog.modal-lg
             .modal-content
                 form(action="/admin/projects/create" method="post")
+                    input(type="hidden" name="_csrf" value=csrfToken)
                     .modal-header
                         h5#newProjectModalLabel.modal-title New Project
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")

@@ -3,6 +3,7 @@ mixin createUserModal
     .modal-dialog
       .modal-content
         form(method="post" action="/admin/users/create")
+          input(type="hidden" name="_csrf" value=csrfToken)
           .modal-header
             h5.modal-title(id="createUserModalLabel") Create New User
             button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")

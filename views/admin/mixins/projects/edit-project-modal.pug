@@ -3,6 +3,7 @@ mixin editProjectModal(project)
         .modal-dialog
             .modal-content
                 form(action=`/admin/projects/${project._id}/edit` method="post")
+                    input(type="hidden" name="_csrf" value=csrfToken)
                     .modal-header
                         h5.modal-title Edit Project #{project.reference}
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")

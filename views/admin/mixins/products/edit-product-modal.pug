@@ -3,6 +3,7 @@ mixin editProductModal(product)
         .modal-dialog
             .modal-content
                 form(action=`/admin/products/${product._id}/edit` method="post")
+                    input(type="hidden" name="_csrf" value=csrfToken)
                     .modal-header
                         h5.modal-title Edit #{product.reference}
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")

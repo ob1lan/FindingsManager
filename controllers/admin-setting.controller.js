@@ -13,6 +13,7 @@ exports.viewSettings = async (req, res, next) => {
       user: req.user,
       smtpSettings: smtpSettings,
       SLASettings: SLASettings,
+      csrfToken: req.csrfToken(),
     });
   } catch (error) {
     next(error);
