@@ -87,15 +87,22 @@ $(document).ready(function () {
       handleMenuAction(action, findingId);
       menu.hide();
     });
-  }); 
+  });
 
-  
   // Hide the menu when clicking elsewhere
   $(document).click(function () {
     $("#customContextMenu").hide();
   });
 });
+
 function handleMenuAction(action, findingId) {
+  if (action === " Finding's History") {
+    var modalSelector5 = `#historyModal-${findingId}`;
+    var modalInstance5 = new bootstrap.Modal(
+      document.querySelector(modalSelector5)
+    );
+    modalInstance5.show();
+  }
   if (action === "  Mark as Remediated") {
     // Retrieve the current finding data
     fetch(`/findings/${findingId}/details`)

@@ -1,0 +1,16 @@
+mixin historyModal(finding)
+    .modal.fade(id="historyModal-" + finding._id, tabindex="-1", aria-labelledby="historyModalLabel-" + finding._id, aria-hidden="true").modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5.modal-title History of #{finding.reference}
+                    button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                .modal-body
+                    ul
+                        if finding.history
+                            each historyItem in finding.history
+                                li #{historyItem.changedAt}: #{historyItem.changedBy} - #{JSON.stringify(historyItem.changes)}
+                        else
+                            li No history for this finding
+                .modal-footer
+                    button(type="button" class="btn btn-secondary" data-bs-dismiss="modal") Close

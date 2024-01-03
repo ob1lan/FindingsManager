@@ -6,6 +6,7 @@ include mixins/import-export-features
 include mixins/delete-confirmation-modal
 include mixins/details-findings-modal
 include mixins/share-finding-modal
+include mixins/history-modal
 
 block content
     script. 
@@ -29,6 +30,7 @@ block content
         +editFindingModal(finding)
         +deleteFindingConfirmationModal(finding)
         +shareModal(finding)
+        +historyModal(finding)
 
     ul#customContextMenu.hidden
         li
@@ -55,6 +57,9 @@ block content
         li 
             i(class="fa-solid fa-clipboard-list")
             |  Report on Finding
+        li
+            i(class="fa-solid fa-history")
+            |  Finding's History
         li
             i(class="fa-solid fa-trash")
             |  Delete Finding

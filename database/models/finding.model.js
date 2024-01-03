@@ -28,7 +28,12 @@ const findingSchema = schema(
     },
     title: { type: String, required: true, minlength: 3, maxlength: 50 },
     type: { type: String, default: "" },
-    description: { type: String, required: true, minlength: 5, maxlength: 2000 },
+    description: {
+      type: String,
+      required: true,
+      minlength: 5,
+      maxlength: 2000,
+    },
     severity: {
       type: String,
       required: true,
@@ -45,6 +50,13 @@ const findingSchema = schema(
     timeToFix: { type: Number },
     attachment: { type: String, default: "" },
     product: { type: String, default: "" },
+    history: [
+      {
+        changedBy: String,
+        changedAt: { type: Date, default: Date.now },
+        changes: Map,
+      },
+    ],
   },
   {
     timestamps: true, // This will automatically add `createdAt` and `updatedAt` fields

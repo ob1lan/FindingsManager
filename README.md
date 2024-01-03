@@ -7,6 +7,7 @@ Currently in DRAFT
 # TO DO
 
 - Implement CSRF protection
+- History context menu on findings to show all changes and who made them (like in Jira)
 - Review BFF recommendations on the findings controller (and continue with others)
   - Expand on the Data Type Consistency point, particularly focusing on the use of references in MongoDB schemas with Mongoose
     - From this, rework the different controllers to use the same data types (e.g. use ObjectId instead of string for project ID)

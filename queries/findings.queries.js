@@ -31,14 +31,18 @@ exports.findFindingPerId = async (id) => {
     return await Finding.findById(id).exec();
   } catch (e) {
     throw e;
-  }  
+  }
 };
 
 exports.updateFinding = async (id, updatedData) => {
   try {
-    return await Finding.findByIdAndUpdate(id, {...updatedData}, {
-      new: true,
-    }).exec();
+    return await Finding.findByIdAndUpdate(
+      id,
+      { ...updatedData },
+      {
+        new: true,
+      }
+    ).exec();
   } catch (e) {
     throw e;
   }

@@ -98,34 +98,28 @@ exports.findingEdit = async (req, res, next) => {
     }
   } else if (req.method === "POST") {
     try {
-      const finding = await findFindingPerId(sanitize(String(req.params.id)));
-      await updateFinding(req.params.id, {
-        status: req.body.status,
-      });
-      if (
-        ["Remediated", "Accepted", "Declined"].includes(
-          sanitize(String(req.body.status))
-        )
-      ) {
-        req.body.fixedDate = new Date();
-        if (finding.createdAt && req.body.fixedDate) {
-          const timeToFix =
-            (req.body.fixedDate - finding.createdAt) / (1000 * 60 * 60 * 24);
-          if (!isNaN(timeToFix)) {
-            req.body.timeToFix = timeToFix.toFixed(0);
-          } else {
-            console.error("Invalid date calculation for timeToFix");
-          }
-        }
-      } else if (sanitize(String(req.body.status)) === "In Remediation") {
-        req.body.fixedDate = null;
-        req.body.timeToFix = null;
-      }
+      const originalFinding = await findFindingPerId(req.params.id);
+      const updates = req.body;
+      const changes = new Map();
 
-      await updateFinding(sanitize(String(req.params.id)), req.body);
-      const assignee = await findUserPerUsername(
-        sanitize(String(req.body.assignee))
-      );
+      Object.keys(updates).forEach((key) => {
+        if (updates[key] !== originalFinding[key]) {
+          changes.set(key, updates[key]);
+        }
+      });
+
+      if (changes.size > 0) {
+        const historyUpdate = {
+          changedBy: req.user.username,
+          changedAt: new Date(),
+          changes: Object.fromEntries(changes),
+        };
+
+        await updateFinding(req.params.id, {
+          ...updates,
+          $push: { history: historyUpdate },
+        });
+      }
 
       try {
         const text = `Hello ${assignee.username},\r\rYou have been assigned an updated finding on ${req.body.product} with reference ${req.body.reference}.\r\rTitle: ${req.body.title}\r\rRaised by: ${req.body.project}\r\rPlease login to the Findings Manager to view more details.\n`;
