@@ -110,12 +110,21 @@ function handleMenuAction(action, findingId) {
       .then((findingData) => {
         // Update the status of the finding
         findingData.status = "Remediated";
+        findingData.assignee = "None";
+
+        if (!findingData.fixedDate || findingData.fixedDate === "null") {
+          delete findingData.fixedDate;
+        }
+
+        if (!findingData.timeToFix || findingData.timeToFix === "null") {
+          delete findingData.timeToFix;
+        }
 
         // Send the updated finding data in a POST request
         fetch(`/findings/${findingId}/edit`, {
           method: "POST",
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
+            "CSRF-Token": csrfToken,
           },
           body: new URLSearchParams(findingData).toString(),
         })
@@ -149,6 +158,7 @@ function handleMenuAction(action, findingId) {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
+            "CSRF-Token": csrfToken,
           },
           body: new URLSearchParams(findingData).toString(),
         })
@@ -182,6 +192,7 @@ function handleMenuAction(action, findingId) {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
+            "CSRF-Token": csrfToken,
           },
           body: new URLSearchParams(findingData).toString(),
         })
@@ -215,6 +226,7 @@ function handleMenuAction(action, findingId) {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
+            "CSRF-Token": csrfToken,
           },
           body: new URLSearchParams(findingData).toString(),
         })
@@ -265,6 +277,7 @@ function handleMenuAction(action, findingId) {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
+        "CSRF-Token": csrfToken,
       },
       body: `findingId=${findingId}`,
     })

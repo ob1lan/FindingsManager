@@ -6,8 +6,10 @@ Currently in DRAFT
 
 # TO DO
 
-- Implement CSRF protection and fix the CSRF token issue on the new finding form
+- Implement CSRF protection everywhere
+- Fix the context menu actions
 - Review and fix the Projects update controller and SMTP settings (secure isn't saved)
+- Refactor/clean the Findings table context menu handler in a separate file (js)
 - Review BFF recommendations on the findings controller (and continue with others)
   - Expand on the Data Type Consistency point, particularly focusing on the use of references in MongoDB schemas with Mongoose
     - From this, rework the different controllers to use the same data types (e.g. use ObjectId instead of string for project ID)

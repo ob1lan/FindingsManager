@@ -100,7 +100,9 @@ exports.findingEdit = async (req, res, next) => {
     }
   } else if (req.method === "POST") {
     try {
-      const originalFinding = await findFindingPerId(req.params.id);
+      const originalFinding = await findFindingPerId(
+        sanitize(String(req.params.id))
+      );
       const updates = req.body;
       const changes = new Map();
 
@@ -117,10 +119,36 @@ exports.findingEdit = async (req, res, next) => {
           changes: Object.fromEntries(changes),
         };
 
-        await updateFinding(req.params.id, {
+        await updateFinding(sanitize(String(req.params.id)), {
           ...updates,
           $push: { history: historyUpdate },
         });
+
+        if (
+          ["Remediated", "Accepted", "Declined"].includes(
+            sanitize(String(req.body.status))
+          )
+        ) {
+          req.body.fixedDate = new Date();
+          if (originalFinding.createdAt && req.body.fixedDate) {
+            const timeToFix =
+              (req.body.fixedDate - originalFinding.createdAt) /
+              (1000 * 60 * 60 * 24);
+            if (!isNaN(timeToFix)) {
+              req.body.timeToFix = timeToFix.toFixed(0);
+            } else {
+              console.error("Invalid date calculation for timeToFix");
+            }
+          }
+        } else if (sanitize(String(req.body.status)) === "In Remediation") {
+          req.body.fixedDate = null;
+          req.body.timeToFix = null;
+        }
+
+        await updateFinding(sanitize(String(req.params.id)), req.body);
+        const assignee = await findUserPerUsername(
+          sanitize(String(req.body.assignee))
+        );
       }
 
       try {

@@ -12,8 +12,8 @@ const findingSchema = schema(
     },
     internalLink: {
       type: String,
-      minlength: 12,
       maxlength: 150,
+      required: false,
     },
     status: {
       type: String,
