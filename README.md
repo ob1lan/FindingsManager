@@ -6,7 +6,7 @@ Currently in DRAFT
 
 # TO DO
 
-- Implement CSRF protection everywhere
+- Implement CSRF protection everywhere (context menu + remaining places)
 - Fix the context menu actions
 - Review and fix the Projects update controller and SMTP settings (secure isn't saved)
 - Refactor/clean the Findings table context menu handler in a separate file (js)
