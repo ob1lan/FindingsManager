@@ -112,7 +112,7 @@ exports.findingEdit = async (req, res, next) => {
       );
 
       Object.keys(updates).forEach((key) => {
-        if (updates[key] !== originalFinding[key]) {
+        if (key !== "_csrf" && updates[key] !== originalFinding[key]) {
           changes.set(key, updates[key]);
         }
       });

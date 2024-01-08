@@ -11,7 +11,9 @@ mixin historyModal(finding)
                             each historyItem in finding.history
                                 - var formattedDate = new Date(historyItem.changedAt).toLocaleString();
                                 - var changes = JSON.stringify(historyItem.changes, null, 2);
-                                li #{formattedDate}: #{historyItem.changedBy} - #{changes}
+                                li 
+                                    b #{formattedDate}: 
+                                    | #{historyItem.changedBy} - #{changes}
                         else
                             li No history for this finding
                 .modal-footer
