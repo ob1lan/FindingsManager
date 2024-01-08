@@ -6,7 +6,6 @@ Currently in DRAFT
 
 # TO DO
 
-- Fix the context menu actions and their CSRF protection
 - Refactor the 'share finding' email sender (mailOptions)
 - Consider using Sweetalert and Axios (i.e: in password forgot/reset + requests) where possible/appropriate
 - Review and fix the Projects update controller and SMTP settings (secure isn't saved)
