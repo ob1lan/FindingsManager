@@ -9,10 +9,8 @@ function handleMenuAction(action, findingId) {
       .then((response) => response.json())
       .then((findingData) => {
         findingData.status = status;
-        ["fixedDate", "timeToFix"].forEach((field) => {
-          if (!findingData[field] || findingData[field] === "null") {
-            delete findingData[field];
-          }
+        ["fixedDate", "timeToFix", "history"].forEach((field) => {
+          delete findingData[field];
         });
 
         return fetch(`/findings/${findingId}/edit`, {
@@ -41,7 +39,8 @@ function handleMenuAction(action, findingId) {
     case "Mark as Accepted":
     case "Mark as Declined":
     case "Mark as In Remediation":
-      updateFindingStatus(action.substring(6)); // Extract status from action
+      const status = action.split("Mark as ")[1]; // Split the string and take the second part
+      updateFindingStatus(status);
       break;
     case "View Finding":
       showModal(`#detailsModal-${findingId}`);
