@@ -9,7 +9,7 @@ Currently in DRAFT
 - Implement CSRF protection everywhere (context menu + remaining places)
 - Fix the context menu actions
 - Remove the CSRF token from the History list (modal)
-- Consider using Sweetalert and Axios (i.e: in password forgot/reset)
+- Consider using Sweetalert and Axios (i.e: in password forgot/reset + requests)
 - Review and fix the Projects update controller and SMTP settings (secure isn't saved)
 - Refactor/clean the Findings table context menu handler in a separate file (js)
 - Make sure only admins can delete a finding (consider a 'trash' feature)
