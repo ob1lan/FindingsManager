@@ -5,25 +5,28 @@ function handleMenuAction(action, findingId) {
   };
 
   const updateFindingStatus = (status) => {
-    fetch(`/findings/${findingId}/details`)
-      .then((response) => response.json())
-      .then((findingData) => {
+    axios
+      .get(`/findings/${findingId}/details`)
+      .then((response) => {
+        const findingData = response.data;
         findingData.status = status;
         ["fixedDate", "timeToFix", "history"].forEach((field) => {
           delete findingData[field];
         });
 
-        return fetch(`/findings/${findingId}/edit`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "CSRF-Token": csrfToken,
-          },
-          body: new URLSearchParams(findingData).toString(),
-        });
+        return axios.post(
+          `/findings/${findingId}/edit`,
+          new URLSearchParams(findingData).toString(),
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "CSRF-Token": csrfToken,
+            },
+          }
+        );
       })
       .then((response) => {
-        if (!response.ok) {
+        if (response.status !== 200) {
           throw new Error("Error updating the finding status");
         }
         location.reload();
