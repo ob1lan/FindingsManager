@@ -17,9 +17,13 @@ exports.forgotPasswordForm = (req, res) => {
 
 exports.sendResetLink = async (req, res) => {
   const email = sanitize(String(req.body.email));
+  console.log("EMAIL: ", email);
   const user = await findUserPerEmail(email);
+  console.log("USER: ", user);
   const token = crypto.randomBytes(32).toString("hex");
+  console.log("TOKEN: ", token);
   const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
+  console.log("SMTP: ", smtpSettings);
 
   user.passwordResetToken = token;
   user.passwordResetExpires = Date.now() + 3600000; // 1 hour
@@ -35,12 +39,13 @@ exports.sendResetLink = async (req, res) => {
 
   const mailOptions = {
     from: smtpSettings.smtpUsername || "default@example.com",
-    to: email,
+    to: user.local.email,
     subject: "Password Reset",
     text: `Click this link to reset your password: ${resetURL}`,
   };
 
   const resetSent = await sendEmail(smtpSettings, mailOptions);
+  console.log("RESET SENT: ", resetSent);
   if (resetSent) {
     const log = new authLog({
       attemptedEmail: sanitize(String(req.body.email)),

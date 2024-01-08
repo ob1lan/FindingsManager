@@ -19,7 +19,7 @@ block content
               .mb-3
                 .mb-2.w-100
                   label.text-muted(for='password') Password
-                  a.float-end(href='/auth/forgot-password')
+                  a.float-end(id="forgot" href='#')
                     | Forgot Password?
                 input#password.form-control(type='password' name='password' required)
                 .invalid-feedback
@@ -68,3 +68,6 @@ block content
           .alert.alert-danger #{error_msg[0]}
   script(src="/javascripts/toggleForms.js")
   script(src="/javascripts/validateUsername.js")
+  script(src="/javascripts/auth-form-forgot.js")
+  script.
+        const csrfToken = "#{csrfToken}";
