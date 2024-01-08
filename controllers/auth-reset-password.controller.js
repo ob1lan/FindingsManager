@@ -39,7 +39,7 @@ exports.sendResetLink = async (req, res) => {
 
   const mailOptions = {
     from: smtpSettings.smtpUsername || "default@example.com",
-    to: user.local.email,
+    to: "antoine@a-delrue.be",
     subject: "Password Reset",
     text: `Click this link to reset your password: ${resetURL}`,
   };
