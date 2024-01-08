@@ -1,7 +1,6 @@
 const { createUser, findUserPerId } = require("../queries/users.queries");
 const VerificationToken = require("../database/models/verificationToken.model");
 const crypto = require("crypto");
-const smtpSettingsQuery = require("../queries/settings.queries");
 const sendEmail = require("../utils/emailSender");
 const envConfig = require(`../environment/${process.env.NODE_ENV}`);
 const sanitize = require("mongo-sanitize");
@@ -31,15 +30,13 @@ exports.signup = async (req, res, next) => {
       link = `https://${envConfig.server_hostname}:${envConfig.portHttps}/auth/verify-email?token=${token}`;
     }
 
-    const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
     const mailOptions = {
-      from: smtpSettings.smtpUsername || "noreply@findingsmanager.com",
       to: user.local.email,
       subject: "Email Verification",
       text: `Hello ${user.username},\n\nPlease verify your email by clicking on the following link: ${link}\n\nIf you did not request this, please ignore this email.\n`,
     };
 
-    const emailSent = await sendEmail(smtpSettings, mailOptions);
+    const emailSent = await sendEmail(mailOptions);
 
     if (emailSent) {
       req.flash(

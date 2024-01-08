@@ -24,13 +24,13 @@ window.addEventListener("DOMContentLoaded", () => {
             .then((response) => {
               Swal.fire({
                 icon: "success",
-                title: "Vous avez reçu un email avec les instructions",
+                title: "You should have received an email with a reset link.",
               });
             })
             .catch((error) => {
               Swal.fire({
                 icon: "error",
-                title: "Une erreur est survenue",
+                title: "Something went wrong.",
               });
             });
         }

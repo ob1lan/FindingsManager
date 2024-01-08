@@ -1,10 +1,12 @@
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 const smtpSettingsQuery = require("../queries/settings.queries");
 
+const sendEmail = async (mailOptions, html) => {
+  const to = mailOptions.to;
+  const subject = mailOptions.subject;
+  const text = mailOptions.text;
 
-const sendEmail = async (to, subject, text, html) => {
   const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
-  console.log("SMTP:", smtpSettings)
   if (smtpSettings.smtpHost && smtpSettings.smtpPort) {
     let transporter = nodemailer.createTransport({
       host: smtpSettings.smtpHost,

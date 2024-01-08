@@ -60,11 +60,12 @@ exports.findingCreate = async (req, res, next) => {
 
     try {
       const text = `Hello ${assignee.username},\r\rYou have been assigned a new finding on ${req.body.product} with reference ${req.body.reference}.\r\rTitle: ${req.body.title}\r\rRaised by: ${req.body.project}\r\rPlease login to the Findings Manager to view more details.\n`;
-      await sendEmail(
-        assignee.local.email,
-        "New finding assigned to you",
-        text
-      );
+      const mailOptions = {
+        to: assignee.local.email,
+        subject: "New finding assigned to you",
+        text: text,
+      };
+      await sendEmail(mailOptions);
     } catch (error) {
       console.error(error);
     }
@@ -154,11 +155,12 @@ exports.findingEdit = async (req, res, next) => {
 
       try {
         const text = `Hello ${assignee.username},\r\rYou have been assigned an updated finding on ${req.body.product} with reference ${req.body.reference}.\r\rTitle: ${req.body.title}\r\rRaised by: ${req.body.project}\r\rPlease login to the Findings Manager to view more details.\n`;
-        await sendEmail(
-          assignee.local.email,
-          "Updated finding assigned to you",
-          text
-        );
+        const mailOptions = {
+          to: assignee.local.email,
+          subject: "Updated finding assigned to you",
+          text: text,
+        };
+        await sendEmail(mailOptions);
       } catch (error) {
         console.error(error);
       }
