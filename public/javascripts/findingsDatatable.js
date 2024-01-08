@@ -110,7 +110,6 @@ function handleMenuAction(action, findingId) {
       .then((findingData) => {
         // Update the status of the finding
         findingData.status = "Remediated";
-        findingData.assignee = "None";
 
         if (!findingData.fixedDate || findingData.fixedDate === "null") {
           delete findingData.fixedDate;

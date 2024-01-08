@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const csrf = require("csurf");
+const csrfProtection = csrf();
 const {
   ensureAuthenticated,
   ensureAdmin,
@@ -16,26 +18,11 @@ const products = require("./products.routes");
 
 router.use("/auth", auth);
 
-router.use(
-  "/findings",
-  ensureAuthenticated,
-  ensure2FAVerified,
-  findings
-);
+router.use("/findings", ensureAuthenticated, ensure2FAVerified, findings);
 
-router.use(
-  "/dashboard",
-  ensureAuthenticated,
-  ensure2FAVerified,
-  dashboard
-);
+router.use("/dashboard", ensureAuthenticated, ensure2FAVerified, dashboard);
 
-router.use(
-  "/me",
-  ensureAuthenticated,
-  ensure2FAVerified,
-  me
-);
+router.use("/me", ensureAuthenticated, ensure2FAVerified, me);
 
 router.use(
   "/admin",
@@ -45,12 +32,7 @@ router.use(
   admin
 );
 
-router.use(
-  "/products",
-  ensureAuthenticated,
-  ensure2FAVerified,
-  products
-);
+router.use("/products", ensureAuthenticated, ensure2FAVerified, products);
 
 router.use("/projects", ensureAuthenticated, ensure2FAVerified, projects);
 

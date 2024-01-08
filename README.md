@@ -8,8 +8,11 @@ Currently in DRAFT
 
 - Implement CSRF protection everywhere (context menu + remaining places)
 - Fix the context menu actions
+- Remove the CSRF token from the History list (modal)
+- Consider using Sweetalert and Axios (i.e: in password forgot/reset)
 - Review and fix the Projects update controller and SMTP settings (secure isn't saved)
 - Refactor/clean the Findings table context menu handler in a separate file (js)
+- Make sure only admins can delete a finding (consider a 'trash' feature)
 - Review BFF recommendations on the findings controller (and continue with others)
   - Expand on the Data Type Consistency point, particularly focusing on the use of references in MongoDB schemas with Mongoose
     - From this, rework the different controllers to use the same data types (e.g. use ObjectId instead of string for project ID)

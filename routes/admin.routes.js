@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const { ensureAuthenticated, ensureAdmin } = require("../config/guards.config");
+const csrf = require("csurf");
+const csrfProtection = csrf();
 
 const {
   viewUsers,
@@ -28,27 +30,81 @@ const {
   sendTestEmail,
 } = require("../controllers/admin-setting.controller");
 
-router.get("/", ensureAdmin, (req, res, next) => {
+router.get("/", ensureAdmin, csrfProtection, (req, res, next) => {
   res.redirect("/admin/users");
 });
-router.get("/users", ensureAuthenticated, ensureAdmin, viewUsers);
-router.post("/users/create", ensureAuthenticated, ensureAdmin, createUser);
-router.get("/users/:id/delete", ensureAuthenticated, ensureAdmin, deleteUser);
-router.post("/users/:id/edit", ensureAuthenticated, ensureAdmin, updateUser);
+router.get(
+  "/users",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  viewUsers
+);
+router.post(
+  "/users/create",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  createUser
+);
+router.get(
+  "/users/:id/delete",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  deleteUser
+);
+router.post(
+  "/users/:id/edit",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  updateUser
+);
 
-router.get("/projects", ensureAuthenticated, ensureAdmin, viewProjects);
-router.post("/projects/create", ensureAdmin, createProject);
-router.post("/projects/:id/edit", ensureAdmin, updateProject);
-router.get("/projects/:id/delete", ensureAdmin, deleteProject);
+router.get(
+  "/projects",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  viewProjects
+);
+router.post("/projects/create", ensureAdmin, csrfProtection, createProject);
+router.post("/projects/:id/edit", ensureAdmin, csrfProtection, updateProject);
+router.get("/projects/:id/delete", ensureAdmin, csrfProtection, deleteProject);
 
-router.get("/products", ensureAuthenticated, ensureAdmin, viewProducts);
-router.post("/products/create", ensureAdmin, createProduct);
-router.post("/products/:id/edit", ensureAdmin, updateProduct);
-router.get("/products/:id/delete", ensureAdmin, deleteProduct);
+router.get(
+  "/products",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  viewProducts
+);
+router.post("/products/create", ensureAdmin, csrfProtection, createProduct);
+router.post("/products/:id/edit", ensureAdmin, csrfProtection, updateProduct);
+router.get("/products/:id/delete", ensureAdmin, csrfProtection, deleteProduct);
 
-router.get("/settings", ensureAuthenticated, ensureAdmin, viewSettings);
-router.post("/settings", ensureAuthenticated, ensureAdmin, saveSettings);
+router.get(
+  "/settings",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  viewSettings
+);
+router.post(
+  "/settings",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  saveSettings
+);
 
-router.post("/test-email", ensureAuthenticated, ensureAdmin, sendTestEmail);
+router.post(
+  "/test-email",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  sendTestEmail
+);
 
 module.exports = router;

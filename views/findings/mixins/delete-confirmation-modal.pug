@@ -3,6 +3,7 @@ mixin deleteFindingConfirmationModal(finding)
         .modal-dialog
             .modal-content
                 form(action=`/findings/${finding._id}/delete` method="post")
+                    input(type="hidden" name="_csrf" value=csrfToken)
                     .modal-header
                         h5#deleteFindingModalLabel.modal-title Confirm Deletion
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")

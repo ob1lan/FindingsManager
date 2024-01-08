@@ -106,6 +106,10 @@ exports.findingEdit = async (req, res, next) => {
       const updates = req.body;
       const changes = new Map();
 
+      const assignee = await findUserPerUsername(
+        sanitize(String(req.body.assignee))
+      );
+
       Object.keys(updates).forEach((key) => {
         if (updates[key] !== originalFinding[key]) {
           changes.set(key, updates[key]);
@@ -146,9 +150,6 @@ exports.findingEdit = async (req, res, next) => {
         }
 
         await updateFinding(sanitize(String(req.params.id)), req.body);
-        const assignee = await findUserPerUsername(
-          sanitize(String(req.body.assignee))
-        );
       }
 
       try {
