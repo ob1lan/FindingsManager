@@ -3,6 +3,21 @@ const speakeasy = require("speakeasy");
 const authLog = require("../database/models/authLog.model");
 const sanitize = require("mongo-sanitize");
 
+const logAuthAttempt = async (email, action, userAgent, clientIP, status) => {
+  try {
+    const log = new authLog({
+      attemptedEmail: sanitize(email),
+      attemptedAction: action,
+      userAgent: sanitize(userAgent),
+      clientIP: sanitize(clientIP),
+      status: status,
+    });
+    await log.save();
+  } catch (error) {
+    console.error("Error logging auth attempt:", error);
+  }
+};
+
 exports.signinForm = (req, res, next) => {
   if (req.isAuthenticated()) {
     return res.redirect("/findings");
@@ -22,14 +37,13 @@ exports.signin = (req, res, next) => {
       return next(err);
     } else if (!user) {
       try {
-        const log = new authLog({
-          attemptedEmail: sanitize(String(req.body.email)),
-          attemptedAction: "login",
-          userAgent: sanitize(String(req.headers["user-agent"])),
-          clientIP: sanitize(String(req.ip)),
-          status: "failed",
-        });
-        await log.save();
+        await logAuthAttempt(
+          req.body.email,
+          "login",
+          req.headers["user-agent"],
+          req.ip,
+          "failed"
+        );
 
         return res.render("auth/auth-form", {
           errors: [info.message],
@@ -55,14 +69,13 @@ exports.signin = (req, res, next) => {
           return next(err);
         } else {
           try {
-            const log = new authLog({
-              attemptedEmail: sanitize(String(req.body.email)),
-              attemptedAction: "login",
-              userAgent: sanitize(String(req.headers["user-agent"])),
-              clientIP: sanitize(String(req.ip)),
-              status: "success",
-            });
-            await log.save();
+            await logAuthAttempt(
+              req.body.email,
+              "login",
+              req.headers["user-agent"],
+              req.ip,
+              "success"
+            );
           } catch (error) {
             return next(error);
           }
@@ -86,14 +99,13 @@ exports.signout = (req, res, next) => {
     }
     req.session.is2FAVerified = false;
     try {
-      const log = new authLog({
-        attemptedEmail: email,
-        attemptedAction: "logout",
-        userAgent: sanitize(String(req.headers["user-agent"])),
-        clientIP: sanitize(String(req.ip)),
-        status: "success",
-      });
-      await log.save();
+      await logAuthAttempt(
+        req.body.email,
+        "logout",
+        req.headers["user-agent"],
+        req.ip,
+        "success"
+      );
       res.redirect("/auth/signin");
     } catch (error) {
       return next(error);
@@ -111,39 +123,40 @@ exports.otpForm = (req, res, next) => {
   });
 };
 
-exports.verifyOtp = (req, res, next) => {
+exports.verifyOtp = async (req, res, next) => {
   const otp = sanitize(String(req.body.otp));
   const verified = speakeasy.totp.verify({
     secret: req.user.twoFASecret,
     encoding: "base32",
     token: otp,
-    
   });
 
   if (verified) {
     try {
-      const log = new authLog({
-        attemptedEmail: req.user.local.email,
-        attemptedAction: "2FAlogin",
-        userAgent: sanitize(String(req.headers["user-agent"])),
-        clientIP: sanitize(String(req.ip)),
-        status: "success",
-      });
-      log.save();
+      await logAuthAttempt(
+        req.user.local.email,
+        "2FAlogin",
+        req.headers["user-agent"],
+        req.ip,
+        "success"
+      );
       req.session.is2FAVerified = true;
+      res.redirect("/findings");
     } catch (error) {
       return next(error);
     }
-    res.redirect("/findings");
   } else {
-    const log = new authLog({
-      attemptedEmail: req.user.local.email,
-      attemptedAction: "2FAlogin",
-      userAgent: sanitize(String(req.headers["user-agent"])),
-      clientIP: sanitize(String(req.ip)),
-      status: "failed",
-    });
-    log.save();
+    try {
+      await logAuthAttempt(
+        req.user.local.email,
+        "2FAlogin",
+        req.headers["user-agent"],
+        req.ip,
+        "failed"
+      );
+    } catch (error) {
+      console.error("Error logging auth attempt:", error);
+    }
     res.render("auth/otp-form", {
       errors: ["Invalid OTP. Try again."],
       isAuthenticated: req.isAuthenticated(),
