@@ -1,11 +1,8 @@
 const router = require("express").Router();
-const csrf = require("csurf");
-const csrfProtection = csrf();
 const {
   ensureAuthenticated,
   ensureAdmin,
   ensure2FAVerified,
-  ensureEmailVerified,
 } = require("../config/guards.config");
 const auth = require("./auth.routes");
 const findings = require("./findings.routes");
