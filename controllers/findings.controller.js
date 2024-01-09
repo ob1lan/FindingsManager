@@ -275,12 +275,12 @@ exports.findingShare = async (req, res, next) => {
       .filter((email) => email !== "");
 
     await Promise.all(
-      recipients.map((recipient) =>
-        sendEmail(
-          recipient,
-          `${req.user.username} shared a finding with you`,
-          "", //no plaintext content
-          `<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><style>th,td{padding:5px;text-align:center;}</style></head><body class="bg-light"><div class="container"><div class="card my-10"><div class="card-body"><h2 class="mb-2">Hello,</h2><h5 class="text-cyan-700">A finding has been shared with you by ${
+      recipients.map((recipient) => {
+        const mailOptions = {
+          to: recipient,
+          subject: `${req.user.username} shared a finding with you`,
+          text: "", // No plaintext content
+          html: `<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><style>th,td{padding:5px;text-align:center;}</style></head><body class="bg-light"><div class="container"><div class="card my-10"><div class="card-body"><h2 class="mb-2">Hello,</h2><h5 class="text-cyan-700">A finding has been shared with you by ${
             req.user.username
           }: <a href="${finding.internalLink}">${
             finding.reference
@@ -296,10 +296,10 @@ exports.findingShare = async (req, res, next) => {
             finding.title
           }</p><h4>Description</h4><p class="text-gray-700">${
             finding.description
-          }</p></div><hr><a class="btn btn-primary" href="https://127.0.0.1" target="_blank">Login the FindingsManager</a></div></div></div></body></html>`
-          // `Hello,\n\nA finding has been shared with you:\n\n${finding.reference} - (${finding.severity}) ${finding.title} on ${finding.product}\n\nStatus: ${finding.status}\nAssignee: ${finding.assignee}\nOrigin: ${finding.origin}\nReported By: ${finding.reportedBy}\nDue Date: ${finding.dueDate}\n\nPlease login to the Findings Manager to view more details.\n`
-        )
-      )
+          }</p></div><hr><a class="btn btn-primary" href="https://127.0.0.1" target="_blank">Login the FindingsManager</a></div></div></div></body></html>`,
+        };
+        return sendEmail(mailOptions);
+      })
     );
     res.redirect("/findings");
   } catch (error) {

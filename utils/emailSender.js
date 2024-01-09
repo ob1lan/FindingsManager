@@ -1,10 +1,11 @@
 const nodemailer = require("nodemailer");
 const smtpSettingsQuery = require("../queries/settings.queries");
 
-const sendEmail = async (mailOptions, html) => {
+const sendEmail = async (mailOptions) => {
   const to = mailOptions.to;
   const subject = mailOptions.subject;
   const text = mailOptions.text;
+  const html = mailOptions.html;
 
   const smtpSettings = await smtpSettingsQuery.getSMTPSettings();
   if (smtpSettings.smtpHost && smtpSettings.smtpPort) {

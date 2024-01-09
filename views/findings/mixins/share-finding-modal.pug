@@ -3,6 +3,7 @@ mixin shareModal(finding)
         .modal-dialog
             .modal-content
                 form(action=`/findings/${finding._id}/share` method="post")
+                    input(type="hidden" name="_csrf" value=csrfToken)
                     .modal-header
                         h5#newFindingModalLabel.modal-title Share finding #{finding.reference}
                         button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
