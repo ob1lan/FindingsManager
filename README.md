@@ -8,10 +8,9 @@ Currently in DRAFT
 
 - Refactor the 'share finding' email sender (mailOptions)
 - Consider using Sweetalert and Axios (i.e: in password forgot/reset + requests) where possible/appropriate
-- Review and fix the Projects update controller and SMTP settings (secure isn't saved)
+- Review and fix the SMTP settings (secure isn't saved)
 - When a user got deleted, remove him from the findings (assignee, etc.)
-- Refactor/clean the Findings table context menu handler in a separate file (js)
-- Make sure only admins can delete a finding (consider a 'trash' feature)
+- Make sure only admins can delete a finding (consider a 'trash/archives' feature)
 - Review BFF recommendations on the findings controller (and continue with others)
   - Expand on the Data Type Consistency point, particularly focusing on the use of references in MongoDB schemas with Mongoose
     - From this, rework the different controllers to use the same data types (e.g. use ObjectId instead of string for project ID)
@@ -39,16 +38,16 @@ Currently in DRAFT
 - dropdowns : use svg icons or colored circles (cf bootstrap examples)
 - SAML auth support
 - User profile:
-  - add the user's created projects 5 by 5 (pagination sliding effect)
+  - add tags for team membership (e.g. ospreys, security, champions, etc.)
   - add new fields (location, prefered language) + handle their TZ
   - Notification preferences (checkboxes)
 - set the max size for inputs (project name, finding name, etc.)
 - set the max size for uploads (CSV and pictures)
 - implement protections for NoSQL injections (cf security findings)
 - make CSV import more robust (check for required fields, replace with System values, etc.)
-- Project: add the ability to mention team members
+- Project: add the ability to include team members
 - Export feature: refactor to use a modal with ability to chose filters (project, status, etc.)
-- error in modal in case something goes wrong during password change (using Flash)
+- error in modal in case something goes wrong during password change (using Flash), or use Sweetalert
 - variables CSS for color themes (consistent)
 - Investigate the use of an AI product to read a PDF report and create findings automatically
 
