@@ -2,7 +2,7 @@
 
 # FindingsManager
 
-Currently in DRAFT
+Currently in DRAFT, focusing on features and security instead of visual
 
 # TO DO
 
@@ -23,7 +23,7 @@ Currently in DRAFT
 - Dashboard: last 7 days charts/cards (new findings, fixed findings, etc. like in Jira)
 - Fix logging of auth activities and flash message on user profile after password change, 2FA toggle, etc.
 - Integrate and use CWE and CWE IDs if possible
-- Work on the Admin settings visual (cards as for the profile page)
+- Work on the Admin settings visual (cards as for the profile page) + use Sweetalert for mail test, etc...
 - Fix responsiveness
 - Add a feature to securely attach files to findings (pictures, PDF, etc.) + limit +remove them as needed+test
 - Refactor OTP and forgot password to match the login card style
