@@ -26,30 +26,29 @@ $(document).ready(function () {
       menu.hide();
     });
 
-     $(document).click(function () {
-       $("#customContextMenu").hide();
-     });
+    $(document).click(function () {
+      $("#customContextMenu").hide();
+    });
   });
 });
 
 function handleMenuAction(action, projectId) {
-  if (action === " View Project") {
-    var modalSelector = `#detailsModal-${projectId}`;
-    var modalInstance = new bootstrap.Modal(
-      document.querySelector(modalSelector)
-    );
-    modalInstance.show();
-  } else if (action === " Edit Project") {
-    var modalSelector2 = `#editProjectModal-${projectId}`;
-    var modalInstance2 = new bootstrap.Modal(
-      document.querySelector(modalSelector2)
-    );
-    modalInstance2.show();
-  } else if (action === " Delete Project") {
-    var modalSelector3 = `#deleteConfirmationModal-${projectId}`;
-    var modalInstance3 = new bootstrap.Modal(
-      document.querySelector(modalSelector3)
-    );
-    modalInstance3.show();
+  const showModal = (selector) => {
+    const modal = new bootstrap.Modal(document.querySelector(selector));
+    modal.show();
+  };
+
+  switch (action.trim()) {
+    case "View Project":
+      showModal(`#detailsModal-${projectId}`);
+      break;
+    case "Edit Project":
+      showModal(`#editProjectModal-${projectId}`);
+      break;
+    case "Delete Project":
+      showModal(`#deleteConfirmationModal-${projectId}`);
+      break;
+    default:
+      console.error(`Unknown action: ${action}`);
   }
 }

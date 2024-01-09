@@ -52,36 +52,32 @@ projects.forEach((project) => {
 });
 
 function handleCSVClick(projectId) {
-  // Your JavaScript code here
+  // TO DO
   console.log("CSV link clicked for project:", projectId);
-  // Add your logic to handle the click event
 }
 
 function handlePDFClick(projectRef) {
-  // Your JavaScript code here
-  console.log("PDF link clicked for project:", projectRef);
-  // Add your logic to handle the click event
-  fetch("/reporting/multiple-findings", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "CSRF-Token": csrfToken,
-    },
-    body: `projectRef=${projectRef}`,
-  })
-    .then((response) => response.blob())
-    .then((blob) => {
-      // Create a new blob object using the 'application/pdf' mime type
-      const file = new Blob([blob], { type: "application/pdf" });
-      // Build a URL from the file
+  axios
+    .post(
+      "/reporting/multiple-findings",
+      new URLSearchParams({ projectRef: projectRef }),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "CSRF-Token": csrfToken,
+        },
+        responseType: "blob", // Important for handling binary data like PDF
+      }
+    )
+    .then((response) => {
+      const file = new Blob([response.data], { type: "application/pdf" });
       const fileURL = URL.createObjectURL(file);
-      // Create a temporary anchor element
       const tempLink = document.createElement("a");
       tempLink.href = fileURL;
-      tempLink.download = "findings_report.pdf"; // You can name the file here
-      document.body.appendChild(tempLink); // Append to the body
-      tempLink.click(); // Programmatically click the link to trigger the download
-      document.body.removeChild(tempLink); // Remove the link when done
+      tempLink.download = "findings_report.pdf";
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      document.body.removeChild(tempLink);
     })
     .catch((error) => {
       console.error("Error:", error);

@@ -33,23 +33,22 @@ $(document).ready(function () {
 });
 
 function handleMenuAction(action, userId) {
-  if (action === " View User") {
-    var modalSelector = `#detailsModal-${userId}`;
-    var modalInstance = new bootstrap.Modal(
-      document.querySelector(modalSelector)
-    );
-    modalInstance.show();
-  } else if (action === " Edit User") {
-    var modalSelector2 = `#editUserModal-${userId}`;
-    var modalInstance2 = new bootstrap.Modal(
-      document.querySelector(modalSelector2)
-    );
-    modalInstance2.show();
-  } else if (action === " Delete User") {
-    var modalSelector3 = `#userdeleteConfirmationModal-${userId}`;
-    var modalInstance3 = new bootstrap.Modal(
-      document.querySelector(modalSelector3)
-    );
-    modalInstance3.show();
+  const showModal = (selector) => {
+    const modal = new bootstrap.Modal(document.querySelector(selector));
+    modal.show();
+  };
+
+  switch (action.trim()) {
+    case "View User":
+      showModal(`#detailsModal-${userId}`);
+      break;
+    case "Edit User":
+      showModal(`#editUserModal-${userId}`);
+      break;
+    case "Delete User":
+      showModal(`#userdeleteConfirmationModal-${userId}`);
+      break;
+    default:
+      console.error(`Unknown action: ${action}`);
   }
 }

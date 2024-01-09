@@ -26,30 +26,29 @@ $(document).ready(function () {
       menu.hide();
     });
 
-     $(document).click(function () {
-       $("#customContextMenu").hide();
-     });
+    $(document).click(function () {
+      $("#customContextMenu").hide();
+    });
   });
 });
 
 function handleMenuAction(action, productId) {
-  if (action === " View Product") {
-    var modalSelector = `#detailsModal-${productId}`;
-    var modalInstance = new bootstrap.Modal(
-      document.querySelector(modalSelector)
-    );
-    modalInstance.show();
-  } else if (action === " Edit Product") {
-    var modalSelector2 = `#editProductModal-${productId}`;
-    var modalInstance2 = new bootstrap.Modal(
-      document.querySelector(modalSelector2)
-    );
-    modalInstance2.show();
-  } else if (action === " Delete Product") {
-    var modalSelector3 = `#deleteConfirmationModal-${productId}`;
-    var modalInstance3 = new bootstrap.Modal(
-      document.querySelector(modalSelector3)
-    );
-    modalInstance3.show();
+  const showModal = (selector) => {
+    const modal = new bootstrap.Modal(document.querySelector(selector));
+    modal.show();
+  };
+
+  switch (action.trim()) {
+    case "View Product":
+      showModal(`#detailsModal-${productId}`);
+      break;
+    case "Edit Product":
+      showModal(`#editProductModal-${productId}`);
+      break;
+    case "Delete Product":
+      showModal(`#deleteConfirmationModal-${productId}`);
+      break;
+    default:
+      console.error(`Unknown action: ${action}`);
   }
 }

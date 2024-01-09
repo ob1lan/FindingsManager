@@ -1,11 +1,9 @@
-// 1.3 Fetch Session Expiry Time
 async function fetchSessionExpiry() {
   const response = await fetch("/me/session-expiry");
   const data = await response.json();
   return new Date(data.expiry);
 }
 
-// 1.4 Display Countdown
 function updateCountdown(expiryDate) {
   const now = new Date();
   const timeDifference = expiryDate - now;
