@@ -1,11 +1,11 @@
+const e = require("connect-flash");
+
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("newFindingForm");
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const formData = new FormData(form);
-    console.log("Form submission intercepted");
-    console.log("CSRF Token:", csrfToken);
     fetch(form.action, {
       method: "POST",
       headers: {
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
           $("#newFindingModal").modal("hide");
           location.reload();
         } else {
-          // Handle error
+          next(e);
         }
       })
       .catch((error) => console.error("Error:", error));
