@@ -30,9 +30,15 @@ const {
   sendTestEmail,
 } = require("../controllers/admin-setting.controller");
 
-router.get("/", ensureAdmin, csrfProtection, (req, res, next) => {
-  res.redirect("/admin/users");
-});
+router.get(
+  "/",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  (req, res, next) => {
+    res.redirect("/admin/users");
+  }
+);
 router.get(
   "/users",
   ensureAuthenticated,
@@ -69,9 +75,27 @@ router.get(
   csrfProtection,
   viewProjects
 );
-router.post("/projects/create", ensureAdmin, csrfProtection, createProject);
-router.post("/projects/:id/edit", ensureAdmin, csrfProtection, updateProject);
-router.get("/projects/:id/delete", ensureAdmin, csrfProtection, deleteProject);
+router.post(
+  "/projects/create",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  createProject
+);
+router.post(
+  "/projects/:id/edit",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  updateProject
+);
+router.get(
+  "/projects/:id/delete",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  deleteProject
+);
 
 router.get(
   "/products",
@@ -80,9 +104,27 @@ router.get(
   csrfProtection,
   viewProducts
 );
-router.post("/products/create", ensureAdmin, csrfProtection, createProduct);
-router.post("/products/:id/edit", ensureAdmin, csrfProtection, updateProduct);
-router.get("/products/:id/delete", ensureAdmin, csrfProtection, deleteProduct);
+router.post(
+  "/products/create",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  createProduct
+);
+router.post(
+  "/products/:id/edit",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  updateProduct
+);
+router.get(
+  "/products/:id/delete",
+  ensureAuthenticated,
+  ensureAdmin,
+  csrfProtection,
+  deleteProduct
+);
 
 router.get(
   "/settings",
